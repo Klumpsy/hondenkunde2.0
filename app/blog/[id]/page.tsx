@@ -1,12 +1,4 @@
-const getSingleBlog = async (blogId: string) => {
-    const res = await fetch(`http://127.0.0.1:8090/api/collections/blogs/records/${blogId}`, 
-    {
-        next: {revalidate: 10}
-    });
-
-    const data = await res.json();
-    return data;
-};
+import { getSingleBlog } from "@/app/pocketbase/pocketbase";
 
 const BlogDetail = async ({params}: any) => {
 const blog = await getSingleBlog(params.id)

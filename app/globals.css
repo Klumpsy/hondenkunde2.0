@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.kluiven {
+    background-color: aquamarine;
+    color: black;
+    font-weight: 500;
+}
+
+.puppy {
+    background-color: chocolate;
+    color: white;
+    font-weight: 500;
+}
+
+.voer{
+    background-color: lightskyblue;
+    color: white;
+    font-weight: 500;
+}
+
+.speelgoed {
+    background-color: yellowgreen;
+    color: white;
+    font-weight: 500;
+}
+
+.vakantie {
+    background-color: palevioletred;
+    color: white;
+    font-weight: 500;
+}
+
+.blog_post_card_title {
+    font-size: 1.3rem;
+    margin-bottom: .4rem;
+    text-align: center;
+    color:black;
+    font-weight: 700;
+}
