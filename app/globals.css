@@ -38,6 +38,12 @@
     font-weight: 500;
 }
 
+.verzorging {
+    background-color: rgb(235, 218, 106);
+    color: white;
+    font-weight: 500;
+}
+
 
 .blog_post_card_title {
     font-size: 1.3rem;

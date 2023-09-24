@@ -6,7 +6,7 @@ const BlogItem = async ({blogItem}: any) => {
     const imageUrl = await getFileUrl(blogItem);
 
     return (
-        <div className="mt-10 p-2 w2/5 shadow-lg rounded-lg h-[470px] w-80 md:w-90 cursor-pointer m-auto p-3 bg-indigo-50 transition duration-500 ease-in-out transform hover:translate-y-5 hover:shadow-2xl flex flex-col">
+        <div className="mt-10 p-2 w2/5 shadow-lg rounded-lg h-[500px] w-80 md:w-90 cursor-pointer m-auto p-3 bg-indigo-50 transition duration-500 ease-in-out transform hover:translate-y-5 hover:shadow-2xl flex flex-col">
             <a href={`/blog/${blogItem.id}`} className="w-full flex-grow flex flex-col relative">
                 <Image
                     src={imageUrl || undefined}  // provide a fallback in case imageUrl is null
