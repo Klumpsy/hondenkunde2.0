@@ -3,7 +3,6 @@ import BlogItem from "../components/blogItem/BlogItem";
 import { getBlogs } from "../pocketbase/pocketbase";
 import SearchBar from "../components/filter/SearchBar";
 import Filter from "../components/filter/Filters";
-import Image from "next/image";
 
 const Blog = async ({
   searchParams
@@ -20,20 +19,26 @@ const Blog = async ({
 
   return (
     <div>
-        <h1 className="text-center mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-          Blog
-        </h1>
-        <SearchBar />
-        <Filter />
-        <div className="paw-pattern"> </div>
-        <div className="flex flex-wrap flex-row max-w-[1200px] mx-auto">
-            {
-              blogs?.map((blogItem) => {
-                return <BlogItem key={blogItem.id} blogItem={blogItem}/>
-              })
-            }
-        </div>
+    <h1 className="text-center mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+      Blog
+    </h1>
+    <SearchBar />
+    <Filter />
+    <div className="paw-pattern"> </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto">
+      {
+        blogs?.map((blogItem, index) => {
+          if(index === 0) {
+            return <BlogItem key={blogItem.id} blogItem={blogItem} className="col-span-1 md:col-span-2 lg:col-span-3"/>
+          } else if(index >= 1 && index <= 2) {
+            return <BlogItem key={blogItem.id} blogItem={blogItem} className="col-span-1 md:col-span-1 lg:col-span-1"/>
+          } else {
+            return <BlogItem key={blogItem.id} blogItem={blogItem} className="col-span-1"/>
+          }
+        })
+      }
     </div>
+  </div>
   ); 
 };
 

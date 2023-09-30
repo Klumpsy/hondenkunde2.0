@@ -2,48 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-.kluiven {
+.Voeding {
     background-color: aquamarine;
     color: black;
     font-weight: 500;
 }
 
-.puppy {
+.Training {
     background-color: chocolate;
     color: white;
     font-weight: 500;
 }
 
-.voer{
-    background-color: lightskyblue;
+.Gezondheid {
+    background-color: rgb(114, 196, 226);
     color: white;
     font-weight: 500;
 }
-
-.speelgoed {
-    background-color: yellowgreen;
-    color: white;
-    font-weight: 500;
-}
-
-.vakantie {
-    background-color: palevioletred;
-    color: white;
-    font-weight: 500;
-}
-
-.medicatie {
-    background-color: rgb(79, 195, 224);
-    color: white;
-    font-weight: 500;
-}
-
-.verzorging {
-    background-color: rgb(235, 218, 106);
-    color: white;
-    font-weight: 500;
-}
-
 
 .blog_post_card_title {
     font-size: 1.3rem;
@@ -90,4 +65,3 @@
     border-radius: 20%;
     margin: 10px;
 }
-  

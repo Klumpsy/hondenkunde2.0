@@ -1,6 +1,6 @@
 import PocketBase from 'pocketbase'
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+const pb = new PocketBase('https://spoiled-stone.pockethost.io/');
 
 export const getBlogs = async ({
     page = 1,
@@ -15,7 +15,7 @@ export const getBlogs = async ({
 }) => {
 
     const res = await fetch(
-        `http://127.0.0.1:8090/api/collections/blogs/records?filter=(title~'${search.toLowerCase()}' || content~'${search.toLowerCase()}')&page=${page}&perPage=${limit}`, 
+        `https://spoiled-stone.pockethost.io/api/collections/blogs/records?filter=(title~'${search.toLowerCase()}' || introText~'${search.toLowerCase()}')&page=${page}&perPage=${limit}`, 
         { 
             cache: "no-store"
         }
@@ -28,7 +28,7 @@ export const getBlogs = async ({
 
 export const getSingleBlog = async (blogId: string) => {
     
-    const res = await fetch(`http://127.0.0.1:8090/api/collections/blogs/records/${blogId}`,
+    const res = await fetch(`https://spoiled-stone.pockethost.io/api/collections/blogs/records/${blogId}`,
         {
           next: { revalidate: 10 },
         }
@@ -37,9 +37,10 @@ export const getSingleBlog = async (blogId: string) => {
       return data;
 }
 
-export const getFileUrl = async (blogItem: any) => {
+export const getFileUrl = async (blogItem: any, fileName: string) => {
     const singleBlog = await getSingleBlog(blogItem.id);
-    const url = pb.getFileUrl(singleBlog, singleBlog.image);
+
+    const url = pb.getFileUrl(singleBlog, singleBlog[fileName]);
     
     return url;
 }

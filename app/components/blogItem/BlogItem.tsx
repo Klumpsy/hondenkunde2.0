@@ -1,43 +1,34 @@
 import Image from "next/image";
 import { getFileUrl } from "@/app/pocketbase/pocketbase";
 
-const BlogItem = async ({blogItem}: any) => {
+const BlogItem = async ({ blogItem, className }) => {
 
-    const imageUrl = await getFileUrl(blogItem);
+    const imageUrl = await getFileUrl(blogItem, 'introImage');
 
     return (
-        <div className="mt-10 p-2 w2/5 shadow-lg rounded-lg h-[500px] w-80 md:w-90 cursor-pointer m-auto p-3 bg-indigo-50 transition duration-500 ease-in-out transform hover:translate-y-5 hover:shadow-2xl flex flex-col">
-            <a href={`/blog/${blogItem.id}`} className="w-full flex-grow flex flex-col relative">
-                <Image
-                    src={imageUrl || undefined}  // provide a fallback in case imageUrl is null
-                    alt="blog post image"
-                    width={"280"}
-                    height={"60"}
-                    className="relative mb-4"
-                />
-                <div className="w-full flex flex-col justify-between flex-grow">
-                    <div>
-                        <h2 className={blogItem.title.length > 30 ? "blog_post_card_title_small" : "blog_post_card_title"}>
-                            {blogItem.title}
-                        </h2>
-    
-                        <div className="text-gray-600 dark:text-gray-900 font-light text-md" 
-                        dangerouslySetInnerHTML={{ __html: blogItem.content.substring(0, 100) + '...' }}>
-                        </div>
-                        <span className='read_on_tag'>lees meer</span>
-                    </div>
-                    <div className="mt-auto"> {/* This pushes the tags to the bottom */}
-                        <div className="flex flex-wrap justify-center items-center border-t-2 pt-5">
-                            {blogItem.tags.map((tag) => (
-                                <div key={blogItem.id + tag} className={`text-xs mr-2 py-1.5 px-4 text-gray-600 ${tag} rounded-2xl m-1`}>
-                                    {tag}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </a>
+        <a href={`/blog/${blogItem.id}`} className={`flex flex-col items-start ${className} p-3 hover:shadow-md transition-shadow duration-300 ease-in-out`}>
+        <Image
+            src={imageUrl}
+            alt="blog post image"
+            width={500}
+            height={300}
+            className="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56"
+        />
+        <div className="flex space-x-2">
+          {blogItem.tags && blogItem.tags.map(tag => (
+              <p key={tag + blogItem.id} 
+                 className={`flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block ${tag}`}>
+                  {tag}
+              </p>
+          ))}
         </div>
+        <a className="text-lg font-bold sm:text-xl md:text-2xl">{blogItem.title}</a>
+        <div className="text-sm text-black" dangerouslySetInnerHTML={{ __html: blogItem.introText }} />
+        <div className="pt-2 pr-0 pb-0 pl-0">
+          <p className="inline text-xs font-medium mt-0 mr-1 mb-0 ml-1">{blogItem.created}</p>
+          <p className="inline text-xs font-medium text-gray-300 mt-0 mr-1 mb-0 ml-1">{blogItem.readTime} read</p>
+        </div>
+      </a>
     )};
 
 export default BlogItem;
