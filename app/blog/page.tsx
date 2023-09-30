@@ -3,6 +3,7 @@ import BlogItem from "../components/blogItem/BlogItem";
 import { getBlogs } from "../pocketbase/pocketbase";
 import SearchBar from "../components/filter/SearchBar";
 import Filter from "../components/filter/Filters";
+import Header from "../components/header/Header";
 
 const Blog = async ({
   searchParams
@@ -19,13 +20,11 @@ const Blog = async ({
 
   return (
     <div>
-    <h1 className="text-center mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-      Blog
-    </h1>
+    <Header imageName="banner11.jpg" linkHref="/blog" titleText="Blog" anchorText="Bekijk Arti's rating" />
     <SearchBar />
     <Filter />
     <div className="paw-pattern"> </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto p-3">
       {
         blogs?.map((blogItem, index) => {
           if(index === 0) {

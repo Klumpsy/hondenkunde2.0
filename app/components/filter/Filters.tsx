@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 const Filter: React.FC = () => {
     const router = useRouter();
-    const initialTags = ['vakantie', 'puppy', 'kluiven', 'voer', 'medicatie', 'speelgoed', 'verzorging'];
+    const initialTags = ['Voeding', 'Training', 'Gezondheid'];
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     useEffect(() => {

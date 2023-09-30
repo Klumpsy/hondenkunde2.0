@@ -25,6 +25,20 @@ export const getBlogs = async ({
     return data?.items as any[];
 }
 
+export const getRatingItems = async () => {
+
+    const res = await fetch(
+        `https://spoiled-stone.pockethost.io/api/collections/ratingItems/records?page=1&perPage=100`, 
+        { 
+            cache: "no-store"
+        }
+    );
+    const data = await res.json();
+
+
+    return data?.items as any[];
+}
+
 
 export const getSingleBlog = async (blogId: string) => {
     
@@ -37,10 +51,29 @@ export const getSingleBlog = async (blogId: string) => {
       return data;
 }
 
+export const getSingleRatingItem = async (ratingItemId: string) => {
+    
+    const res = await fetch(`https://spoiled-stone.pockethost.io/api/collections/ratingItems/records/${ratingItemId}`,
+        {
+          next: { revalidate: 10 },
+        }
+      );
+      const data = await res.json();
+      return data;
+}
+
 export const getFileUrl = async (blogItem: any, fileName: string) => {
     const singleBlog = await getSingleBlog(blogItem.id);
 
     const url = pb.getFileUrl(singleBlog, singleBlog[fileName]);
+    
+    return url;
+}
+
+export const getFileUrlRatingItem = async (ratingItem: any, fileName: string) => {
+    const singleRatingItem = await getSingleRatingItem(ratingItem.id);
+
+    const url = pb.getFileUrl(singleRatingItem, singleRatingItem[fileName]);
     
     return url;
 }

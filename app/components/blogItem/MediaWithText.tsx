@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import ReactPlayer from 'react-player'
 
 interface MediaWithTextProps {
   mediaSrc: string;
@@ -26,8 +25,8 @@ const MediaWithText: React.FC<MediaWithTextProps> = (
       }
   
   return (
-    <div className="p-4 space-y-4">
-      <h2 className="text-2xl font-bold">{title}</h2>
+    <section className="p-4 space-y-4">
+      <h2 className="text-2xl font-bold m-4">{title}</h2>
       <div className={`flex flex-col md:flex-row ${orientation === 'right' ? 'md:flex-row-reverse' : ''} items-center space-y-4 md:space-y-0 md:space-x-4`}>
         {mediaSrc && (
           <div className="flex-shrink-0 w-full md:w-auto m-4">
@@ -54,7 +53,7 @@ const MediaWithText: React.FC<MediaWithTextProps> = (
           <div className="text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: text }} />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

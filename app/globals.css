@@ -65,3 +65,7 @@
     border-radius: 20%;
     margin: 10px;
 }
+
+.blog_detail_container {
+    max-width: 1200px;
+}

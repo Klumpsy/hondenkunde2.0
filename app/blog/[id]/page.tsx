@@ -2,7 +2,6 @@ import { getSingleBlog } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
 import { getFileUrl } from "@/app/pocketbase/pocketbase";
-import ImageWithText from "@/app/components/blogItem/BlogTextImageBlock";
 import MediaWithText from "@/app/components/blogItem/MediaWithText";
 
 const BlogDetail = async ({ params }: any) => {
@@ -19,18 +18,18 @@ const BlogDetail = async ({ params }: any) => {
                  Terug
             </Link>
             
-            <div className="container mx-auto  p-6 bg-white shadow-lg rounded-lg">
+            <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg w-[1200px]">
                
                 <h1 className="text-center mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
                     {blog.title}
                 </h1>
-                <div className='flex flex-wrap justify-center items-center'>
+                <div className='flex justify-center items-center w-full'>
                     <Image
-                        src={introImageUrl}  // provide a fallback in case imageUrl is null
+                        src={introImageUrl}
                         alt="blog post image"
-                        width={"600"}
+                        width={"1000"}
                         height={"60"}
-                        className="relative mb-4"
+                        className="mb-4"
                         />
                 </div>
                 <div className="flex flex-wrap justify-center items-center mt-4 border-t-2 pt-5">

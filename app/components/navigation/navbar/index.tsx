@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Logo from "./Logo";
-import Button from "./Button";
 
 const Navbar = ({ toggle }: { toggle: () => void }) => {
   return (
@@ -27,20 +26,15 @@ const Navbar = ({ toggle }: { toggle: () => void }) => {
                 />
               </svg>
             </button>
-            <ul className="hidden md:flex gap-x-6 text-white ">
+            <ul className="hidden md:flex gap-x-6 text-white">
               <li>
                   <Link href="/">
                     <p>Home</p>
                   </Link>
                 </li>
               <li>
-                <Link href="/about">
-                  <p>Over ons</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="/product">
-                  <p>Producten</p>
+                <Link href="/artiRating">
+                  <p>Arti's rating</p>
                 </Link>
               </li>
               <li>
