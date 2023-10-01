@@ -6,8 +6,6 @@ export default async function ArtiRating() {
 
   const ratingItems = await getRatingItems();
 
-  console.log(ratingItems);
-
   return (
     <>
       <Header imageName="banner12.jpg" linkHref="/blog" titleText="Arti's Rating" anchorText="Bekijk Arti's favoriete shop" />

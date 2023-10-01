@@ -18,19 +18,19 @@ const BlogDetail = async ({ params }: any) => {
                  Terug
             </Link>
             
-            <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg w-[1200px]">
+            <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-[1200px]">
                
                 <h1 className="text-center mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
                     {blog.title}
                 </h1>
-                <div className='flex justify-center items-center w-full'>
-                    <Image
-                        src={introImageUrl}
+                <div className='flex justify-center items-center w-full max-w-full max-h-[400px] overflow-hidden'>
+                     <Image
+                     src={introImageUrl}
                         alt="blog post image"
-                        width={"1000"}
-                        height={"60"}
-                        className="mb-4"
-                        />
+                        width={1000} // Original intrinsic width of the image
+                        height={600} // Original intrinsic height of the image
+                        className="mb-4 object-cover"
+                    />
                 </div>
                 <div className="flex flex-wrap justify-center items-center mt-4 border-t-2 pt-5">
                     {blog.tags && blog.tags.map(tag => (
@@ -48,25 +48,25 @@ const BlogDetail = async ({ params }: any) => {
                     <MediaWithText
                         mediaSrc={blog.videoBlockOne ? blog.videoBlockOne : imageBlockOne}
                         mediaAlt="blog post media"
-                        text={blog?.textBlockOne || ''}
+                        text={blog.textBlockOne || ''}
                         orientation="left"
-                        title={blog?.subTitleOne}
+                        title={blog.subTitleOne}
                         isVideo={blog.videoBlockOne}
                     />
                     <MediaWithText
                         mediaSrc={blog.videoBlockTwo ? blog.videoBlockTwo : imageBlockTwo}
                         mediaAlt="blog post media"
-                        text={blog?.textBlockTwo || ''}
+                        text={blog.textBlockTwo || ''}
                         orientation="right"
-                        title={blog?.subTitleTwo}
+                        title={blog.subTitleTwo}
                         isVideo={blog.videoBlockTwo}
                     />
                     <MediaWithText
                         mediaSrc={blog.videoBlockThree ? blog.videoBlockThree : imageBlockThree}
                         mediaAlt="blog post media"
-                        text={blog?.textBlockThree || ''}
+                        text={blog.textBlockThree || ''}
                         orientation="left"
-                        title={blog?.subTitleThree}
+                        title={blog.subTitleThree}
                         isVideo={blog.videoBlockThree}
                     />
                     </div> 
