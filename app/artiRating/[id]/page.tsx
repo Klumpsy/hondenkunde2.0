@@ -2,6 +2,7 @@ import { getFileUrlRatingItem, getSingleRatingItem } from "@/app/pocketbase/pock
 import Link from "next/link";
 import Image from "next/image";
 import RatingBone from "@/app/components/ratingCard/RatingBone";
+import Slider from "@/app/components/slider/Slider";
 
 const RatingDetail = async ({ params }: any) => {
 
@@ -70,7 +71,9 @@ const RatingDetail = async ({ params }: any) => {
                 </div>
             </div>
         </div>
+        
     </div>
+    <Slider/>
 </div>
     );
 }

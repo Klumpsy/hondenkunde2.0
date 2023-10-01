@@ -14,7 +14,7 @@ const BlogDetail = async ({ params }: any) => {
 
     return (
         <div className="bg-blue-100 p-8">
-            <Link href="/blog" className="right-0 md:left-0 md:right-auto top-0 m-4 bg-blue-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-600 transition">
+            <Link href="/blog" className="font-extrabold right-0 md:left-0 md:right-auto top-0 m-4 bg-orange text-darkBlue py-2 px-4 rounded-full shadow-md hover:bg-orange-500 transition">
                  Terug
             </Link>
             
