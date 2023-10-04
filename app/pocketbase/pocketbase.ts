@@ -1,4 +1,5 @@
 import PocketBase from 'pocketbase'
+import { PureComponent } from 'react';
 
 const pb = new PocketBase('https://spoiled-stone.pockethost.io/');
 
@@ -76,4 +77,18 @@ export const getFileUrlRatingItem = async (ratingItem: any, fileName: string) =>
     const url = pb.getFileUrl(singleRatingItem, singleRatingItem[fileName]);
     
     return url;
+}
+
+
+export const getFileUrlsForProductImages = async (ratingItem: any) => {
+    const productImages = ratingItem.productImages;
+    if (!productImages || !Array.isArray(productImages) || productImages.length === 0) {
+        return [];
+    }
+
+    const urls = await Promise.all(productImages.map(async (image) => {
+        return pb.getFileUrl(ratingItem, image);
+    }));
+
+    return urls;
 }

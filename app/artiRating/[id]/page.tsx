@@ -1,13 +1,15 @@
-import { getFileUrlRatingItem, getSingleRatingItem } from "@/app/pocketbase/pocketbase";
+import { getFileUrlRatingItem, getSingleRatingItem, getFileUrlsForProductImages } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
 import RatingBone from "@/app/components/ratingCard/RatingBone";
 import Slider from "@/app/components/slider/Slider";
 
+
 const RatingDetail = async ({ params }: any) => {
 
     const ratingDetail = await getSingleRatingItem(params.id);
     const coverImageUrl = await getFileUrlRatingItem(ratingDetail, 'coverImage');
+    const urls = await getFileUrlsForProductImages(ratingDetail);
 
     return (
         <div className="bg-gray-100 py-8 mt-5">
@@ -71,10 +73,9 @@ const RatingDetail = async ({ params }: any) => {
                 </div>
             </div>
         </div>
-        
     </div>
-    <Slider/>
-</div>
+    <Slider imagePaths={urls}/>
+    </div>
     );
 }
 
