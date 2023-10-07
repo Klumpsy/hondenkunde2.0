@@ -1,8 +1,7 @@
 import BlogItem from "../components/blogItem/BlogItem";
 
 import { getBlogs } from "../pocketbase/pocketbase";
-import SearchBar from "../components/filter/SearchBar";
-import Filter from "../components/filter/Filters";
+import SearchAndFilter from "../components/filter/SearchAndFilter";
 import Header from "../components/header/Header";
 
 const Blog = async ({
@@ -21,8 +20,7 @@ const Blog = async ({
   return (
     <div>
     <Header imageName="banner11.jpg" linkHref="/blog" titleText="Blog" anchorText="Bekijk Arti's rating" />
-    <SearchBar />
-    <Filter />
+    <SearchAndFilter />
     <div className="paw-pattern"> </div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto p-3">
       {

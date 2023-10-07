@@ -10,8 +10,8 @@ const Sidebar = ({
   return (
     <>
       <div
-        className={`fixed w-full h-full bg-gray-900 top-0 left-0 transition-transform duration-100 ease-in-out transform ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}
-        style={{zIndex: 1000}}
+        className={`fixed w-full h-full bg-gray-900 top-0 left-0 transition-transform duration-100 ease-in-out transform ${isOpen ? 'translate-y-0' : '-translate-y-full'} `}
+        style={{zIndex: 2000}}
       >
       <button className="absolute right-0 p-5" onClick={toggle}>
         <svg

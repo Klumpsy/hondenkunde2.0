@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .Voeding {
     background-color: aquamarine;
     color: black;
@@ -16,6 +17,18 @@
 
 .Gezondheid {
     background-color: rgb(114, 196, 226);
+    color: white;
+    font-weight: 500;
+}
+
+.Kluiven {
+    background-color: rgb(235, 109, 176);
+    color: white;
+    font-weight: 500;
+}
+
+.Vakantie {
+    background-color: rgb(167, 233, 82);
     color: white;
     font-weight: 500;
 }

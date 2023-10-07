@@ -1,5 +1,4 @@
 import PocketBase from 'pocketbase'
-import { PureComponent } from 'react';
 
 const pb = new PocketBase('https://spoiled-stone.pockethost.io/');
 
@@ -15,27 +14,20 @@ export const getBlogs = async ({
     tags?: string[]
 }) => {
 
-    const res = await fetch(
-        `https://spoiled-stone.pockethost.io/api/collections/blogs/records?filter=(title~'${search.toLowerCase()}' || introText~'${search.toLowerCase()}')&page=${page}&perPage=${limit}`, 
-        { 
-            cache: "no-store"
-        }
-    );
+    const tagsString = tags.join(',');
+
+    let url = `https://spoiled-stone.pockethost.io/api/collections/blogs/records?page=${page}&perPage=${limit}`;
+
+    if (search) {
+        url += `&filter=(title~'${search.toLowerCase()}' || introText~'${search.toLowerCase()}')`;
+    }
+
+    if (tagsString) {
+        url += `&filter=tags~'${tagsString}'`;
+    }
+
+    const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
-
-    return data?.items as any[];
-}
-
-export const getRatingItems = async () => {
-
-    const res = await fetch(
-        `https://spoiled-stone.pockethost.io/api/collections/ratingItems/records?page=1&perPage=100`, 
-        { 
-            cache: "no-store"
-        }
-    );
-    const data = await res.json();
-
 
     return data?.items as any[];
 }
