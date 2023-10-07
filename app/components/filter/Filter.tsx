@@ -24,21 +24,25 @@ const Filter: React.FC = () => {
     };
 
     return (
-    <div className="flex flex-col bg-gray-100 p-4 rounded shadow-lg">
-      {initialTags.map(tag => (
-        <label key={tag} className="flex items-center space-x-2 cursor-pointer">
-          <input 
-            type="checkbox" 
-            id={tag} 
-            checked={selectedTags.includes(tag)} 
-            onChange={() => handleCheckboxChange(tag)}
-            className="form-checkbox"
-          />
-          <span className="text-gray-600">{tag}</span>
-        </label>
-      ))}
-    </div>
-  );
+        <div className="flex flex-col bg-white p-4 rounded shadow-lg">
+          {initialTags.map(tag => (
+             <div key={tag} className="flex items-center space-x-2 cursor-pointer mt-1">
+              <input 
+                type="checkbox" 
+                id={tag} 
+                checked={selectedTags.includes(tag)} 
+                onChange={() => handleCheckboxChange(tag)}
+              />
+              <label 
+                htmlFor={tag} 
+                className={`${tag} rounded-full text-center p-2 w-full`}
+              >
+                {tag}
+              </label>
+            </div>
+          ))}
+        </div>
+      ); 
 }
 
 export default Filter;

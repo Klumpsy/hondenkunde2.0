@@ -82,3 +82,12 @@
 .blog_detail_container {
     max-width: 1200px;
 }
+
+@media (max-width: 768px) {
+    .overlay-entering, .overlay-exiting, .overlay-exited {
+        transform: translateX(100%);
+    }
+    .overlay-entered {
+        transform: translateX(0);
+    }
+}
