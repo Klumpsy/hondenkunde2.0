@@ -1,8 +1,18 @@
-import React from "react";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
+import React from 'react';
 import Logo from "./Logo";
+import {GiHamburgerMenu} from 'react-icons/gi';
 
-const Navbar = ({ toggle }: { toggle: () => void }) => {
+type NavbarProps = {
+  toggle: () => void;
+  links: { name: string; href: string }[];
+};
+
+const Navbar: React.FC<NavbarProps> = ({ toggle, links }) => {
+
+  const pathName = usePathname();
+
   return (
     <>
       <div className="w-full h-20 bg-gray-800 sticky top-0 border-b border-white relative" style={{zIndex:1000}}>
@@ -14,35 +24,17 @@ const Navbar = ({ toggle }: { toggle: () => void }) => {
               className="inline-flex items-center md:hidden"
               onClick={toggle}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="#fff"
-                  d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"
-                />
-              </svg>
+              <GiHamburgerMenu color='white' size={32}/>
             </button>
-            <ul className="hidden md:flex gap-x-6 text-white">
-              <li>
-                  <Link href="/">
-                    <p>Home</p>
-                  </Link>
-                </li>
-              <li>
-                <Link href="/artiRating">
-                  <p>Arti's rating</p>
+            <ul className="hidden md:flex gap-x-6">
+            {links.map(link => (
+              <li className={pathName === link.href ? "text-orange" : "text-white"} key={link.name}>
+                <Link href={link.href}>
+                  <p>{link.name}</p>
                 </Link>
               </li>
-              <li>
-                <Link href="/blog">
-                  <p>Blog</p>
-                </Link>
-              </li>
-            </ul>
+            ))}
+          </ul>
           </div>
         </div>
       </div>

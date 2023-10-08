@@ -91,3 +91,12 @@
         transform: translateX(0);
     }
 }
+
+@media (max-width: 768px) { /* or another breakpoint that you define for mobile devices */
+    .filter-mobile-top {
+      position: absolute;
+      top: -80px;
+      right: 20px;
+      z-index: 700;
+    }
+}

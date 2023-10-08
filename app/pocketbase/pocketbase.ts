@@ -6,24 +6,29 @@ export const getBlogs = async ({
     page = 1,
     limit = 10,
     search = "",
-    tags = []
+    tags = ""
 }: {
     page?: number,
     limit?: number,
     search?: string,
-    tags?: string[]
+    tags?: string
 }) => {
-
-    const tagsString = tags.join(',');
-
     let url = `https://spoiled-stone.pockethost.io/api/collections/blogs/records?page=${page}&perPage=${limit}`;
 
+    let filterString = '';
+
     if (search) {
-        url += `&filter=(title~'${search.toLowerCase()}' || introText~'${search.toLowerCase()}')`;
+        filterString += `(title~'${search.toLowerCase()}' || introText~'${search.toLowerCase()}')`;
     }
 
-    if (tagsString) {
-        url += `&filter=tags~'${tagsString}'`;
+    if (tags.length > 0) {
+        const tagsArray = tags[0].split(',');
+        const tagsFilterString = tagsArray.map(tag => `tags~'${tag}'`).join(' || ');
+        filterString = filterString ? `(${filterString}) && (${tagsFilterString})` : `(${tagsFilterString})`;
+    }
+
+    if (filterString) {
+        url += `&filter=${filterString}`;
     }
 
     const res = await fetch(url, { cache: "no-store" });
