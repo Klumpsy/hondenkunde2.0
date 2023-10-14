@@ -1,6 +1,6 @@
 import PocketBase from 'pocketbase'
 
-const pb = new PocketBase('https://spoiled-stone.pockethost.io/');
+const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
 
 export const getBlogs = async ({
     page = 1,
@@ -13,7 +13,7 @@ export const getBlogs = async ({
     search?: string,
     tags?: string
 }) => {
-    let url = `https://spoiled-stone.pockethost.io/api/collections/blogs/records?page=${page}&perPage=${limit}`;
+    let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}`;
 
     let filterString = '';
 
@@ -40,7 +40,7 @@ export const getBlogs = async ({
 export const getRatingItems = async () => {
 
     const res = await fetch(
-        `https://spoiled-stone.pockethost.io/api/collections/ratingItems/records?page=1&perPage=100`, 
+        `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?page=1&perPage=100`, 
         { 
             cache: "no-store"
         }
@@ -54,7 +54,7 @@ export const getRatingItems = async () => {
 
 export const getSingleBlog = async (blogId: string) => {
     
-    const res = await fetch(`https://spoiled-stone.pockethost.io/api/collections/blogs/records/${blogId}`,
+    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/${blogId}`,
         {
           next: { revalidate: 10 },
         }
@@ -65,7 +65,7 @@ export const getSingleBlog = async (blogId: string) => {
 
 export const getSingleRatingItem = async (ratingItemId: string) => {
     
-    const res = await fetch(`https://spoiled-stone.pockethost.io/api/collections/ratingItems/records/${ratingItemId}`,
+    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records/${ratingItemId}`,
         {
           next: { revalidate: 10 },
         }

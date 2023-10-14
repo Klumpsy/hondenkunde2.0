@@ -1,8 +1,11 @@
 import { getSingleBlog } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from 'next/router';
 import { getFileUrl } from "@/app/pocketbase/pocketbase";
 import MediaWithText from "@/app/components/blogItem/MediaWithText";
+import Disclaimer from "@/app/components/blogItem/Disclaimer";
+import ShareOnSocials from "@/app/components/blogItem/ShareOnSocials";
 
 const BlogDetail = async ({ params }: any) => {
     const blog = await getSingleBlog(params.id);
@@ -27,21 +30,24 @@ const BlogDetail = async ({ params }: any) => {
                      <Image
                      src={introImageUrl}
                         alt="blog post image"
-                        width={1000} // Original intrinsic width of the image
-                        height={600} // Original intrinsic height of the image
+                        width={1000}
+                        height={600}
                         className="mb-4 object-cover"
                     />
                 </div>
                 <div className="flex flex-wrap justify-center items-center mt-4 border-t-2 pt-5">
                     {blog.tags && blog.tags.map(tag => (
                         <p key={tag + blog.id} 
-                            className={`flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block ${tag}`}>
+                            className={`flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase m-2 inline-block ${tag}`}>
                             {tag}
                         </p>
                          ))}
                 </div>
+                <div>
+                    <ShareOnSocials title={blog.title}/>
+                </div>
                 <div 
-                    className="mt-8 text-gray-700 leading-relaxed"
+                    className=" p-4 mt-8 text-gray-700 leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: blog.introText }}>
                 </div>
                 <div className='blog_content_container'>
@@ -71,6 +77,7 @@ const BlogDetail = async ({ params }: any) => {
                     />
                     </div> 
                 </div>
+                <Disclaimer/>
             </div>
     );
 }

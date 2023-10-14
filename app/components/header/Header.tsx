@@ -1,5 +1,4 @@
-import Image from 'next/image'; // Ensure you have this import if you haven't already
-import Link from 'next/link'; // Importing Link to properly handle client-side navigation
+import Image from 'next/image';
 
 type HeaderProps = {
   imageName: string;
@@ -26,11 +25,14 @@ const Header = ({ imageName, linkHref, titleText, anchorText }: HeaderProps) => 
       <h1 className="mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-orange md:text-5xl lg:text-6xl">
         {titleText}
       </h1>
-      <Link href={linkHref}>
-        <p className="inline-block mt-7 px-4 py-2 bg-darkBlue text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500" style={{ maxWidth: '250px' }}>
+        <a 
+          href={linkHref} 
+          className="inline-block mt-7 px-4 py-2 bg-darkBlue text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500" 
+          style={{ maxWidth: '250px' }}
+          target={linkHref.startsWith('/') ? '_self' : '_blank'} rel={linkHref.startsWith('/') ? '' : 'noopener noreferrer'}
+          >
           {anchorText}
-        </p>
-      </Link>
+        </a>
     </div>
   </div>
 </header>

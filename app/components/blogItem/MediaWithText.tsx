@@ -26,7 +26,7 @@ const MediaWithText: React.FC<MediaWithTextProps> = (
   
   return (
     <section className="p-4 space-y-4">
-      <h2 className="text-2xl font-bold m-4">{title}</h2>
+      <h2 className="text-2xl font-bold mb-3">{title}</h2>
       <div className={`flex flex-col md:flex-row ${orientation === 'right' ? 'md:flex-row-reverse' : ''} items-center space-y-4 md:space-y-0 md:space-x-4`}>
         {mediaSrc && (
           <div className="flex-shrink-0 w-full md:w-auto m-4">
