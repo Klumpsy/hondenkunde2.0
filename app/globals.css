@@ -100,3 +100,13 @@
       z-index: 700;
     }
 }
+
+.star_icon_right {
+    right: -80px;
+    top: -50px;
+}
+
+.star_icon_left {
+    left: -80px;
+    top: -50px;
+}

@@ -1,13 +1,21 @@
 import { getSingleBlog } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from 'next/router';
 import { getFileUrl } from "@/app/pocketbase/pocketbase";
 import MediaWithText from "@/app/components/blogItem/MediaWithText";
 import Disclaimer from "@/app/components/blogItem/Disclaimer";
 import ShareOnSocials from "@/app/components/blogItem/ShareOnSocials";
 
-const BlogDetail = async ({ params }: any) => {
+interface BlogParams {
+    slug: string;
+    id: string;
+  }
+  
+  interface BlogDetailProps {
+    params: BlogParams;
+  }
+
+const BlogDetail = async ({ params }: BlogDetailProps) => {
     const blog = await getSingleBlog(params.id);
 
     const introImageUrl = await getFileUrl(blog, 'introImage');

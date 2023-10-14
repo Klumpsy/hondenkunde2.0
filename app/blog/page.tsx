@@ -25,13 +25,11 @@ const Blog = async ({
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto p-3">
       {
         blogs?.map((blogItem, index) => {
-          if(index === 0) {
-            return <BlogItem key={blogItem.id} blogItem={blogItem} className="col-span-1 md:col-span-2 lg:col-span-3"/>
-          } else if(index >= 1 && index <= 2) {
-            return <BlogItem key={blogItem.id} blogItem={blogItem} className="col-span-1 md:col-span-1 lg:col-span-1"/>
-          } else {
-            return <BlogItem key={blogItem.id} blogItem={blogItem} className="col-span-1"/>
-          }
+            return <BlogItem 
+              key={blogItem.id} 
+              blogItem={blogItem} 
+              className="col-span-1 md:col-span-1 lg:col-span-1"
+            />
         })
       }
     </div>
