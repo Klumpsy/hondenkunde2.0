@@ -4,7 +4,7 @@ const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
 
 export const getBlogs = async ({
     page = 1,
-    limit = 10,
+    limit = 100,
     search = "",
     tags = ""
 }: {
@@ -52,26 +52,31 @@ export const getRatingItems = async () => {
 }
 
 
-export const getSingleBlog = async (blogId: string) => {
+export const getSingleBlog = async (slug: string) => {
     
-    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/${blogId}`,
+    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=(slug='${slug}')`,
         {
-          next: { revalidate: 10 },
+          next: {
+             revalidate: 60 
+            },
         }
       );
       const data = await res.json();
-      return data;
+      return data.items[0];
 }
 
-export const getSingleRatingItem = async (ratingItemId: string) => {
-    
-    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records/${ratingItemId}`,
+export const getSingleRatingItem = async (slug: string) => {
+  
+    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`,
         {
-          next: { revalidate: 10 },
+          next: { 
+            revalidate: 10 
+        },
         }
       );
+     
       const data = await res.json();
-      return data;
+      return data.items[0];
 }
 
 export const getFeaturedBlog = async () => {
@@ -92,22 +97,19 @@ export const getFeaturedItem = async () => {
           next: { revalidate: 10 },
         }
       );
+
       const data = await res.json();
       return data.items[0];
 }
 
 export const getFileUrl = async (blogItem: any, fileName: string) => {
-    const singleBlog = await getSingleBlog(blogItem.id);
-
-    const url = pb.getFileUrl(singleBlog, singleBlog[fileName]);
+    const url = pb.getFileUrl(blogItem, blogItem[fileName]);
     
     return url;
 }
 
 export const getFileUrlRatingItem = async (ratingItem: any, fileName: string) => {
-    const singleRatingItem = await getSingleRatingItem(ratingItem.id);
-
-    const url = pb.getFileUrl(singleRatingItem, singleRatingItem[fileName]);
+    const url = pb.getFileUrl(ratingItem, ratingItem[fileName]);
     
     return url;
 }

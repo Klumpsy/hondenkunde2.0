@@ -1,4 +1,4 @@
-import { getFileUrlRatingItem, getSingleRatingItem, getFileUrlsForProductImages } from "@/app/pocketbase/pocketbase";
+import { getFileUrlRatingItem, getSingleRatingItem, getFileUrlsForProductImages, getRatingItems } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
 import RatingBone from "@/app/components/ratingCard/RatingBone";
@@ -7,14 +7,13 @@ import { extractVideoID } from "@/app/helpers/videoHelper";
 
 const RatingDetail = async ({ params }: any) => {
 
-    const ratingDetail = await getSingleRatingItem(params.id);
+    const ratingDetail = await getSingleRatingItem(params.slug);
     const coverImageUrl = await getFileUrlRatingItem(ratingDetail, 'coverImage');
     const urls = await getFileUrlsForProductImages(ratingDetail);
 
     return (
         <div className="bg-gray-900 py-8 pt-12 min-h-screen">
             <Link href="/artiRating">
-    
                  <button className="hover:bg-orange hover:text-darkBlue font-extrabold right-0 md:left-0 md:right-auto top-0 m-4 bg-gray-700 text-orange py-2 px-4 rounded-full shadow-md transition">
                      Terug naar ratings
                 </button>
@@ -23,7 +22,8 @@ const RatingDetail = async ({ params }: any) => {
         <div className="flex flex-col md:flex-row -mx-4">
             <div className="md:flex-1 px-4 z-1">
             <div className="relative h-[460px] rounded-lg bg-gray-300 mb-4 overflow-hidden">
-                <Image src={coverImageUrl} 
+                <Image 
+                    src={coverImageUrl} 
                     alt="Product Image" 
                     layout="fill" 
                     objectFit="cover" 
@@ -40,11 +40,13 @@ const RatingDetail = async ({ params }: any) => {
                     </div>
                 )}
                 <div className={`${ratingDetail.blogUrl ? 'w-1/2' : 'w-full max-w-xs'} px-2`}>
+                {ratingDetail.buttonUrl && (
                     <Link href={ratingDetail.buttonUrl} target="_blank">
                         <button className="w-full bg-orange text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-gray-800 hover:text-orange">
-                          {ratingDetail.buttonText}
+                             {ratingDetail.buttonText}
                         </button>
                     </Link>
+                )}
                 </div>
             </div>
             </div>
@@ -92,3 +94,11 @@ const RatingDetail = async ({ params }: any) => {
 }
 
 export default RatingDetail;
+
+export async function generateStaticParams() {
+    const ratingItems = await getRatingItems();
+    
+    return ratingItems.map((ratingItem) => ({
+        slug: ratingItem.slug,
+    }))
+}

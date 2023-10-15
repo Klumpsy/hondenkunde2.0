@@ -10,7 +10,7 @@ const BlogItem = async ({ blogItem, className }) => {
     const imageUrl = await getFileUrl(blogItem, 'introImage');
 
     return (
-      <a href={`/blog/${blogItem.id}`} className={`relative flex flex-col items-start ${className} p-3 hover:shadow-md transition-shadow duration-300 ease-in-out h-full`}>
+      <a href={`/blog/${blogItem.slug}`} className={`relative flex flex-col items-start ${className} p-3 hover:shadow-md transition-shadow duration-300 ease-in-out h-full`}>
           {
               isNew(blogItem.created) && <span className="absolute top-0 left-0 bg-orange text-darkBlue p-1 rounded font-bold">Nieuw</span>
           }

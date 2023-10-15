@@ -1,4 +1,4 @@
-import { getSingleBlog } from "@/app/pocketbase/pocketbase";
+import { getBlogs, getSingleBlog } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
 import { getFileUrl } from "@/app/pocketbase/pocketbase";
@@ -10,13 +10,14 @@ interface BlogParams {
     slug: string;
     id: string;
   }
+
   
   interface BlogDetailProps {
     params: BlogParams;
   }
 
 const BlogDetail = async ({ params }: BlogDetailProps) => {
-    const blog = await getSingleBlog(params.id);
+    const blog = await getSingleBlog(params.slug);
 
     const introImageUrl = await getFileUrl(blog, 'introImage');
     const imageBlockOne = await getFileUrl(blog, 'imageBlockOne');
@@ -91,3 +92,16 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
 }
 
 export default BlogDetail;
+
+export async function generateStaticParams() {
+    const page=1
+    const limit = 100
+    const search = undefined
+    const tags=undefined
+
+    const blogs = await getBlogs({page, limit, search, tags});
+    
+    return blogs.map((blog) => ({
+        slug: blog.slug,
+    }))
+}
