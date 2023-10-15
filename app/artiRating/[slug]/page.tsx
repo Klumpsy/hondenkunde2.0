@@ -32,9 +32,9 @@ const RatingDetail = async ({ params }: any) => {
                 <div className={`flex ${ratingDetail.blogUrl ? '-mx-2' : 'justify-center'} mb-4`}>
                 {ratingDetail.blogUrl && (
                     <div className="w-1/2 px-2">
-                        <Link href='/artiRating'>
+                       <Link href={ratingDetail.blogUrl}>
                             <button className="w-full bg-darkBlue text-orange py-2 px-4 rounded-full font-bold hover:bg-gray-800">
-                                Lees blog over dit item
+                                {ratingDetail.blogButtonText}
                             </button>
                         </Link>
                     </div>
@@ -78,6 +78,7 @@ const RatingDetail = async ({ params }: any) => {
         <Slider imagePaths={urls}/>
         {ratingDetail.productVideo && ( 
             <div className="mt-7 max-w-[1000px] mx-auto w-full tablet:max-w-[90%] mobile:max-w-[90%]">
+                <h3 className="mb-2 text-orange text-2xl font-extrabold">{ratingDetail.ratedBy} aan het </h3>
                 <div className="relative" style={{paddingTop: '56.25%'}}> {/* This padding percentage represents a 16:9 aspect ratio */}
                     <iframe 
                         className="absolute top-0 left-0 w-full h-full"

@@ -1,8 +1,8 @@
 import Header from "./components/header/Header";
 import { getFeaturedBlog, getFeaturedItem } from "./pocketbase/pocketbase";
-import RatingCard from "./components/ratingCard/RatingCard";
-import BlogItem from "./components/blogItem/BlogItem";
-import {AiOutlineStar} from 'react-icons/ai';
+import Link from "next/link";
+import FeaturedBlog from "./components/featured/FeaturedBlog";
+import FeaturedRating from "./components/featured/FeaturedRating";
 
 export default async function Home() {
 
@@ -28,22 +28,30 @@ export default async function Home() {
           verrijkt door gedeelde kennis en gemeenschap, begint hier.
           </p>
         </section>
-        <section>
-          <div className="flex flex-wrap justify-between relative">
+        <section className="flex items-center justify-center">
+        <div className="mx-auto my-0 flex flex-wrap justify-between items-center relative max-w-[1000px]">
             <div className="w-full md:w-1/2 p-4 relative">
-              <AiOutlineStar size={180} className="text-yellow-400 absolute star_icon_left text-4xl opacity-50 z-0"/>
-              <h3 className="mt-4 pl-3 text-2xl font-semibold z-10 relative">
+              <h3 className="mt-4 mb-4 pl-3 text-2xl font-semibold z-10 relative">
                   Blog Uitgelicht: 
               </h3>
-              <BlogItem blogItem={featuredBlog} className="m-0 z-10 relative"/>
+              <FeaturedBlog blogItem={featuredBlog}/>
+              <Link href={`/blog/${featuredBlog.slug}`}>
+                    <button className="w-full bg-darkBlue text-orange py-2 px-4 rounded-b font-bold hover:bg-gray-800">
+                        Lees verder
+                    </button>
+              </Link>
             </div>
-          <div className="w-full md:w-1/2 p-4 relative">
-              <AiOutlineStar size={180} className="text-yellow-400 absolute star_icon_right text-4xl opacity-50 z-0"/>
-              <h3 className="mt-4 mb-2 text-2xl font-semibold z-10 relative">
+            <div className="w-full md:w-1/2 p-4 relative">
+              <h3 className="mt-4 mb-4 text-2xl font-semibold z-10 relative">
                   Rating Uitgelicht: 
               </h3>
-              <RatingCard ratingItem={featuredRating}/>
-          </div>
+              <FeaturedRating ratingItem={featuredRating}/>
+              <Link href={`/artiRating/${featuredRating.slug}`}>
+                    <button className="w-full bg-darkBlue text-orange py-2 px-4 rounded-b font-bold hover:bg-gray-800">
+                        Lees verder
+                    </button>
+              </Link>
+            </div>
         </div>
       </section>
       </div>
