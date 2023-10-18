@@ -6,12 +6,12 @@ export const getBlogs = async ({
     page = 1,
     limit = 100,
     search = "",
-    tags = ""
+    tags = []
 }: {
     page?: number,
     limit?: number,
     search?: string,
-    tags?: string
+    tags?: []
 }) => {
     let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}`;
 
