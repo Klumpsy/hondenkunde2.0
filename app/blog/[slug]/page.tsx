@@ -47,7 +47,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
         </div>
         <div className="flex flex-wrap justify-center items-center mt-4 border-t-2 pt-5">
           {blog.tags &&
-            blog.tags.map((tag) => (
+            blog.tags.map((tag: string) => (
               <p
                 key={tag + blog.id}
                 className={`flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase m-2 inline-block ${tag}`}
