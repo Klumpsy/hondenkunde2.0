@@ -54,7 +54,7 @@ const RatingDetail = async ({ params }: any) => {
             <div className="mb-4">
               <div className="flex space-x-2">
                 {ratingDetail.tags &&
-                  ratingDetail.tags.map((tag) => (
+                  ratingDetail.tags.map((tag: string) => (
                     <p
                       key={tag + ratingDetail.id + ratingDetail.buttonUrl}
                       className={`flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block ${tag}`}
