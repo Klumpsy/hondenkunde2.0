@@ -2,17 +2,19 @@ import PocketBase from 'pocketbase'
 
 const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
 
-export const getBlogs = async ({
+interface BlogsParameters {
+    page?: number;
+    limit?: number;
+    search?: string;
+    tags?: string[];
+  }
+
+  export const getBlogs = async ({
     page = 1,
     limit = 100,
     search = "",
     tags = []
-}: {
-    page?: number,
-    limit?: number,
-    search?: string,
-    tags?: string
-}) => {
+  }: BlogsParameters) =>  {
     let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}`;
 
     let filterString = '';
@@ -21,11 +23,10 @@ export const getBlogs = async ({
         filterString += `(title~'${search.toLowerCase()}' || introText~'${search.toLowerCase()}')`;
     }
 
-    if (tags.length > 0) {
-        const tagsArray = tags[0].split(',');
-        const tagsFilterString = tagsArray.map(tag => `tags~'${tag}'`).join(' || ');
+    if (tags && tags.length > 0) {
+        const tagsFilterString = tags.map(tag => `tags~'${tag}'`).join(' || ');
         filterString = filterString ? `(${filterString}) && (${tagsFilterString})` : `(${tagsFilterString})`;
-    }
+      }
 
     if (filterString) {
         url += `&filter=${filterString}`;
