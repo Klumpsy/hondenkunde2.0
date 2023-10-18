@@ -11,7 +11,7 @@ export const getBlogs = async ({
     page?: number,
     limit?: number,
     search?: string,
-    tags?: []
+    tags?: string
 }) => {
     let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}`;
 
