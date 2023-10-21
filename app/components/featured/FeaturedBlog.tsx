@@ -28,7 +28,7 @@ const FeaturedBlog: React.FC<{ blogItem: BlogItemInterface }> = async ({
           }}
         />
       </div>
-      <div className="px-6 pt-4 pb-2">
+      <div className="px-6 pt-4 pb-6">
         <div className="flex space-x-2">
           {blogItem.tags &&
             blogItem.tags.map((tag) => (

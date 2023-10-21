@@ -11,7 +11,7 @@ const RatingBone: React.FC<RatingBoneProps> = ({ rating, ratedBy }) => {
   return (
     <div className="flex">
       <Image
-        src={`/images/${ratedBy}rating.jpg`}
+        src={`/images/${ratedBy}Rating.jpg`}
         className="rounded-full mr-3"
         width={40}
         height={40}

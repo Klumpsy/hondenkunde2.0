@@ -24,15 +24,14 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
   const imageBlockThree = await getFileUrl(blog, "imageBlockThree");
 
   return (
-    <div className="bg-blue-100 p-8">
-      <Link
-        href="/blog"
-        className="font-extrabold right-0 md:left-0 md:right-auto top-0 m-4 bg-orange text-darkBlue py-2 px-4 rounded-full shadow-md hover:bg-orange-500 transition"
-      >
-        Terug
-      </Link>
-
-      <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-[1200px]">
+    <div className="p-4 sm:p-8 bg-blue-100">
+      <div className="relative container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-[1200px]">
+        <Link
+          href="/blog"
+          className="back_button_blog font-extrabold transform bg-orange text-darkBlue py-3 px-5 rounded-full shadow-md hover:bg-gray-800 hover:text-orange transition"
+        >
+          Terug
+        </Link>
         <h1 className="text-center mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
           {blog.title}
         </h1>
