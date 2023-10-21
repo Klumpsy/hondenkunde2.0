@@ -26,12 +26,12 @@ const BlogItem: React.FC<BlogItemProps> = async ({ blogItem, className }) => {
         height={300}
         className="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56"
       />
-      <div className="flex space-x-2">
+      <div className="flex flex-wrap justify-center items-center mt-4 border-t-2 pt-5">
         {blogItem.tags &&
           blogItem.tags.map((tag) => (
             <p
               key={tag + blogItem.id}
-              className={`flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block ${tag}`}
+              className={`m-2 flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block ${tag}`}
             >
               {tag}
             </p>
