@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getFileUrlRatingItem } from "@/app/pocketbase/pocketbase";
 import RatingBone from "./RatingBone";
-import { RatingItemInterface } from "@/app/definitions/interface/ratingItemPropsInterface";
+import { RatingItemInterface } from "@/app/definitions/interface/RatingItemPropsInterface";
 
 const RatingCard: React.FC<{ ratingItem: RatingItemInterface }> = async ({
   ratingItem,
