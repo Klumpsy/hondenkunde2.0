@@ -9,7 +9,7 @@ const FeaturedBlog: React.FC<{ blogItem: BlogItemInterface }> = async ({
   const imageUrl = await getFileUrl(blogItem, "introImage");
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-100">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-100 featured_shadow">
       <Image
         src={imageUrl}
         alt="blog post image"

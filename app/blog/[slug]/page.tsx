@@ -41,7 +41,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
             alt="blog post image"
             width={1000}
             height={600}
-            className="mb-4 object-cover"
+            className="mb-4 object-cover w-full md:w-auto" // Ensure full width on mobile, auto width on larger screens
           />
         </div>
         <div className="flex flex-wrap justify-center items-center mt-4 border-t-2 pt-5">

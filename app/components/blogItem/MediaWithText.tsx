@@ -26,15 +26,15 @@ const MediaWithText: React.FC<MediaWithTextProps> = ({
   }
 
   return (
-    <section className="p-4 space-y-4">
+    <section className="p-1 space-y-4">
       <h2 className="text-2xl font-bold mb-3">{title}</h2>
       <div
         className={`xl:flex ${
           orientation === "right" ? "xl:flex-row-reverse" : ""
-        } items-center space-y-4 xl:space-y-0 xl:space-x-4`}
+        } items-center space-y-4 xl:space-y-0 xl:space-x-0`}
       >
         {mediaSrc && (
-          <div className="m-4 md:float-left md:w-1/3 lg:w-1/4 xl:float-none xl:flex-shrink-0 xl:w-auto">
+          <div className="md:m-6 md:float-right md:w-1/3 lg:w-1/4 xl:float-none xl:flex-shrink-0 xl:w-auto">
             {isVideo ? (
               <div className="responsive-video-wrapper">
                 <iframe
@@ -57,12 +57,11 @@ const MediaWithText: React.FC<MediaWithTextProps> = ({
             )}
           </div>
         )}
-        <div className="space-y-2">
-          <div
-            className="text-gray-700 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: text }}
-          />
-        </div>
+
+        <div
+          className="text-gray-700 leading-relaxed ml-0"
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
       </div>
     </section>
   );

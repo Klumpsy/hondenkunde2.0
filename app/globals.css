@@ -33,6 +33,13 @@
     font-weight: 500;
 }
 
+.sidebar-nav li{
+    padding-top: 1rem;
+    font-size: 2rem;
+    text-align: left;
+    margin-left: 2rem;
+}
+
 .blog_post_card_title {
     font-size: 1.3rem;
     margin-bottom: .4rem;
@@ -57,7 +64,7 @@
 .paw-pattern {
     background: url('/images/paw.png') repeat-x center center;
     background-size: 40px 40px; 
-    width: 100vw; 
+    width: 90vw; 
     height: 50px; 
     position: relative;
 }
@@ -101,12 +108,25 @@
     }
 }
 
-.star_icon_right {
-    right: -10px;
-    top: -50px;
+.blog_content_container h2{
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 1rem;
 }
 
-.star_icon_left {
-    left: -80px;
-    top: -50px;
+.blog_content_container h3{
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 1rem;
 }
+
+.blog_content_container h4{
+    font-size: .8rem;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+.featured_shadow {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+

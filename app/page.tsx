@@ -35,6 +35,7 @@ export default async function Home() {
             kennis en gemeenschap, begint hier.
           </p>
         </section>
+        <section className="paw-pattern"></section>
         <section className="flex items-center justify-center mb-5">
           <div className="mx-auto my-0 flex flex-wrap justify-between items-center relative max-w-[1000px]">
             <div className="w-full md:w-1/2 p-4 relative">

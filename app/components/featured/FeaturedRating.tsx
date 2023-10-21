@@ -9,7 +9,7 @@ const FeaturedRating: React.FC<{ ratingItem: RatingItemInterface }> = async ({
   const imageUrl = await getFileUrlRatingItem(ratingItem, "coverImage");
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-100">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-100 featured_shadow">
       <Image
         src={imageUrl}
         alt="blog post image"
