@@ -3,6 +3,7 @@ import { getFeaturedBlog, getFeaturedItem } from "./pocketbase/pocketbase";
 import Link from "next/link";
 import FeaturedBlog from "./components/featured/FeaturedBlog";
 import FeaturedRating from "./components/featured/FeaturedRating";
+import Footer from "./components/footer/Footer";
 
 export default async function Home() {
   const featuredBlog = await getFeaturedBlog();
@@ -41,22 +42,12 @@ export default async function Home() {
                 Blog Uitgelicht:
               </h3>
               <FeaturedBlog blogItem={featuredBlog} />
-              <Link href={`/blog/${featuredBlog.slug}`}>
-                <button className="w-full bg-darkBlue text-orange py-2 px-4 rounded-b font-bold hover:bg-gray-800">
-                  Lees verder
-                </button>
-              </Link>
             </div>
             <div className="w-full md:w-1/2 p-4 relative">
               <h3 className="mt-4 mb-4 text-2xl font-bold z-10 relative text-orange">
                 Rating Uitgelicht:
               </h3>
               <FeaturedRating ratingItem={featuredRating} />
-              <Link href={`/artiRating/${featuredRating.slug}`}>
-                <button className="w-full bg-darkBlue text-orange py-2 px-4 rounded-b font-bold hover:bg-gray-800">
-                  Lees verder
-                </button>
-              </Link>
             </div>
           </div>
         </section>

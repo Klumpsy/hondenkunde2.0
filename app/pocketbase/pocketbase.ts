@@ -49,6 +49,21 @@ export const getBlogs = async ({
   return data?.items as any[];
 }
 
+export const getRatingItems = async () => {
+
+    const res = await fetch(
+        `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?page=1&perPage=100`, 
+        { 
+            cache: "no-store"
+        }
+    );
+    const data = await res.json();
+
+
+    return data?.items as any[];
+}
+
+
 export const getSingleBlog = async (slug: string) => {
     
     const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=(slug='${slug}')`,

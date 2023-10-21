@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getFileUrlRatingItem } from "@/app/pocketbase/pocketbase";
 import { RatingItemInterface } from "@/app/definitions/interface/RatingItemPropsInterface";
 
@@ -8,7 +9,7 @@ const FeaturedRating: React.FC<{ ratingItem: RatingItemInterface }> = async ({
   const imageUrl = await getFileUrlRatingItem(ratingItem, "coverImage");
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-100">
       <Image
         src={imageUrl}
         alt="blog post image"
@@ -41,6 +42,11 @@ const FeaturedRating: React.FC<{ ratingItem: RatingItemInterface }> = async ({
             ))}
         </div>
       </div>
+      <Link href={`/artiRating/${ratingItem.slug}`}>
+        <button className="w-full bg-darkBlue text-orange py-2 px-4 rounded-b font-bold hover:bg-gray-800">
+          Lees verder
+        </button>
+      </Link>
     </div>
   );
 };

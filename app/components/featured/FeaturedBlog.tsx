@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getFileUrl } from "@/app/pocketbase/pocketbase";
 import { BlogItemInterface } from "@/app/definitions/interface/BlogItemPropsInterface";
 
@@ -8,7 +9,7 @@ const FeaturedBlog: React.FC<{ blogItem: BlogItemInterface }> = async ({
   const imageUrl = await getFileUrl(blogItem, "introImage");
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-gray-100">
       <Image
         src={imageUrl}
         alt="blog post image"
@@ -41,6 +42,11 @@ const FeaturedBlog: React.FC<{ blogItem: BlogItemInterface }> = async ({
             ))}
         </div>
       </div>
+      <Link href={`/blog/${blogItem.slug}`}>
+        <button className="w-full bg-darkBlue text-orange py-2 px-4 rounded-b font-bold hover:bg-gray-800">
+          Lees verder
+        </button>
+      </Link>
     </div>
   );
 };
