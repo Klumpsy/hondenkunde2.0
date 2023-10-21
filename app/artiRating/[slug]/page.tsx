@@ -17,15 +17,18 @@ const RatingDetail = async ({ params }: any) => {
 
   return (
     <div className="bg-gray-900 py-8 pt-12 min-h-screen">
-      <Link href="/artiRating">
-        <button className="hover:bg-orange hover:text-darkBlue font-extrabold right-0 md:left-0 md:right-auto top-0 m-4 bg-gray-700 text-orange py-2 px-4 rounded-full shadow-md transition">
-          Terug naar ratings
-        </button>
-      </Link>
+      <div className="flex items-start max-w-[1100px] mx-auto mb-5">
+        <Link
+          href="/artiRating"
+          className="ml-2 hover:bg-orange hover:text-darkBlue font-extrabold mb-4 bg-orange text-darkBlue py-2 px-4 rounded-full shadow-md transition z-10"
+        >
+          Terug naar overzicht
+        </Link>
+      </div>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row -mx-4">
           <div className="md:flex-1 px-4 z-1">
-            <div className="relative h-[460px] rounded-lg bg-gray-300 mb-4 overflow-hidden">
+            <div className="relative h-[470px] rounded-lg bg-gray-300 mb-4 overflow-hidden">
               <Image
                 src={coverImageUrl}
                 alt="Product Image"
@@ -83,7 +86,7 @@ const RatingDetail = async ({ params }: any) => {
               {ratingDetail.blogUrl && (
                 <div className="mb-2 md:mb-0 md:w-1/2 px-2">
                   <Link href={ratingDetail.blogUrl}>
-                    <button className="w-full bg-darkBlue text-orange py-2 px-4 rounded-full font-bold hover:bg-gray-800">
+                    <button className="mt-3 w-full bg-darkBlue text-orange py-2 px-4 rounded-full font-bold hover:bg-gray-800">
                       {ratingDetail.blogButtonText}
                     </button>
                   </Link>
@@ -96,7 +99,7 @@ const RatingDetail = async ({ params }: any) => {
               >
                 {ratingDetail.buttonUrl && (
                   <Link href={ratingDetail.buttonUrl} target="_blank">
-                    <button className="w-full bg-green-400 text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-green-500 hover:text-white">
+                    <button className="mt-3 w-full bg-green-400 text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-green-500 hover:text-white">
                       {ratingDetail.buttonText}
                     </button>
                   </Link>

@@ -30,7 +30,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
           href="/blog"
           className="back_button_blog font-extrabold transform bg-orange text-darkBlue py-3 px-5 rounded-full shadow-md hover:bg-gray-800 hover:text-orange transition"
         >
-          Terug
+          Terug naar overzicht
         </Link>
         <h1 className="text-center mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
           {blog.title}

@@ -42,12 +42,14 @@ const RatingCard: React.FC<{ ratingItem: RatingItemInterface }> = async ({
               rating={ratingItem.rating}
               ratedBy={ratingItem.ratedBy}
             />
-            <button
-              className="inline-block mt-7 px-4 py-2 bg-darkBlue text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500 flex-none"
-              style={{ maxWidth: "250px" }}
-            >
-              Bekijk product
-            </button>
+            <div className="flex items-center justify-center mt-7">
+              <button
+                className="px-4 py-2 font-bold bg-darkBlue text-orange text-sm uppercase rounded focus:outline-none flex-none hover:bg-gray-900 hover:text-orange"
+                style={{ maxWidth: "250px" }}
+              >
+                Bekijk product
+              </button>
+            </div>
           </div>
         </div>
       </div>
