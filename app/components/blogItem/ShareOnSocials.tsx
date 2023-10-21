@@ -24,7 +24,7 @@ const ShareOnSocials: React.FC<ShareOnSocialsProps> = ({ title }) => {
   )}%20${encodeURIString(fullUrl)}`;
 
   return (
-    <div className="p-4 bg-gray-100 rounded-md">
+    <div className="p-4 mt-3 bg-gray-100 rounded-md">
       <div className="flex justify-center items-center space-x-4">
         <a
           className="hover:text-blue-500"
