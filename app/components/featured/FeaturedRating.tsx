@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getFileUrlRatingItem } from "@/app/pocketbase/pocketbase";
-import { RatingItemInterface } from "@/app/definitions/interface/ratingItemPropsInterface";
+import { RatingItemInterface } from "@/app/definitions/interface/RatingItemPropsInterface";
 
 const FeaturedRating: React.FC<{ ratingItem: RatingItemInterface }> = async ({
   ratingItem,
