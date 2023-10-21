@@ -3,55 +3,51 @@ import PocketBase from 'pocketbase'
 const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
 
 interface BlogsParameters {
-    page?: number;
-    limit?: number;
-    search?: string;
-    tags?: string[];
+  page?: number;
+  limit?: number;
+  search?: string;
+  tags?: string[] | string;
+}
+
+export const getBlogs = async ({
+  page = 1,
+  limit = 100,
+  search = "",
+  tags = []
+}: BlogsParameters) => {
+  let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}`;
+
+  let filterString = '';
+
+  if (search) {
+    filterString += `(title~'${search.toLowerCase()}' || introText~'${search.toLowerCase()}')`;
   }
 
-  export const getBlogs = async ({
-    page = 1,
-    limit = 100,
-    search = "",
-    tags = []
-  }: BlogsParameters) =>  {
-    let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}`;
+  let tagsArray = [];
+  if (typeof tags === "string") {
+    tagsArray = tags.split(',').map(tag => tag.trim());
+  } else if (tags.length && typeof tags[0] === "string") {
+    // If the first element of tags is a string with commas, split it into an array
+    tagsArray = tags[0].split(',').map(tag => tag.trim());
+  } else {
+    tagsArray = tags;
+  }
 
-    let filterString = '';
+  const tagsFilterString = tagsArray.map(tag => `tags~'${tag}'`).join(' || ');
 
-    if (search) {
-        filterString += `(title~'${search.toLowerCase()}' || introText~'${search.toLowerCase()}')`;
-    }
+  if (tagsFilterString) {
+    filterString = filterString ? `${filterString} && (${tagsFilterString})` : `(${tagsFilterString})`;
+  }
 
-    if (tags && tags.length > 0) {
-        const tagsFilterString = tags.map(tag => `tags~'${tag}'`).join(' || ');
-        filterString = filterString ? `(${filterString}) && (${tagsFilterString})` : `(${tagsFilterString})`;
-      }
+  if (filterString) {
+    url += `&filter=${filterString}`;
+  }
 
-    if (filterString) {
-        url += `&filter=${filterString}`;
-    }
+  const res = await fetch(url, { cache: "no-store" });
+  const data = await res.json();
 
-    const res = await fetch(url, { cache: "no-store" });
-    const data = await res.json();
-
-    return data?.items as any[];
+  return data?.items as any[];
 }
-
-export const getRatingItems = async () => {
-
-    const res = await fetch(
-        `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?page=1&perPage=100`, 
-        { 
-            cache: "no-store"
-        }
-    );
-    const data = await res.json();
-
-
-    return data?.items as any[];
-}
-
 
 export const getSingleBlog = async (slug: string) => {
     
