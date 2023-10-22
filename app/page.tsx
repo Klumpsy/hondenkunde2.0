@@ -1,9 +1,7 @@
 import Header from "./components/header/Header";
 import { getFeaturedBlog, getFeaturedItem } from "./pocketbase/pocketbase";
-import Link from "next/link";
 import FeaturedBlog from "./components/featured/FeaturedBlog";
 import FeaturedRating from "./components/featured/FeaturedRating";
-import Footer from "./components/footer/Footer";
 
 export default async function Home() {
   const featuredBlog = await getFeaturedBlog();
