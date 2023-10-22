@@ -19,18 +19,14 @@ export default async function Home() {
         <section className="my-12 text-center">
           <h2 className="text-3xl font-bold mb-4">Over Hondenkunde.nl</h2>
           <p className="text-lg text-left">
-            Hondenkunde.nl belichaamt een samensmelting van passie en praktische
-            ervaring, gebracht naar u door twee toegewijde hondeneigenaren.
-            Hoewel onze liefde voor honden diep geworteld is, zijn we geen
-            experts, maar delen we wel oprechte en uitgeteste inzichten over het
-            eigenaarschap van huisdieren. Hier vindt u eerlijke beoordelingen
-            van producten die we zelf hebben gebruikt en getest, naast artikelen
-            die onze persoonlijke ervaringen en avonturen met onze honden
-            weerspiegelen. Bij Hondenkunde.nl streven we ernaar een authentieke
-            en betrouwbare bron te zijn voor gelijkgestemde hondenliefhebbers
-            die op zoek zijn naar real-world adviezen en verhalen uit de eerste
-            hand. Uw reis door het hondenouderschap, verrijkt door gedeelde
-            kennis en gemeenschap, begint hier.
+            Zoals de naam al doet vermoeden vind je op Hondenkunde.nl info over
+            van alles omtrent honden. We schrijven regelmatig nieuwe blogs met
+            handige tips die we hebben opgedaan op de hondenschool en diverse
+            websites. En natuurlijk op basis van wat wij hebben ervaren bij onze
+            Friese stabij Arti. Naast blogs vind je ook beoordeelde producten.
+            Deze hondenartikelen zijn getest door Arti en voorzien van haar
+            ongezouten mening. Uiteraard zal dit voor iedere hond anders zijn
+            😉. Veel leesplezier gewenst!
           </p>
         </section>
         <section className="paw-pattern max-w-[1200px] mx-auto"></section>
