@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+sitemap: https://www.hondenkunde.nl/sitemap.xml
