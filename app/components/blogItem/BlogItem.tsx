@@ -39,9 +39,9 @@ const BlogItem: React.FC<BlogItemProps> = async ({ blogItem, className }) => {
             </p>
           ))}
       </div>
-      <a className="text-lg font-bold sm:text-xl md:text-2xl">
+      <h2 className="text-lg font-bold sm:text-xl md:text-2xl">
         {blogItem.title}
-      </a>
+      </h2>
       <div
         className="text-sm text-black flex-grow"
         dangerouslySetInnerHTML={{ __html: blogItem.introText }}
