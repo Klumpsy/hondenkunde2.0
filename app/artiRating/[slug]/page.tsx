@@ -54,19 +54,6 @@ const RatingDetail = async ({ params }: any) => {
                 />
               </div>
             </div>
-            <div className="mb-4">
-              <div className="flex space-x-2">
-                {ratingDetail.tags &&
-                  ratingDetail.tags.map((tag: string) => (
-                    <p
-                      key={tag + ratingDetail.id + ratingDetail.buttonUrl}
-                      className={`flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block ${tag}`}
-                    >
-                      {tag}
-                    </p>
-                  ))}
-              </div>
-            </div>
             <div>
               <span className="font-bold text-gray-700 text-white">
                 Over dit product:
@@ -86,7 +73,7 @@ const RatingDetail = async ({ params }: any) => {
               {ratingDetail.blogUrl && (
                 <div className="mb-2 md:mb-0 md:w-1/2 px-2">
                   <Link href={ratingDetail.blogUrl}>
-                    <button className="mt-3 w-full bg-darkBlue text-orange py-2 px-4 rounded-full font-bold hover:bg-gray-800">
+                    <button className="mt-3 w-full bg-orange text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-yellow-500 hover:text-white">
                       {ratingDetail.blogButtonText}
                     </button>
                   </Link>
@@ -99,7 +86,7 @@ const RatingDetail = async ({ params }: any) => {
               >
                 {ratingDetail.buttonUrl && (
                   <Link href={ratingDetail.buttonUrl} target="_blank">
-                    <button className="mt-3 w-full bg-green-400 text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-green-500 hover:text-white">
+                    <button className="mt-3 w-full bg-green-700 text-white py-2 px-4 rounded-full font-bold hover:bg-green-600 hover:text-white">
                       {ratingDetail.buttonText}
                     </button>
                   </Link>

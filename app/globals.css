@@ -134,4 +134,8 @@
     color: #da9e00;
     font-weight: 700;
 }
+.rating_tag_detail {
+    background-color: lightgray;
+    color: black;
+}
 

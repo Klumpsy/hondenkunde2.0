@@ -15,8 +15,8 @@ export default async function Home() {
         titleText="Welkom op Hondenkunde.nl"
         anchorText="Bekijk nieuwste blog"
       />
-      <div className="container mx-auto px-4">
-        <section className="my-12 text-center">
+      <div className="container mx-auto px-4 max-w-[1200px] ">
+        <section className="my-12 text-center ">
           <h2 className="text-3xl font-bold mb-4">Over Hondenkunde.nl</h2>
           <p className="text-lg text-left">
             Zoals de naam al doet vermoeden vind je op Hondenkunde.nl info over
@@ -25,8 +25,8 @@ export default async function Home() {
             websites. En natuurlijk op basis van wat wij hebben ervaren bij onze
             Friese stabij Arti. Naast blogs vind je ook beoordeelde producten.
             Deze hondenartikelen zijn getest door Arti en voorzien van haar
-            ongezouten mening. Uiteraard zal dit voor iedere hond anders zijn
-            😉. Veel leesplezier gewenst!
+            ongezouten mening. Uiteraard zal dit voor iedere hond anders zijn.
+            Veel leesplezier gewenst!
           </p>
         </section>
         <section className="paw-pattern max-w-[1200px] mx-auto"></section>
