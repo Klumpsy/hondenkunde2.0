@@ -13,14 +13,16 @@ export default async function sitemaps() {
 
       const blogPostUrls = blogPosts.map(post => {
         return {
-            url: `${baseUrl}/blog/${post.slug}`
+            url: `${baseUrl}/blog/${post.slug}`,
+            lastModified: new Date()
         }
       });
 
     const ratingItems = await getRatingItems()
-    const ratingItemUrls = blogPosts.map(ratingItem => {
+    const ratingItemUrls = ratingItems.map(ratingItem => {
         return {
-            url: `${baseUrl}/artiRating/${ratingItem.slug}`
+            url: `${baseUrl}/artiRating/${ratingItem.slug}`,
+            lastModified: new Date()
         }
       });
 
@@ -28,6 +30,16 @@ export default async function sitemaps() {
         {
             url: baseUrl,
             lastModified: new Date()
-        }
+        },
+        {
+            url: `${baseUrl}/blog`,
+            lastModified: new Date()
+        },
+        {
+            url: `${baseUrl}/artiRating`,
+            lastModified: new Date()
+        },
+        ...blogPostUrls,
+        ...ratingItemUrls
     ]
 }
