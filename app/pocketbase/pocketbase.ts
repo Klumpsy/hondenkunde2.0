@@ -27,7 +27,7 @@ export const getBlogs = async ({
   if (typeof tags === "string") {
     tagsArray = tags.split(',').map(tag => tag.trim());
   } else if (tags.length && typeof tags[0] === "string") {
-    // If the first element of tags is a string with commas, split it into an array
+   
     tagsArray = tags[0].split(',').map(tag => tag.trim());
   } else {
     tagsArray = tags;
@@ -54,7 +54,9 @@ export const getRatingItems = async () => {
     const res = await fetch(
         `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?page=1&perPage=100`, 
         { 
-            cache: "no-store"
+          next: {
+            revalidate: 60 
+           },
         }
     );
     const data = await res.json();
@@ -82,7 +84,7 @@ export const getSingleRatingItem = async (slug: string) => {
     const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`,
         {
           next: { 
-            revalidate: 10 
+            revalidate: 60 
         },
         }
       );
@@ -95,7 +97,9 @@ export const getFeaturedBlog = async () => {
     
     const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=(featured=true)`,
         {
-          next: { revalidate: 10 },
+          next: { 
+            revalidate: 60 
+        },
         }
       );
       const data = await res.json();
@@ -106,7 +110,9 @@ export const getFeaturedItem = async () => {
     
     const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records/?filter=(featured=true)`,
         {
-          next: { revalidate: 10 },
+          next: { 
+            revalidate: 60 
+        },
         }
       );
 

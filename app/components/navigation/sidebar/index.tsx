@@ -31,7 +31,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle, links }) => {
           {links.map((link) => (
             <li
               key={link.name}
-              className={pathName === link.href ? "text-orange" : "text-white"}
+              className={
+                (link.href === "/" && pathName === "/") ||
+                (link.href !== "/" && pathName.includes(link.href))
+                  ? "text-orange"
+                  : "text-white"
+              }
             >
               <div onClick={toggle}>
                 <Link href={link.href} className="flex items-center space-x-2">

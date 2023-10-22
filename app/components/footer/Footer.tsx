@@ -19,7 +19,8 @@ const Footer = () => {
                 <li
                   key={link.name}
                   className={
-                    pathName === link.href
+                    (link.href === "/" && pathName === "/") ||
+                    (link.href !== "/" && pathName.includes(link.href))
                       ? "text-orange mb-2"
                       : "text-white mb-2"
                   }
