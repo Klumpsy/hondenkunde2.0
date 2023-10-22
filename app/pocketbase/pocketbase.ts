@@ -55,7 +55,7 @@ export const getRatingItems = async () => {
         `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?page=1&perPage=100`, 
         { 
           next: {
-            revalidate: 60 
+            revalidate: 3600,
            },
         }
     );
@@ -71,7 +71,7 @@ export const getSingleBlog = async (slug: string) => {
     const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=(slug='${slug}')`,
         {
           next: {
-             revalidate: 60 
+            revalidate: 3600,
             },
         }
       );
@@ -84,7 +84,7 @@ export const getSingleRatingItem = async (slug: string) => {
     const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`,
         {
           next: { 
-            revalidate: 60 
+            revalidate: 3600,
         },
         }
       );
@@ -98,7 +98,7 @@ export const getFeaturedBlog = async () => {
     const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=(featured=true)`,
         {
           next: { 
-            revalidate: 60 
+            revalidate: 3600, 
         },
         }
       );
@@ -111,7 +111,7 @@ export const getFeaturedItem = async () => {
     const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records/?filter=(featured=true)`,
         {
           next: { 
-            revalidate: 60 
+            revalidate: 3600,
         },
         }
       );
