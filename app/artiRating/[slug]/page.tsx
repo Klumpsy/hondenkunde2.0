@@ -72,7 +72,7 @@ const RatingDetail = async ({ params }: any) => {
                 Over dit product:
               </span>
               <p
-                className="text-gray-600 text-sm mt-2 text-white"
+                className="text-gray-600 text-sm mt-2 text-white dynamic_text_input"
                 dangerouslySetInnerHTML={{
                   __html: ratingDetail.explanationText,
                 }}
