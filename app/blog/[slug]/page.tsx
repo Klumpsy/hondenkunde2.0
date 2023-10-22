@@ -105,7 +105,6 @@ export async function generateStaticParams() {
   const tags = undefined;
 
   const blogs = await getBlogs({ page, limit, search, tags });
-
   return blogs.map((blog) => ({
     slug: blog.slug,
   }));
