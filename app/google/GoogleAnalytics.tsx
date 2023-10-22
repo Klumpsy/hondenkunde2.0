@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import { GTM_ID, pageview } from "./GoogleConfig"
-import { usePathname, useSearchParams } from "next/navigation"
-import Script from "next/script"
-import { useEffect } from "react"
+import { GTM_ID, pageview } from "./GoogleConfig";
+import { usePathname, useSearchParams } from "next/navigation";
+import Script from "next/script";
+import { useEffect } from "react";
 
 export default function Analytics() {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (pathname) {
-      pageview(pathname)
+      pageview(pathname);
     }
-  }, [pathname, searchParams])
+  }, [pathname, searchParams]);
 
   return (
     <>
@@ -39,5 +39,5 @@ export default function Analytics() {
         }}
       />
     </>
-  )
+  );
 }
