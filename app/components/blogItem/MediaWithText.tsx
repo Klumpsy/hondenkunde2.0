@@ -59,7 +59,7 @@ const MediaWithText: React.FC<MediaWithTextProps> = ({
         )}
 
         <div
-          className="text-gray-700 leading-relaxed ml-0"
+          className="text-gray-700 leading-relaxed ml-0 dynamic_text_input"
           dangerouslySetInnerHTML={{ __html: text }}
         />
       </div>
