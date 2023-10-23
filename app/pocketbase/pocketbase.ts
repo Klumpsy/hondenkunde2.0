@@ -2,48 +2,18 @@ import PocketBase from 'pocketbase'
 
 const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
 
-interface BlogsParameters {
-  page?: number;
-  limit?: number;
-  search?: string;
-  tags?: string[] | string;
-}
+export const getBlogs = async () => {
 
-export const getBlogs = async ({
-  page = 1,
-  limit = 100,
-  search = "",
-  tags = []
-}: BlogsParameters) => {
+const page = 1;
+const limit = 100;
+
   let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}`;
 
-  let filterString = '';
-
-  if (search) {
-    filterString += `(title~'${search.toLowerCase()}' || introText~'${search.toLowerCase()}')`;
-  }
-
-  let tagsArray = [];
-  if (typeof tags === "string") {
-    tagsArray = tags.split(',').map(tag => tag.trim());
-  } else if (tags.length && typeof tags[0] === "string") {
-   
-    tagsArray = tags[0].split(',').map(tag => tag.trim());
-  } else {
-    tagsArray = tags;
-  }
-
-  const tagsFilterString = tagsArray.map(tag => `tags~'${tag}'`).join(' || ');
-
-  if (tagsFilterString) {
-    filterString = filterString ? `${filterString} && (${tagsFilterString})` : `(${tagsFilterString})`;
-  }
-
-  if (filterString) {
-    url += `&filter=${filterString}`;
-  }
-
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url, { 
+    next: {
+      revalidate: 3600,
+     },
+   });
   const data = await res.json();
 
   return data?.items as any[];
