@@ -99,12 +99,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
 export default BlogDetail;
 
 export async function generateStaticParams() {
-  const page = 1;
-  const limit = 100;
-  const search = undefined;
-  const tags = undefined;
-
-  const blogs = await getBlogs({ page, limit, search, tags });
+  const blogs = await getBlogs();
 
   return blogs.map((blog) => ({
     slug: blog.slug,
