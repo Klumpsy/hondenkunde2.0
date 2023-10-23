@@ -4,27 +4,27 @@ export default async function sitemaps() {
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-    const blogPosts = await getBlogs({
-        page: 1,
-        limit: 100,
-        search: "",
-        tags: []
-      });
+    // const blogPosts = await getBlogs({
+    //     page: 1,
+    //     limit: 100,
+    //     search: "",
+    //     tags: []
+    //   });
 
-      const blogPostUrls = blogPosts.map(post => {
-        return {
-            url: `${baseUrl}/blog/${post.slug}`,
-            lastModified: new Date()
-        }
-      });
+    //   const blogPostUrls = blogPosts.map(post => {
+    //     return {
+    //         url: `${baseUrl}/blog/${post.slug}`,
+    //         lastModified: new Date()
+    //     }
+    //   });
 
-    const ratingItems = await getRatingItems()
-    const ratingItemUrls = ratingItems.map(ratingItem => {
-        return {
-            url: `${baseUrl}/artiRating/${ratingItem.slug}`,
-            lastModified: new Date()
-        }
-      });
+    // const ratingItems = await getRatingItems()
+    // const ratingItemUrls = ratingItems.map(ratingItem => {
+    //     return {
+    //         url: `${baseUrl}/artiRating/${ratingItem.slug}`,
+    //         lastModified: new Date()
+    //     }
+    //   });
 
     return [
         {
@@ -39,7 +39,7 @@ export default async function sitemaps() {
             url: `${baseUrl}/artiRating`,
             lastModified: new Date()
         },
-        ...blogPostUrls,
-        ...ratingItemUrls
+        // ...blogPostUrls,
+        // ...ratingItemUrls
     ]
 }
