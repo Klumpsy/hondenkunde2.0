@@ -58,7 +58,10 @@ const Footer = () => {
             <h3 className="text-orange font-bold mb-3">Shops</h3>
             <ul>
               <li className="mb-2 hover:text-white">
-                <a href="https://www.hondenshop.nl" target="_blank">
+                <a
+                  href="https://www.hondenshop.nl/partner/hondenkunde/"
+                  target="_blank"
+                >
                   Hondenshop
                 </a>
               </li>
