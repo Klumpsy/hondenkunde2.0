@@ -14,8 +14,7 @@ export const metadata: Metadata = {
   title: "Hondenkunde",
   description: "Hondenkunde, het beste voor jouw hond!",
   verification: {
-    google:
-      "google-site-verification=LJtZ-8tLNg4Jid4EW-KzeKgxhEmDbsK0f2GALS-W-rw",
+    google: "LJtZ-8tLNg4Jid4EW-KzeKgxhEmDbsK0f2GALS-W-rw",
   },
   other: {
     "tradetracker-site-verification":
