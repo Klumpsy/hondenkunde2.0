@@ -5,21 +5,22 @@ import CopyPromoCode from "./CopyPromoCode";
 const PromoCode = () => {
   return (
     <section className="mb-10 mt-5 p-5 flex flex-col lg:flex-row justify-between bg-gray-800 rounded-lg">
-      <div className="pl-0 lg:pl-14 mb-5 lg:mb-0">
+      <div className="flex justify-center items-center h-full">
         <Image
           src="/images/medium_promo.webp"
-          className="ml-0 rounded-lg"
-          width={350}
-          height={350}
-          alt="Hondenshop"
+          className=" rounded-lg"
+          width={550}
+          height={550}
+          alt="Hondenshop promo banner"
         />
       </div>
-      <div className="justify-center flex flex-col m-5">
+      <div className="justify-center flex flex-col m-5 pl-5">
         <p className="text-white mb-4">
           In samenwerking met
           <a
             href="https://www.hondenshop.nl/partner/hondenkunde/"
             className="text-orange font-bold ml-1 mr-1 hover:text-yellow-400"
+            target="_blank"
           >
             Hondenshop.nl
           </a>
@@ -28,6 +29,7 @@ const PromoCode = () => {
           <a
             href="https://www.hondenshop.nl/partner/hondenkunde/"
             className="text-orange font-bold ml-1 mr-1 hover:text-yellow-400"
+            target="_blank"
           >
             deze link
           </a>
