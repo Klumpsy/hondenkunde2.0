@@ -2,7 +2,7 @@ import Header from "./components/header/Header";
 import { getFeaturedBlog, getFeaturedItem } from "./pocketbase/pocketbase";
 import FeaturedBlog from "./components/featured/FeaturedBlog";
 import FeaturedRating from "./components/featured/FeaturedRating";
-import PromoCode from "./components/promo/PromoCode";
+import PromoCode from "./components/promo/PromoCodeHondenShop";
 
 export default async function Home() {
   const featuredBlog = await getFeaturedBlog();

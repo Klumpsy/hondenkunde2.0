@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import CopyPromoCode from "./CopyPromoCode";
 
-const PromoCode = () => {
+const PromoCodeHondenShop = () => {
   return (
     <section className="mb-10 mt-5 p-5 flex flex-col lg:flex-row justify-between bg-gray-800 rounded-lg">
       <div className="flex justify-center items-center h-full">
@@ -25,7 +25,7 @@ const PromoCode = () => {
             Hondenshop.nl
           </a>
           mag onze hond Arti jullie een leuk cadeau geven bij aankoop van
-          minimaal 10 euro. Hoe gaat dit in zijn werk? Heel simple, klik op
+          minimaal 10 euro. Hoe gaat dit in zijn werk? Heel simpel, klik op
           <a
             href="https://www.hondenshop.nl/partner/hondenkunde/"
             className="text-orange font-bold ml-1 mr-1 hover:text-yellow-400"
@@ -33,11 +33,15 @@ const PromoCode = () => {
           >
             deze link
           </a>
-          en voer bij het uitchecken de volgende code in:
+          en voer bij het uitchecken de volgende code in{" "}
+          <span className="text-gray-200 opacity-70">
+            (je kunt op de code klikken om deze te kopiëren)
+          </span>
+          :
         </p>
         <div className="flex justify-center items-center gap-4">
           <Image
-            src="/images/employeeOfTheMonth.jpg"
+            src="/images/arti_mini.jpg"
             className="rounded-full"
             width={80}
             height={80}
@@ -50,4 +54,4 @@ const PromoCode = () => {
   );
 };
 
-export default PromoCode;
+export default PromoCodeHondenShop;
