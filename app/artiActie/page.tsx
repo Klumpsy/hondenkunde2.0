@@ -33,14 +33,14 @@ export default async function ArtiRating() {
             </p>
           </blockquote>
           <p className="text-gray-700">
-            We hebben regelmatig leuke acties en promo's waar u gebruik van kunt
-            maken dus kom af en toe even langs op de site om te kijken of er wat
-            voor uw hond tussen zit.
+            We hebben regelmatig leuke acties en promo&apos;s waar u gebruik van
+            kunt maken dus kom af en toe even langs op de site om te kijken of
+            er wat voor uw hond tussen zit.
           </p>
         </section>
         <section>
           <h2 className="text-4xl font-extrabold text-orange mb-6">
-            Actieve promo's
+            Actieve promo&apos;s
           </h2>
         </section>
 
