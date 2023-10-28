@@ -128,10 +128,15 @@ const RatingDetail = async ({ params }: any) => {
 
 export default RatingDetail;
 
-export async function generateStaticParams() {
+export async function getStaticPaths() {
   const ratingItems = await getRatingItems();
 
-  return ratingItems.map((ratingItem) => ({
-    slug: ratingItem.slug,
+  const paths = ratingItems.map((ratingItem) => ({
+    params: { slug: ratingItem.slug },
   }));
+
+  return {
+    paths,
+    fallback: true,
+  };
 }

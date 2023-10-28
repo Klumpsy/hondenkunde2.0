@@ -98,10 +98,15 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
 
 export default BlogDetail;
 
-export async function generateStaticParams() {
+export async function getStaticPaths() {
   const blogs = await getBlogs();
 
-  return blogs.map((blog) => ({
-    slug: blog.slug,
+  const paths = blogs.map((blog) => ({
+    params: { slug: blog.slug },
   }));
+
+  return {
+    paths,
+    fallback: true,
+  };
 }

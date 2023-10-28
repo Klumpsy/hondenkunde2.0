@@ -31,6 +31,10 @@ export default async function sitemaps() {
             lastModified: new Date()
         },
         {
+            url: `${baseUrl}/artiActie`,
+            lastModified: new Date()
+        },
+        {
             url: `${baseUrl}/artiRating`,
             lastModified: new Date()
         },
