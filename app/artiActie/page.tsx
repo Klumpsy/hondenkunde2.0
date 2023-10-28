@@ -17,25 +17,25 @@ export default async function ArtiRating() {
             Promocodes voor hondenartikelen
           </h2>
           <p className="text-gray-700 mb-4">
-            Promocodes zijn speciale codes die u kunt gebruiken om korting te
-            krijgen op diverse hondenartikelen. Of u nu op zoek bent naar
-            speelgoed, voeding of accessoires voor uw hond, met een promotiecode
-            kunt u profiteren van exclusieve kortingen of leuke cadeaus bij
-            deelnemende winkels.
+            Gebruik onderstaande promotiecodes om korting of een gratis artikel
+            te krijgen bij één van onze partners. Of je nu op zoek bent naar
+            speelgoed, voeding of accessoires voor jouw hond, je vindt het
+            allemaal via onderstaande site(s). Wij werken enkel samen met sites
+            waarbij wij (een deel van) het assortiment zelf, of eigenlijk onze
+            Friese Stabij Arti, naar tevredenheid getest hebben.
           </p>
 
           <blockquote className="p-4 bg-gray-800  text-orange rounded-md text-gray-600 italic mb-4">
             <p>
               <BsQuote className="inline align-top mr-1" />
-              Met de juiste promotiecode kan uw hond genieten van de beste
-              producten zonder dat u de volle prijs hoeft te betalen!
+              Met een promotiecode geniet je voordelig van de hondenartikelen op
+              Arti&apos;s favoriete websites
               <BsQuote className="inline align-top ml-1 transform scale-x-[-1]" />
             </p>
           </blockquote>
           <p className="text-gray-700">
-            We hebben regelmatig leuke acties en promo&apos;s waar u gebruik van
-            kunt maken dus kom af en toe even langs op de site om te kijken of
-            er wat voor uw hond tussen zit.
+            We hebben regelmatig leuke acties waar je gebruik van kunt maken.
+            Bekijk hieronder de actieve promo&apos;s.
           </p>
         </section>
         <section>

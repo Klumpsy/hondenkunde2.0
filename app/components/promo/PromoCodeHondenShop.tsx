@@ -39,7 +39,7 @@ const PromoCodeHondenShop = () => {
           </span>
           :
         </p>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
           <Image
             src="/images/arti_mini.jpg"
             className="rounded-full"
