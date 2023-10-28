@@ -25,7 +25,7 @@ export const getRatingItems = async () => {
         `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?page=1&perPage=100`, 
         { 
           next: {
-            revalidate: 3600,
+            revalidate: 10,
            },
         }
     );
