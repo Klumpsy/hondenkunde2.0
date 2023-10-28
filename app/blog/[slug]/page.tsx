@@ -101,7 +101,12 @@ export default BlogDetail;
 export async function generateStaticParams() {
   const blogs = await getBlogs();
 
-  return blogs.map((blog) => ({
+  const paths = blogs.map((blog) => ({
     slug: blog.slug,
   }));
+
+  return {
+    paths,
+    fallback: true,
+  };
 }

@@ -8,13 +8,13 @@ const PromoCodeHondenShop = () => {
       <div className="flex justify-center items-center h-full">
         <Image
           src="/images/medium_promo.webp"
-          className=" rounded-lg"
+          className="rounded-lg"
           width={550}
           height={550}
           alt="Hondenshop promo banner"
         />
       </div>
-      <div className="justify-center flex flex-col m-5 pl-5">
+      <div className="justify-center flex flex-col m-0 mt-6 p-1 md:m-5 md:pl-5 sm:text-left">
         <p className="text-white mb-4">
           In samenwerking met
           <a
@@ -39,7 +39,7 @@ const PromoCodeHondenShop = () => {
           </span>
           :
         </p>
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-4">
           <Image
             src="/images/arti_mini.jpg"
             className="rounded-full"
