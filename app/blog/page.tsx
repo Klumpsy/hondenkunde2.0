@@ -1,6 +1,8 @@
 import BlogItem from "../components/blogItem/BlogItem";
 import { getBlogs } from "../pocketbase/pocketbase";
 import Header from "../components/header/Header";
+import CustomFilter from "../filters/CustomFilter";
+import { tags } from "../constants/constants";
 
 const Blog = async () => {
   const blogs = await getBlogs();
@@ -14,9 +16,12 @@ const Blog = async () => {
         anchorText="Bekijk Arti's rating"
       />
       <section className="paw-pattern max-w-[1200px] mx-auto"></section>
-
+      <section className="max-w-[1200px] m-5 mb-3 mx-auto">
+        <CustomFilter title="Tags" options={tags} />
+      </section>
+      <section className="paw-pattern max-w-[1200px] mx-auto"></section>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto p-3">
-        {blogs?.map((blogItem, index) => {
+        {blogs?.map((blogItem) => {
           return (
             <BlogItem
               key={blogItem.id}
