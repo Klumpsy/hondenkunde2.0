@@ -68,7 +68,7 @@ export const getFeaturedBlog = async () => {
     const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=(featured=true)`,
         {
           next: { 
-            revalidate: 3600, 
+            revalidate: 10, 
         },
         }
       );
@@ -81,7 +81,7 @@ export const getFeaturedItem = async () => {
     const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records/?filter=(featured=true)`,
         {
           next: { 
-            revalidate: 3600,
+            revalidate: 10,
         },
         }
       );
