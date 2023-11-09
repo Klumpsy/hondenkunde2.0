@@ -33,6 +33,18 @@
     font-weight: 500;
 }
 
+.Relaxen {
+    background-color: rgb(203, 150, 252);
+    color: white;
+    font-weight: 500;
+}
+
+.Kussen {
+    background-color: rgb(149, 255, 204);
+    color: white;
+    font-weight: 500;
+}
+
 .sidebar-nav li{
     padding-top: 1rem;
     font-size: 2rem;
