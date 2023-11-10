@@ -28,7 +28,7 @@ const BlogItem: React.FC<BlogItemProps> = async ({ blogItem, className }) => {
         height={300}
         className="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56"
       />
-      <div className="flex flex-wrap justify-center items-center mt-4 border-t-2 pt-5">
+      <div className="w-full flex flex-wrap justify-start items-center mt-4 border-t-2 pt-5">
         {blogItem.tags &&
           blogItem.tags.map((tag) => (
             <p

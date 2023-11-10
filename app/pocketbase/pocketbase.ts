@@ -7,7 +7,7 @@ export const getBlogs = async () => {
 const page = 1;
 const limit = 100;
 
-  let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}`;
+let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}&sort=-created`
 
   const res = await fetch(url, { 
     next: {
