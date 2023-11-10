@@ -67,7 +67,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
             mediaSrc={blog.videoBlockOne ? blog.videoBlockOne : imageBlockOne}
             mediaAlt="blog post media"
             text={blog.textBlockOne || ""}
-            orientation="left"
+            orientation="right"
             title={blog.subTitleOne}
             isVideo={blog.videoBlockOne}
           />
@@ -85,7 +85,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
             }
             mediaAlt="blog post media"
             text={blog.textBlockThree || ""}
-            orientation="left"
+            orientation="right"
             title={blog.subTitleThree}
             isVideo={blog.videoBlockThree}
           />

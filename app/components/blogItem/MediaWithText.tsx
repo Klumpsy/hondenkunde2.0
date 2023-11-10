@@ -31,10 +31,10 @@ const MediaWithText: React.FC<MediaWithTextProps> = ({
       <div
         className={`xl:flex ${
           orientation === "right" ? "xl:flex-row-reverse" : ""
-        } items-center space-y-4 xl:space-y-0 xl:space-x-0`}
+        } items-top space-y-4 xl:space-y-0 xl:space-x-0`}
       >
         {mediaSrc && (
-          <div className="md:m-6 md:float-right md:w-1/3 lg:w-1/4 xl:float-none xl:flex-shrink-0 xl:w-auto">
+          <div className="md:m-2 md:float-right md:w-1/3 lg:w-1/4 xl:float-none xl:flex-shrink-0 xl:w-auto">
             {isVideo ? (
               <div className="responsive-video-wrapper">
                 <iframe
@@ -50,8 +50,8 @@ const MediaWithText: React.FC<MediaWithTextProps> = ({
               <Image
                 src={mediaSrc}
                 alt={mediaAlt}
-                width={300}
-                height={200}
+                width={200}
+                height={100}
                 className="rounded-lg object-cover w-full"
               />
             )}
