@@ -4,6 +4,7 @@ import Image from "next/image";
 import navLinks from "@/app/routes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import PawFromArti from "./PawFromArti";
 
 const Footer = () => {
   const pathName = usePathname();
@@ -52,6 +53,7 @@ const Footer = () => {
                 alt="Rated by dog"
               />
             </div>
+            <PawFromArti />
           </div>
 
           <div>
