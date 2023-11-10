@@ -7,7 +7,7 @@ function CopyPromoCode() {
 
   const handleCopyClick = () => {
     navigator.clipboard
-      .writeText("CADEAU_VAN_ARTI")
+      .writeText("CADEAU-VAN-ARTI")
       .then(() => {
         setCopied(true);
         setTimeout(() => setCopied(false), 1200); // Reset after 2 seconds
@@ -22,7 +22,7 @@ function CopyPromoCode() {
           className="text-orange font-bold text-xl cursor-pointer"
           onClick={handleCopyClick}
         >
-          CADEAU_VAN_ARTI
+          CADEAU-VAN-ARTI
         </h3>
         <span
           className={`text-green-500 absolute top-full left-0 transition-opacity duration-500 ${
