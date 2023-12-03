@@ -102,7 +102,6 @@ export const getFileUrlRatingItem = async (ratingItem: any, fileName: string) =>
     return url;
 }
 
-
 export const getFileUrlsForProductImages = async (ratingItem: any) => {
     const productImages = ratingItem.productImages;
     if (!productImages || !Array.isArray(productImages) || productImages.length === 0) {

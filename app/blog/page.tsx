@@ -8,7 +8,7 @@ const Blog = async () => {
   return (
     <div>
       <Header
-        imageName="banner11.jpg"
+        imageName="banner6.jpeg"
         linkHref="/artiRating"
         titleText="Blog"
         anchorText="Bekijk Arti's rating"
