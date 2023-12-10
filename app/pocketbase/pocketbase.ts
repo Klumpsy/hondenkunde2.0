@@ -51,8 +51,13 @@ export const getSingleBlog = async (slug: string) => {
 
 export const getSingleRatingItem = async (slug: string) => {
   
-    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`);
-     
+    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`,
+    {
+      next: {
+        revalidate: 10,
+        },
+      }
+    );
       const data = await res.json();
       return data.items[0];
 }
