@@ -18,7 +18,10 @@ const RatingDetail = async ({ params }: any) => {
   const urls = await getFileUrlsForProductImages(ratingDetail);
 
   return (
-    <div className="bg-gray-900 py-8 pt-12 min-h-screen">
+    <div
+      className="bg-gray-900 py-8 pt-12 min-h-screen"
+      suppressHydrationWarning
+    >
       <div className="flex items-start max-w-[1100px] mx-auto mb-5">
         <Link
           href="/artiRating"
@@ -74,10 +77,11 @@ const RatingDetail = async ({ params }: any) => {
             >
               {ratingDetail.blogUrl && (
                 <div className="mb-2 md:mb-0 md:w-1/2 px-2">
-                  <Link href={ratingDetail.blogUrl}>
-                    <button className="mt-3 w-full bg-orange text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-yellow-500 hover:text-white">
-                      {ratingDetail.blogButtonText}
-                    </button>
+                  <Link
+                    href={ratingDetail.blogUrl}
+                    className="mt-3 w-full bg-orange text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-yellow-500 hover:text-white"
+                  >
+                    {ratingDetail.blogButtonText}
                   </Link>
                 </div>
               )}
@@ -87,10 +91,12 @@ const RatingDetail = async ({ params }: any) => {
                 } px-2`}
               >
                 {ratingDetail.buttonUrl && (
-                  <Link href={ratingDetail.buttonUrl} target="_blank">
-                    <button className="mt-3 w-full bg-green-700 text-white py-2 px-4 rounded-full font-bold hover:bg-green-600 hover:text-white">
-                      {ratingDetail.buttonText}
-                    </button>
+                  <Link
+                    href={ratingDetail.buttonUrl}
+                    target="_blank"
+                    className="mt-3 w-full bg-green-700 text-white py-2 px-4 rounded-full font-bold hover:bg-green-600 hover:text-white"
+                  >
+                    {ratingDetail.buttonText}
                   </Link>
                 )}
               </div>
