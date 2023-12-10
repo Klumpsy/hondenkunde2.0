@@ -6,7 +6,6 @@ import {
 } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import RatingBone from "@/app/components/ratingCard/RatingBone";
 import Slider from "@/app/components/slider/Slider";
 import { extractVideoID } from "@/app/helpers/videoHelper";
@@ -16,11 +15,6 @@ const RatingDetail = async ({ params }: any) => {
   const coverImageUrl = await getFileUrlRatingItem(ratingDetail, "coverImage");
   const urls = await getFileUrlsForProductImages(ratingDetail);
 
-  const router = useRouter();
-
-  if (router.isFallback) {
-    return "yo";
-  }
   return (
     <div className="bg-gray-900 py-8 pt-12 min-h-screen">
       <div className="flex items-start max-w-[1100px] mx-auto mb-5">
