@@ -33,7 +33,6 @@ export const getRatingItems = async () => {
 
     const data = await res.json();
 
-
     return data?.items as any[];
 }
 
@@ -64,6 +63,8 @@ export const getSingleRatingItem = async (slug: string) => {
     }
 
     const data = await res.json();
+
+    console.log(data);
     return data.items[0];
 }
 
@@ -105,6 +106,8 @@ export const getFeaturedItem = async () => {
 export const getFileUrl = async (blogItem: any, fileName: string) => {
     const url = pb.getFileUrl(blogItem, blogItem[fileName]);
 
+    console.log(url);
+
     if(!url) {
       notFound()
     }
@@ -114,6 +117,8 @@ export const getFileUrl = async (blogItem: any, fileName: string) => {
 
 export const getFileUrlRatingItem = async (ratingItem: any, fileName: string) => {
     const url = pb.getFileUrl(ratingItem, ratingItem[fileName]);
+
+    console.log(url);
 
     if(!url) {
       notFound()
@@ -131,6 +136,8 @@ export const getFileUrlsForProductImages = async (ratingItem: any) => {
     const urls = await Promise.all(productImages.map(async (image) => {
         return pb.getFileUrl(ratingItem, image);
     }));
+
+    console.log(urls);
 
     return urls;
 }
