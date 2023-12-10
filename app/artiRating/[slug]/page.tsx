@@ -1,3 +1,5 @@
+export const dynamicParams = true;
+
 import {
   getFileUrlRatingItem,
   getSingleRatingItem,
@@ -128,15 +130,10 @@ const RatingDetail = async ({ params }: any) => {
 
 export default RatingDetail;
 
-export async function getStaticPaths() {
+export async function generateStaticParams() {
   const ratingItems = await getRatingItems();
 
-  const paths = ratingItems.map((ratingItem) => ({
-    params: { slug: ratingItem.slug },
+  return ratingItems.map((ratingItem) => ({
+    slug: ratingItem.slug,
   }));
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
 }
