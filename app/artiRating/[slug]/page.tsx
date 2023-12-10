@@ -128,6 +128,25 @@ const RatingDetail = async ({ params }: any) => {
 
 export default RatingDetail;
 
+export async function getStaticProps({ params }) {
+  try {
+    const ratingDetail = await getSingleRatingItem(params.slug);
+    const coverImageUrl = await getFileUrlRatingItem(
+      ratingDetail,
+      "coverImage"
+    );
+    const urls = await getFileUrlsForProductImages(ratingDetail);
+
+    return {
+      props: { ratingDetail, coverImageUrl, urls },
+      revalidate: 10,
+    };
+  } catch (error) {
+    console.error(error);
+    return { notFound: true };
+  }
+}
+
 export async function getStaticPaths() {
   const ratingItems = await getRatingItems();
 
