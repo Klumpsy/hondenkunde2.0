@@ -120,11 +120,7 @@ export const getFileUrl = async (blogItem: any, fileName: string) => {
 
 export const getFileUrlRatingItem = async (ratingItem: any, fileName: string) => {
     const url = pb.getFileUrl(ratingItem, ratingItem[fileName]);
-
-    if(!url) {
-      notFound()
-    }
-    
+        
     return url;
 }
 
