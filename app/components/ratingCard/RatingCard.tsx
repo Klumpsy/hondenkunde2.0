@@ -10,50 +10,46 @@ const RatingCard: React.FC<{ ratingItem: RatingItemInterface }> = async ({
   const imageUrl = await getFileUrlRatingItem(ratingItem, "coverImage");
 
   return (
-    <Link href={`/artiRating/${ratingItem.slug}`}>
-      <div className="block h-[640px] overflow-hidden">
-        <div className="flex flex-col h-full bg-gray-800 border border-gray-700 rounded-lg shadow hover:bg-gray-700 cursor-pointer">
-          <div className="relative h-[300px] rounded-t-lg overflow-hidden flex items-center justify-center">
-            <Image
-              src={imageUrl}
-              alt="Rating"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-t-lg"
-            />
-          </div>
-          <div className="p-4 flex-1 flex flex-col">
-            <h5 className="mb-2 text-2xl font-bold text-orange flex-none">
-              {ratingItem.title}
-            </h5>
-            <p
-              className="mb-3 text-sm text-gray-400 flex-grow overflow-y-auto"
-              dangerouslySetInnerHTML={{
-                __html:
-                  ratingItem.explanationText.length > 200
-                    ? ratingItem.explanationText.substring(0, 200) + "..."
-                    : ratingItem.explanationText,
-              }}
-            />
-            <p className="text-orange mb-3 flex-none">
-              Beoordeeld door: {ratingItem.ratedBy}
-            </p>
-            <RatingBone
-              rating={ratingItem.rating}
-              ratedBy={ratingItem.ratedBy}
-            />
-            <div className="flex items-center justify-center mt-7">
-              <button
-                className="px-4 py-2 font-bold bg-darkBlue text-orange text-sm uppercase rounded focus:outline-none flex-none hover:bg-gray-900 hover:text-orange"
-                style={{ maxWidth: "250px" }}
-              >
-                Bekijk product
-              </button>
-            </div>
+    <div className="block h-[640px] overflow-hidden">
+      <div className="flex flex-col h-full bg-gray-800 border border-gray-700 rounded-lg shadow">
+        <div className="relative h-[300px] rounded-t-lg overflow-hidden flex items-center justify-center">
+          <Image
+            src={imageUrl}
+            alt="Rating"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-t-lg"
+          />
+        </div>
+        <div className="p-4 flex-1 flex flex-col">
+          <h5 className="mb-2 text-2xl font-bold text-orange flex-none">
+            {ratingItem.title}
+          </h5>
+          <p
+            className="mb-3 text-sm text-gray-400 flex-grow overflow-y-auto"
+            dangerouslySetInnerHTML={{
+              __html:
+                ratingItem.explanationText.length > 200
+                  ? ratingItem.explanationText.substring(0, 200) + "..."
+                  : ratingItem.explanationText,
+            }}
+          />
+          <p className="text-orange mb-3 flex-none">
+            Beoordeeld door: {ratingItem.ratedBy}
+          </p>
+          <RatingBone rating={ratingItem.rating} ratedBy={ratingItem.ratedBy} />
+          <div className="flex items-center justify-center mt-7">
+            <Link
+              href={`/artiRating/${ratingItem.slug}`}
+              className="px-4 py-2 font-bold bg-darkBlue text-orange text-sm uppercase rounded focus:outline-none flex-none hover:bg-gray-900 hover:text-orange"
+              style={{ maxWidth: "250px" }}
+            >
+              Bekijk product
+            </Link>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

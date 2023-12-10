@@ -6,7 +6,7 @@ export default async function ArtiRating() {
   const ratingItems = await getRatingItems();
 
   return (
-    <>
+    <div>
       <Header
         imageName="banner12.jpg"
         linkHref="https://www.hondenshop.nl/partner/hondenkunde/"
@@ -18,6 +18,6 @@ export default async function ArtiRating() {
           return <RatingCard key={index} ratingItem={ratingItem} />;
         })}
       </div>
-    </>
+    </div>
   );
 }
