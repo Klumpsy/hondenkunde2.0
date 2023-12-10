@@ -48,9 +48,6 @@ export const getSingleBlog = async (slug: string) => {
         }
       );
 
-      if(!res.ok) {
-        notFound()
-      }
       const data = await res.json();
       return data.items[0];
 }
@@ -83,9 +80,6 @@ export const getFeaturedBlog = async () => {
         }
       );
 
-      if(!res.ok) {
-        notFound()
-      }
       const data = await res.json();
       return data.items[0];
 }
@@ -99,10 +93,6 @@ export const getFeaturedItem = async () => {
         },
         }
       );
-
-      if(!res.ok) {
-        notFound()
-      }
 
       const data = await res.json();
       return data.items[0];
@@ -120,7 +110,7 @@ export const getFileUrl = async (blogItem: any, fileName: string) => {
 
 export const getFileUrlRatingItem = async (ratingItem: any, fileName: string) => {
     const url = pb.getFileUrl(ratingItem, ratingItem[fileName]);
-        
+
     return url;
 }
 
