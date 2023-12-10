@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import PocketBase from 'pocketbase'
 
 const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
@@ -30,7 +29,6 @@ export const getRatingItems = async () => {
            },
         }
     );
-    
     const data = await res.json();
 
 
@@ -47,27 +45,16 @@ export const getSingleBlog = async (slug: string) => {
             },
         }
       );
-
       const data = await res.json();
       return data.items[0];
 }
 
 export const getSingleRatingItem = async (slug: string) => {
-
-    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`,
-    {
-      next: {
-        revalidate:10,
-        },
-     }
-    )
-
-    if(!res.ok) {
-      notFound()
-    }
-
-    const data = await res.json();
-    return data.items[0];
+  
+    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`);
+     
+      const data = await res.json();
+      return data.items[0];
 }
 
 export const getFeaturedBlog = async () => {
@@ -79,7 +66,6 @@ export const getFeaturedBlog = async () => {
         },
         }
       );
-
       const data = await res.json();
       return data.items[0];
 }
@@ -100,17 +86,13 @@ export const getFeaturedItem = async () => {
 
 export const getFileUrl = async (blogItem: any, fileName: string) => {
     const url = pb.getFileUrl(blogItem, blogItem[fileName]);
-
-    if(!url) {
-      notFound()
-    }
     
     return url;
 }
 
 export const getFileUrlRatingItem = async (ratingItem: any, fileName: string) => {
     const url = pb.getFileUrl(ratingItem, ratingItem[fileName]);
-
+    
     return url;
 }
 
