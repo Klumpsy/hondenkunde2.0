@@ -1,3 +1,5 @@
+export const dynamicParams = true;
+
 import { getBlogs, getSingleBlog } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
@@ -98,15 +100,10 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
 
 export default BlogDetail;
 
-export async function getStaticPaths() {
+export async function generateStaticParams() {
   const blogs = await getBlogs();
 
-  const paths = blogs.map((blog) => ({
-    params: { slug: blog.slug },
+  return blogs.map((blog) => ({
+    slug: blog.slug,
   }));
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
 }
