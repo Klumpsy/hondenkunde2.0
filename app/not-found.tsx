@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export default function notFound() {
     return (
-        <main className="text-center">
+        <main className="text-center min-h-100 h-screen">
             <h2 className="text-3xl text-orange mt-10">
                 Oeps, deze pagina bestaat niet...
             </h2>

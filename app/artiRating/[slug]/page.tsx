@@ -1,5 +1,3 @@
-export const dynamicParams = true;
-
 import {
   getFileUrlRatingItem,
   getSingleRatingItem,
@@ -11,9 +9,33 @@ import Image from "next/image";
 import RatingBone from "@/app/components/ratingCard/RatingBone";
 import Slider from "@/app/components/slider/Slider";
 import { extractVideoID } from "@/app/helpers/videoHelper";
+import { notFound } from "next/navigation";
+
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const ratingItems = await getRatingItems();
+
+  return ratingItems.map((ratingItem) => ({
+    slug: ratingItem.slug,
+  }));
+}
+
+export async function generateMetaData({ params }: any) {
+  const ratingDetail = await getSingleRatingItem(params.slug);
+
+  if (!ratingDetail) notFound();
+
+  return {
+    title: ratingDetail.title,
+  };
+}
 
 const RatingDetail = async ({ params }: any) => {
   const ratingDetail = await getSingleRatingItem(params.slug);
+
+  if (!ratingDetail) notFound();
+
   const coverImageUrl = await getFileUrlRatingItem(ratingDetail, "coverImage");
   const urls = await getFileUrlsForProductImages(ratingDetail);
 
@@ -135,11 +157,3 @@ const RatingDetail = async ({ params }: any) => {
 };
 
 export default RatingDetail;
-
-export async function generateStaticParams() {
-  const ratingItems = await getRatingItems();
-
-  return ratingItems.map((ratingItem) => ({
-    slug: ratingItem.slug,
-  }));
-}
