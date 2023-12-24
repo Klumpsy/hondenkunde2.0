@@ -92,36 +92,28 @@ const RatingDetail = async ({ params }: any) => {
                 }}
               />
             </div>
-            <div
-              className={`mt-4 flex flex-col md:flex-row ${
-                ratingDetail.blogUrl ? "-mx-2" : "justify-center"
-              } mb-4`}
-            >
+            <div className="mt-6 flex flex-wrap justify-center gap-2">
               {ratingDetail.blogUrl && (
-                <div className="mb-2 md:mb-0 md:w-1/2 px-2">
+                <div className=" min-w-0 px-2 mt-4">
                   <Link
                     href={ratingDetail.blogUrl}
-                    className="mt-3 w-full bg-orange text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-yellow-500 hover:text-white"
+                    className="mt-3 w-full bg-orange text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-yellow-500 hover:text-white text-center"
                   >
                     {ratingDetail.blogButtonText}
                   </Link>
                 </div>
               )}
-              <div
-                className={`${
-                  ratingDetail.blogUrl ? "md:w-1/2" : "w-full max-w-xs"
-                } px-2`}
-              >
-                {ratingDetail.buttonUrl && (
+              {ratingDetail.buttonUrl && (
+                <div className="min-w-0 px-2 mt-4">
                   <Link
                     href={ratingDetail.buttonUrl}
                     target="_blank"
-                    className="mt-3 w-full bg-green-700 text-white py-2 px-4 rounded-full font-bold hover:bg-green-600 hover:text-white"
+                    className="mt-3 w-full bg-green-700 text-white py-2 px-4 rounded-full font-bold hover:bg-green-600 hover:text-white text-center"
                   >
                     {ratingDetail.buttonText}
                   </Link>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
