@@ -2,9 +2,9 @@ import { getBlogs, getSingleBlog } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
 import { getFileUrl } from "@/app/pocketbase/pocketbase";
-import MediaWithText from "@/app/components/blogItem/MediaWithText";
-import Disclaimer from "@/app/components/blogItem/Disclaimer";
-import ShareOnSocials from "@/app/components/blogItem/ShareOnSocials";
+import MediaWithText from "@/app/__components/blogItem/MediaWithText";
+import Disclaimer from "@/app/__components/blogItem/Disclaimer";
+import ShareOnSocials from "@/app/__components/blogItem/ShareOnSocials";
 
 interface BlogParams {
   slug: string;

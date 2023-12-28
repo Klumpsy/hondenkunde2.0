@@ -1,5 +1,5 @@
-import Header from "../components/header/Header";
-import PromoCodeHondenShop from "../components/promo/PromoCodeHondenShop";
+import Header from "../__components/header/Header";
+import PromoCodeHondenShop from "../__components/promo/PromoCodeHondenShop";
 import { BsQuote } from "react-icons/bs";
 
 export default async function ArtiRating() {

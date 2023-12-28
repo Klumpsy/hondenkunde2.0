@@ -1,8 +1,8 @@
-import Header from "./components/header/Header";
+import Header from "./__components/header/Header";
 import { getFeaturedBlog, getFeaturedItem } from "./pocketbase/pocketbase";
-import FeaturedBlog from "./components/featured/FeaturedBlog";
-import FeaturedRating from "./components/featured/FeaturedRating";
-import PromoCode from "./components/promo/PromoCodeHondenShop";
+import FeaturedBlog from "./__components/featured/FeaturedBlog";
+import FeaturedRating from "./__components/featured/FeaturedRating";
+import PromoCode from "./__components/promo/PromoCodeHondenShop";
 
 export default async function Home() {
   const featuredBlog = await getFeaturedBlog();

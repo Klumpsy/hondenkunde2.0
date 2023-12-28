@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { MdExpandMore } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
-import { CustomFilterProps } from "../definitions/interface/CustomFilterPropsInterface";
+import { CustomFilterProps } from "../../definitions/interface/CustomFilterPropsInterface";
 
 const CustomFilter = ({ title, options }: CustomFilterProps) => {
   const [selectedOption, setSelectedOption] = useState<string | undefined>();

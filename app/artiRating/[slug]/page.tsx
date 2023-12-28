@@ -6,8 +6,8 @@ import {
 } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
-import RatingBone from "@/app/components/ratingCard/RatingBone";
-import Slider from "@/app/components/slider/Slider";
+import RatingBone from "@/app/__components/ratingCard/RatingBone";
+import Slider from "@/app/__components/slider/Slider";
 import { extractVideoID } from "@/app/helpers/videoHelper";
 
 const RatingDetail = async ({ params }: any) => {

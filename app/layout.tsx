@@ -2,10 +2,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
-import Analytics from "./google/GoogleAnalytics";
+import Analytics from "./__components/google/GoogleAnalytics";
 
-import Navigation from "./components/navigation";
-import Footer from "./components/footer/Footer";
+import Navigation from "./__components/navigation";
+import Footer from "./__components/footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 

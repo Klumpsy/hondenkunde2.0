@@ -1,6 +1,6 @@
-import BlogItem from "../components/blogItem/BlogItem";
+import BlogItem from "../__components/blogItem/BlogItem";
 import { getBlogs } from "../pocketbase/pocketbase";
-import Header from "../components/header/Header";
+import Header from "../__components/header/Header";
 import CustomFilter from "../filters/CustomFilter";
 import { tags } from "../constants/constants";
 

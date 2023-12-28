@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import Navbar from "./navbar";
-import Sidebar from "./sidebar";
+import Navbar from "../navigation/navbar";
+import Sidebar from "../navigation/sidebar";
 import navLinks from "@/app/routes";
 
 const Navigation = () => {

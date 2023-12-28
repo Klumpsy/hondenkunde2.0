@@ -1,5 +1,5 @@
-import Header from "../components/header/Header";
-import RatingCard from "../components/ratingCard/RatingCard";
+import Header from "../__components/header/Header";
+import RatingCard from "../__components/ratingCard/RatingCard";
 import { getRatingItems } from "../pocketbase/pocketbase";
 
 export default async function ArtiRating() {
