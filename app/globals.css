@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/*Tags*/
 .Voeding {
     background-color: aquamarine;
     color: black;
@@ -30,6 +30,36 @@
 .Vakantie {
     background-color: rgb(167, 233, 82);
     color: white;
+    font-weight: 500;
+}
+
+.Algemeen {
+    background-color: rgb(255, 65, 122);
+    color: white;
+    font-weight: 500;
+}
+
+.Slapen {
+    background-color: rgb(224, 236, 112);
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+}
+
+.Uitlaten {
+    background-color: rgb(33, 66, 47);
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+}
+
+.Denkspellen {
+    background-color: rgb(105, 32, 123);
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+}
+
+.Reizen {
+    background-color: rgb(32, 37, 123);
+    color: rgb(255, 255, 255);
     font-weight: 500;
 }
 
