@@ -156,3 +156,24 @@
     animation: fadeInOut 1.5s ease-in-out;
   }
 
+/*Dynamic button classes*/
+.button_orange {
+    color: #f3f3f3 !important;
+    background-color: #DB9A01;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.button_blue {
+    color: #f3f3f3 !important;
+    background-color: #3A3F35;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.button_blue:hover, .button_orange:hover {
+    cursor: pointer;
+    filter: brightness(85%);
+}
