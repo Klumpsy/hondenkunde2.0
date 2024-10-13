@@ -1,8 +1,15 @@
+import { Metadata } from "next";
 import Header from "../components/header/Header";
 import PromoCodeHondenShop from "../components/promo/PromoCodeHondenShop";
 import { BsQuote } from "react-icons/bs";
 
-export default async function ArtiRating() {
+export const metadata: Metadata = {
+  title: "Arti's promo's | Hondenkunde.nl",
+  description:
+    "De promotiecodes op deze pagina kunnen gebruikt worden bij één van onze partners",
+};
+
+export default async function ArtiActie() {
   return (
     <>
       <Header

@@ -21,13 +21,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const [query] = useDebounce(text, 300);
 
   const handleSearch = (searchQuery: string) => {
-    const tags = searchParams.get("tags") || "";
-    const queryParams = new URLSearchParams();
-    if (tags) {
-      queryParams.set("tags", tags);
+    const params = new URLSearchParams(searchParams.toString());
+    if (searchQuery) {
+      params.set("search", searchQuery);
+    } else {
+      params.delete("search");
     }
-    queryParams.set("search", searchQuery);
-    router.push(`${baseRoute}?${queryParams.toString()}`);
+    params.set("page", "1");
+    router.push(`${baseRoute}?${params.toString()}`);
 
     const resultsSection = document.getElementById("search-results");
     if (resultsSection) {
@@ -36,15 +37,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   useEffect(() => {
-    if (query) {
-      handleSearch(query);
-    } else {
-      router.push(baseRoute);
-    }
-  }, [query, router, searchParams, baseRoute]);
+    handleSearch(query);
+  }, [query]);
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && text) {
+    if (e.key === "Enter") {
       e.preventDefault();
       handleSearch(text);
     }
@@ -60,16 +57,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
         placeholder={placeholder}
         fullWidth
         sx={{ maxWidth: 400 }}
-        slotProps={{
-          input: {
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton aria-label="search">
-                  <FaSearch />
-                </IconButton>
-              </InputAdornment>
-            ),
-          },
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton aria-label="search">
+                <FaSearch />
+              </IconButton>
+            </InputAdornment>
+          ),
         }}
       />
     </div>
