@@ -39,9 +39,8 @@ const Slider: React.FC<SliderProps> = ({ imagePaths }) => {
             <Image
               src={src}
               alt={`slide-${index}`}
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
+              fill
+              style={{ objectFit: "cover" }}
               quality={100}
               className="absolute w-full h-auto transform"
             />

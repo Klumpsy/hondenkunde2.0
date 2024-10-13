@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import htmlTruncate from "html-truncate";
 import { getFileUrlRatingItem } from "@/app/pocketbase/pocketbase";
 import RatingBone from "./RatingBone";
 import { RatingItemInterface } from "@/app/definitions/interface/RatingItemPropsInterface";
@@ -8,6 +9,7 @@ const RatingCard: React.FC<{ ratingItem: RatingItemInterface }> = async ({
   ratingItem,
 }) => {
   const imageUrl = await getFileUrlRatingItem(ratingItem, "coverImage");
+  const truncatedExplanation = htmlTruncate(ratingItem.explanationText, 200);
 
   return (
     <div className="block h-[640px] overflow-hidden">
@@ -25,13 +27,10 @@ const RatingCard: React.FC<{ ratingItem: RatingItemInterface }> = async ({
           <h5 className="mb-2 text-2xl font-bold text-orange flex-none">
             {ratingItem.title}
           </h5>
-          <p
+          <div
             className="mb-3 text-sm text-gray-400 flex-grow overflow-y-auto"
             dangerouslySetInnerHTML={{
-              __html:
-                ratingItem.explanationText.length > 200
-                  ? ratingItem.explanationText.substring(0, 200) + "..."
-                  : ratingItem.explanationText,
+              __html: truncatedExplanation,
             }}
           />
           <p className="text-orange mb-3 flex-none">

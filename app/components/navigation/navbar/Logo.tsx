@@ -5,7 +5,6 @@ import Link from "next/link";
 import Button from "./Button";
 
 const Logo = () => {
-
   const [width, setWidth] = useState(0);
 
   const updateWidth = () => {
@@ -39,8 +38,8 @@ const Logo = () => {
         <Image
           src="/images/logo.png"
           alt="Logo"
-          width={width < 1024 ? "85" : "110"}
-          height={width < 1024 ? "30" : "45"}
+          width={width < 1024 ? 85 : 110}
+          height={width < 1024 ? 30 : 45}
           className="relative"
         />
       </Link>

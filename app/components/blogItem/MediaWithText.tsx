@@ -53,6 +53,9 @@ const MediaWithText: React.FC<MediaWithTextProps> = ({
                 width={200}
                 height={100}
                 className="rounded-lg object-cover w-full"
+                priority={true}
+                placeholder="blur"
+                blurDataURL="data:image/svg+xml;base64,..."
               />
             )}
           </div>

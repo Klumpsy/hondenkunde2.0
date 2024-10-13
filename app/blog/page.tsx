@@ -26,7 +26,10 @@ const Blog = async ({
       <div className="relative flex w-full justify-center space-x-5">
         <SearchBar baseRoute="/blog" placeholder="Zoek in blogs..." />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto p-3">
+      <div
+        id="search-results"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto p-3"
+      >
         {blogs?.map((blogItem) => (
           <BlogItem
             key={blogItem.id}

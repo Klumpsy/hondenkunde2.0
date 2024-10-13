@@ -1,5 +1,3 @@
-export const dynamicParams = true;
-
 import { getBlogs, getSingleBlog } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,6 +5,7 @@ import { getFileUrl } from "@/app/pocketbase/pocketbase";
 import MediaWithText from "@/app/components/blogItem/MediaWithText";
 import Disclaimer from "@/app/components/blogItem/Disclaimer";
 import ShareOnSocials from "@/app/components/blogItem/ShareOnSocials";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 interface BlogParams {
   slug: string;
@@ -26,14 +25,18 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
   const imageBlockThree = await getFileUrl(blog, "imageBlockThree");
 
   return (
-    <div className="p-4 sm:p-8 bg-blue-100">
-      <div className="relative container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-[1200px]">
+    <div className="p-4 sm:p-8 bg-blue-100 flex flex-col items-center min-h-screen">
+      <div className="w-full max-w-[1200px] mb-8 mt-4">
         <Link
           href="/blog"
-          className="back_button_blog font-extrabold transform bg-orange text-darkBlue py-3 px-5 rounded-full shadow-md hover:bg-gray-800 hover:text-orange transition"
+          className="back_button_blog font-extrabold bg-orange text-darkBlue py-3 px-5 rounded-full shadow-md hover:bg-gray-800 hover:text-orange transition"
         >
+          <ArrowBackIcon className="mr-2" />
           Terug naar overzicht
         </Link>
+      </div>
+
+      <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-[1200px]">
         <h1 className="text-center mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
           {blog.title}
         </h1>
@@ -44,6 +47,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
             width={1000}
             height={600}
             className="mb-4 object-cover w-full md:w-auto"
+            priority={true}
           />
         </div>
         <div className="flex flex-wrap justify-center items-center mt-4 border-t-2 pt-5">
@@ -61,7 +65,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
           <ShareOnSocials title={blog.title} />
         </div>
         <div
-          className=" p-4 mt-8 text-gray-700 leading-relaxed"
+          className="p-1 mt-8 text-gray-700 leading-relaxed"
           dangerouslySetInnerHTML={{ __html: blog.introText }}
         ></div>
         <div className="blog_content_container">

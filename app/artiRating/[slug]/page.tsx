@@ -10,6 +10,7 @@ import RatingBone from "@/app/components/ratingCard/RatingBone";
 import Slider from "@/app/components/slider/Slider";
 import { extractVideoID } from "@/app/helpers/videoHelper";
 import { notFound } from "next/navigation";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const dynamicParams = true;
 
@@ -40,64 +41,64 @@ const RatingDetail = async ({ params }: any) => {
   const urls = await getFileUrlsForProductImages(ratingDetail);
 
   return (
-    <div
-      className="bg-gray-900 py-8 pt-12 min-h-screen"
-      suppressHydrationWarning
-    >
-      <div className="flex items-start max-w-[1100px] mx-auto mb-5">
+    <div className="p-4 sm:p-4 bg-gray-100 flex flex-col items-center min-h-screen">
+      <div className="w-full max-w-[1200px] mb-4 mt-4">
         <Link
           href="/artiRating"
-          className="ml-2 hover:bg-orange hover:text-darkBlue font-extrabold mb-4 bg-orange text-darkBlue py-2 px-4 rounded-full shadow-md transition z-10"
+          className="back_button_blog font-extrabold bg-orange text-darkBlue py-3 px-5 rounded-full shadow-md hover:bg-gray-800 hover:text-orange transition"
         >
+          <ArrowBackIcon className="mr-2" />
           Terug naar overzicht
         </Link>
       </div>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row -mx-4">
-          <div className="md:flex-1 px-4 z-1">
-            <div className="relative h-[470px] rounded-lg bg-gray-300 mb-4 overflow-hidden">
+
+      <div className="container mx-auto p-4 rounded-lg max-w-[1200px]">
+        <div className="bg-gray-900 shadow-lg rounded-lg p-4 flex flex-col md:flex-row -mx-4">
+          <div className="md:flex-1 px-2 z-1">
+            <div className="relative w-full h-[470px] rounded-lg bg-gray-300 mb-4 overflow-hidden shadow-md">
               <Image
                 src={coverImageUrl}
                 alt="Product Image"
-                layout="fill"
-                objectFit="cover"
-                className="absolute"
+                fill
+                style={{ objectFit: "cover" }}
+                className="absolute inset-0"
               />
             </div>
           </div>
-          <div className="md:flex-1 px-4 bg-gray-900 p-4">
-            <h2 className="text-2xl font-bold mb-2 text-orange">
+          <div className="md:flex-1 px-4 p-6 rounded-lg text-white">
+            <h2 className="text-3xl font-bold mb-2 text-orange">
               {ratingDetail.title}
             </h2>
+
             <div className="mb-4">
-              <span className="font-bold text-gray-700 text-white">
+              <span className="font-bold text-gray-400">
                 Beoordeeld door{" "}
-                <span className="text-orange">{ratingDetail.ratedBy} </span>:
+                <span className="text-orange">{ratingDetail.ratedBy}</span>:
               </span>
-              <div className="flex items-center mt-2 text-white">
+              <div className="flex items-center mt-2">
                 <RatingBone
                   rating={ratingDetail.rating}
                   ratedBy={ratingDetail.ratedBy}
                 />
               </div>
             </div>
+
             <div>
-              <span className="font-bold text-gray-700 text-white">
-                Over dit product:
-              </span>
-              <p
-                className="text-gray-600 text-sm mt-2 text-white dynamic_text_input"
+              <span className="font-bold text-gray-400">Over dit product:</span>
+              <div
+                className="text-gray-300 text-sm mt-2 dynamic_text_input"
                 dangerouslySetInnerHTML={{
                   __html: ratingDetail.explanationText,
                 }}
               />
             </div>
+
             <div className="mt-6 flex flex-wrap justify-center gap-2">
               {ratingDetail.blogUrl && (
-                <div className=" min-w-0 px-2 mt-4">
+                <div className="min-w-0 px-2 mt-4">
                   <Link
                     href={ratingDetail.blogUrl}
-                    className="mt-3 w-full bg-orange text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-yellow-500 hover:text-white text-center"
+                    className="w-full bg-orange text-darkBlue py-2 px-4 rounded-full font-bold hover:bg-yellow-500 hover:text-white text-center"
                   >
                     {ratingDetail.blogButtonText}
                   </Link>
@@ -108,7 +109,7 @@ const RatingDetail = async ({ params }: any) => {
                   <Link
                     href={ratingDetail.buttonUrl}
                     target="_blank"
-                    className="mt-3 w-full bg-green-700 text-white py-2 px-4 rounded-full font-bold hover:bg-green-600 hover:text-white text-center"
+                    className="w-full bg-green-700 text-white py-2 px-4 rounded-full font-bold hover:bg-green-600 hover:text-white text-center"
                   >
                     {ratingDetail.buttonText}
                   </Link>
@@ -118,8 +119,9 @@ const RatingDetail = async ({ params }: any) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
-        <div className="flex flex-wrap justify-between max-w-[1100px] w-full">
+
+      <div className="flex justify-center mt-8 w-full max-w-[1200px]">
+        <div className="flex flex-wrap justify-between w-full">
           <div className="mt-7 w-full md:w-1/2 p-3">
             <Slider imagePaths={urls} />
           </div>

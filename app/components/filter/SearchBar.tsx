@@ -28,6 +28,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
     }
     queryParams.set("search", searchQuery);
     router.push(`${baseRoute}?${queryParams.toString()}`);
+
+    const resultsSection = document.getElementById("search-results");
+    if (resultsSection) {
+      resultsSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
