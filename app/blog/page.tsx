@@ -2,6 +2,13 @@ import BlogItem from "../components/blogItem/BlogItem";
 import { getBlogs } from "../pocketbase/pocketbase";
 import Header from "../components/header/Header";
 import SearchBar from "../components/filter/SearchBar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog | Hondenkunde.nl",
+  description:
+    "Lees meer over onze ervaringen als hondeneigenaren en die van onze hond Arti",
+};
 
 const Blog = async ({
   searchParams,

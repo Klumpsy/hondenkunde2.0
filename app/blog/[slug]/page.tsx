@@ -6,6 +6,7 @@ import MediaWithText from "@/app/components/blogItem/MediaWithText";
 import Disclaimer from "@/app/components/blogItem/Disclaimer";
 import ShareOnSocials from "@/app/components/blogItem/ShareOnSocials";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { notFound } from "next/navigation";
 
 interface BlogParams {
   slug: string;
@@ -14,6 +15,17 @@ interface BlogParams {
 
 interface BlogDetailProps {
   params: BlogParams;
+}
+
+export async function generateMetadata({ params }: any) {
+  const blog = await getSingleBlog(params.slug);
+
+  if (!blog) notFound();
+
+  return {
+    title: `${blog.title} | Hondenkunde`,
+    description: blog.metaDataDescription,
+  };
 }
 
 const BlogDetail = async ({ params }: BlogDetailProps) => {

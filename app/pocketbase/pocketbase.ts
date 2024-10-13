@@ -1,4 +1,5 @@
 import PocketBase from 'pocketbase'
+import { RatingItem } from '../components/filter/types';
 
 const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
 
@@ -8,7 +9,6 @@ export const getBlogs = async (search?: string, tags?: string[]) => {
 
   let filter = '';
   
-  // Add tag filters to the query if tags are present
   if (tags && tags.length > 0) {
     const tagFilter = tags.map(tag => `tags~'${tag}'`).join(' && ');
     filter += `(${tagFilter})`;
@@ -24,7 +24,6 @@ export const getBlogs = async (search?: string, tags?: string[]) => {
 
   let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}&sort=-created`;
 
-  // Append the filter to the URL if any filter is present
   if (filter) {
     url += `&filter=${encodeURIComponent(filter)}`;
   }
@@ -39,10 +38,12 @@ export const getBlogs = async (search?: string, tags?: string[]) => {
   return data?.items as any[];
 };
 
-export const getRatingItems = async (search?: string, tags?: string[]) => {
-  const page = 1;
-  const limit = 100;
-
+export const getRatingItems = async (
+  search?: string,
+  tags?: string[],
+  page: number = 1,
+  limit: number = 6
+): Promise<{ items: RatingItem[], totalPages: number }> => {
   let filter = '';
 
   if (tags && tags.length > 0) {
@@ -68,7 +69,10 @@ export const getRatingItems = async (search?: string, tags?: string[]) => {
   });
   
   const data = await res.json();
-  return data?.items as any[];
+  return {
+    items: data?.items || [],
+    totalPages: Math.ceil(data?.totalItems / limit) || 1,
+  };
 };
 
 

@@ -11,24 +11,26 @@ import Slider from "@/app/components/slider/Slider";
 import { extractVideoID } from "@/app/helpers/videoHelper";
 import { notFound } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { RatingItem } from "@/app/components/filter/types";
 
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const ratingItems = await getRatingItems();
 
-  return ratingItems.map((ratingItem) => ({
+  return ratingItems.items.map((ratingItem: RatingItem) => ({
     slug: ratingItem.slug,
   }));
 }
 
-export async function generateMetaData({ params }: any) {
+export async function generateMetadata({ params }: any) {
   const ratingDetail = await getSingleRatingItem(params.slug);
 
   if (!ratingDetail) notFound();
 
   return {
-    title: ratingDetail.title,
+    title: `${ratingDetail.title} | Hondenkunde`,
+    description: ratingDetail.metaDataDescription,
   };
 }
 

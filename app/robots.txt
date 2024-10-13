@@ -2,3 +2,12 @@ User-agent: *
 Allow: /
 
 sitemap: https://www.hondenkunde.nl/sitemap.xml
+
+Disallow: /*?*search=
+Disallow: /*?*page=
+Disallow: /*?*tags=
+
+Disallow: /*?*search=*&*page=
+Disallow: /*?*search=*&*tags=
+Disallow: /*?*page=*&*tags=
+Disallow: /*?*search=*&*page=*&*tags=
