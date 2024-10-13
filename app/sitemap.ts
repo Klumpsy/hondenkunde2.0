@@ -14,7 +14,7 @@ export default async function sitemaps() {
       });
 
     const ratingItems = await getRatingItems()
-    const ratingItemUrls = ratingItems.map(ratingItem => {
+    const ratingItemUrls = ratingItems.items.map(ratingItem => {
         return {
             url: `${baseUrl}/artiRating/${ratingItem.slug}`,
             lastModified: new Date()
