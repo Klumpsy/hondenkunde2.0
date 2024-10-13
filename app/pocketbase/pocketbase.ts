@@ -1,4 +1,5 @@
 import PocketBase from 'pocketbase'
+import { RatingItem } from '../components/filter/types';
 
 const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
 
@@ -42,7 +43,7 @@ export const getRatingItems = async (
   tags?: string[],
   page: number = 1,
   limit: number = 6
-) => {
+): Promise<{ items: RatingItem[], totalPages: number }> => {
   let filter = '';
 
   if (tags && tags.length > 0) {
