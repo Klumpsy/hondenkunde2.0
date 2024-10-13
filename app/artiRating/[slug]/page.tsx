@@ -43,7 +43,7 @@ const RatingDetail = async ({ params }: any) => {
   const urls = await getFileUrlsForProductImages(ratingDetail);
 
   return (
-    <div className="p-4 sm:p-4 bg-gray-100 flex flex-col items-center min-h-screen">
+    <div className="p-4 sm:p-4 bg-blue-100 flex flex-col items-center min-h-screen">
       <div className="w-full max-w-[1200px] mb-4 mt-4">
         <Link
           href="/artiRating"
