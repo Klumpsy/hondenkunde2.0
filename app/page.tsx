@@ -17,8 +17,10 @@ export default async function Home() {
         anchorText="Bekijk nieuwste blog"
       />
       <div className="container mx-auto px-4 max-w-[1200px] ">
-        <section className="my-12 text-center ">
-          <h2 className="text-3xl font-bold mb-4">Over Hondenkunde.nl</h2>
+        <section className="my-12 text-left">
+          <h2 className="text-3xl font-bold mb-4 text-left">
+            Over Hondenkunde.nl
+          </h2>
           <p className="text-lg text-left">
             Zoals de naam al doet vermoeden vind je op Hondenkunde.nl info over
             van alles omtrent honden. We schrijven regelmatig nieuwe blogs met

@@ -7,6 +7,7 @@ import Disclaimer from "@/app/components/blogItem/Disclaimer";
 import ShareOnSocials from "@/app/components/blogItem/ShareOnSocials";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { notFound } from "next/navigation";
+import PromoCodeHondenShop from "@/app/components/promo/PromoCodeHondenShop";
 
 interface BlogParams {
   slug: string;
@@ -110,6 +111,9 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
         </div>
       </div>
       <Disclaimer />
+      <div className="w-full max-w-[1200px] mb-4 mt-4">
+        <PromoCodeHondenShop />
+      </div>
     </div>
   );
 };

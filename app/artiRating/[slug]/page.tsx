@@ -12,6 +12,7 @@ import { extractVideoID } from "@/app/helpers/videoHelper";
 import { notFound } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { RatingItem } from "@/app/components/filter/types";
+import PromoCodeHondenShop from "@/app/components/promo/PromoCodeHondenShop";
 
 export const dynamicParams = true;
 
@@ -122,9 +123,9 @@ const RatingDetail = async ({ params }: any) => {
         </div>
       </div>
 
-      <div className="flex justify-center mt-8 w-full max-w-[1200px]">
+      <div className="flex justify-center mt-3 w-full max-w-[1200px]">
         <div className="flex flex-wrap justify-between w-full">
-          <div className="mt-7 w-full md:w-1/2 p-3">
+          <div className="mt-7 w-full md:w-1/2 pr-3">
             <Slider imagePaths={urls} />
           </div>
 
@@ -147,6 +148,9 @@ const RatingDetail = async ({ params }: any) => {
             </div>
           )}
         </div>
+      </div>
+      <div className="w-full max-w-[1200px] mb-4 mt-4">
+        <PromoCodeHondenShop />
       </div>
     </div>
   );
