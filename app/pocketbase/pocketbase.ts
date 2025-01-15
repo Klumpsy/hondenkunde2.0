@@ -45,34 +45,54 @@ export const getRatingItems = async (
   limit: number = 6
 ): Promise<{ items: RatingItem[], totalPages: number }> => {
   let filter = '';
+  const fields = 'id,title,slug,rating,buttonText,buttonUrl,coverImage,explanationText,ratedBy'; // Fetch only required fields
 
+  // Optimize tag filter
   if (tags && tags.length > 0) {
-    const tagFilter = tags.map(tag => `tags~'${tag}'`).join(' && ');
+    const tagFilter = tags.map(tag => `tags~'${tag}'`).join(' || '); // Less strict "OR" instead of "AND"
     filter += `(${tagFilter})`;
   }
 
+  // Optimize search filter
   if (search) {
-    const searchFilter = `(title~'${search}' || explanationText~'${search}')`;
+    const searchFilter = `(title~'${search}')`;
     filter += filter ? ` && ${searchFilter}` : searchFilter;
   }
 
-  let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?page=${page}&perPage=${limit}&sort=-created`;
+  // Construct URL with pagination and fields
+  let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?page=${page}&perPage=${limit}&fields=${fields}&sort=-created`;
 
   if (filter) {
     url += `&filter=${encodeURIComponent(filter)}`;
   }
 
-  const res = await fetch(url, {
-    next: {
-      revalidate: 10,
-    },
-  });
-  
-  const data = await res.json();
-  return {
-    items: data?.items || [],
-    totalPages: Math.ceil(data?.totalItems / limit) || 1,
-  };
+  try {
+    // Add fetch timeout
+    const fetchWithTimeout = (url: string, timeout = 5000) => {
+      const controller = new AbortController();
+      const id = setTimeout(() => controller.abort(), timeout); // Timeout after 5 seconds
+      return fetch(url, { signal: controller.signal, next: { revalidate: 10 } }).finally(() => clearTimeout(id));
+    };
+
+    console.time('fetchTime'); // For debugging query time
+    const res = await fetchWithTimeout(url);
+    console.timeEnd('fetchTime');
+
+    if (!res.ok) {
+      throw new Error(`Fetch failed with status: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    console.log(data);
+    return {
+      items: data?.items || [],
+      totalPages: Math.ceil(data?.totalItems / limit) || 1,
+    };
+  } catch (error) {
+    console.error('Error fetching rating items:', error);
+    return { items: [], totalPages: 0 }; // Return empty if error occurs
+  }
 };
 
 
