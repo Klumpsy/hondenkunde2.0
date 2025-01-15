@@ -43,7 +43,7 @@ const ArtiRating = async ({
         />
       </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading....</div>}>
         <div
           id="search-results"
           className="p-5 container mx-auto max-w-screen-xl grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 xl:max-w-7xl"
