@@ -1,5 +1,6 @@
 import PocketBase from 'pocketbase'
 import { RatingItem } from '../components/filter/types';
+import { GiConsoleController } from 'react-icons/gi';
 
 const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
 
@@ -45,7 +46,7 @@ export const getRatingItems = async (
   limit: number = 6
 ): Promise<{ items: RatingItem[], totalPages: number }> => {
   let filter = '';
-  const fields = 'id,title,slug,rating,buttonText,buttonUrl,coverImage,explanationText,ratedBy'; // Fetch only required fields
+  const fields = 'id,title,slug,rating,buttonText,buttonUrl,coverImage,ratedBy,shortText,collectionId,collectionName';
 
   // Optimize tag filter
   if (tags && tags.length > 0) {
@@ -84,7 +85,6 @@ export const getRatingItems = async (
 
     const data = await res.json();
 
-    console.log(data);
     return {
       items: data?.items || [],
       totalPages: Math.ceil(data?.totalItems / limit) || 1,

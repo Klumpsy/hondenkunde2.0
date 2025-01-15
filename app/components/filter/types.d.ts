@@ -11,6 +11,7 @@ interface PaginationProps {
     slug: string;
     ratedBy: string;
     metaDataDescription: string;
+    shortText: string;
   }
   
   export interface PaginatedRatingItems {

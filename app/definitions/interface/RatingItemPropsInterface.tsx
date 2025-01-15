@@ -7,4 +7,5 @@ export interface RatingItemInterface {
   tags?: string[];
   id: string | number;
   coverImage?: any;
+  shortText: string;
 }
