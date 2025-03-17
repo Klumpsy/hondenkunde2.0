@@ -9,7 +9,7 @@ interface HondenShopBannerProps {
 
 const HondenShopBanner = ({
   imageUrl = "/images/bannerblog.jpg",
-  linkUrl = "https://hondenshop.nl/partner/hondenkunde/",
+  linkUrl = "https://www.hondenshop.nl/partner/hondenkunde/",
   altText = "Shop Banner",
 }: HondenShopBannerProps) => {
   return (
