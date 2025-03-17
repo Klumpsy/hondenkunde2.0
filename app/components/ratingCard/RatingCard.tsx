@@ -1,3 +1,5 @@
+"use server";
+
 import Image from "next/image";
 import Link from "next/link";
 import htmlTruncate from "html-truncate";
@@ -8,7 +10,6 @@ import { RatingItemInterface } from "@/app/definitions/interface/RatingItemProps
 const RatingCard: React.FC<{ ratingItem: RatingItemInterface }> = async ({
   ratingItem,
 }) => {
-  console.log(ratingItem);
   const imageUrl = await getFileUrlRatingItem(ratingItem, "coverImage");
   const truncatedExplanation = htmlTruncate(ratingItem.shortText, 250);
 

@@ -1,13 +1,15 @@
 import { getSingleBlog, getFileUrl } from "@/app/pocketbase/pocketbase";
 import { estimateReadingTime } from "@/app/helpers/textHelper";
 import { formatDate } from "@/app/helpers/dateHelper";
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
+
+export const runtime = "edge";
+export const contentType = "image/png";
 export const size = {
   width: 1200,
   height: 630,
 };
 export const alt = "Hondenkunde | Blog";
-export const contentType = "image/png";
 
 export default async function og({ params }: { params: { slug: string } }) {
   const slug = params.slug;
@@ -16,34 +18,110 @@ export default async function og({ params }: { params: { slug: string } }) {
 
   return new ImageResponse(
     (
-      <div tw="relative flex w-full h-full flex items-center justify-center">
-        <div tw="absolute flex inset-0">
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          width: "100%",
+          height: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            display: "flex",
+            inset: 0,
+          }}
+        >
           <img
-            tw="flex flex-1"
+            style={{
+              flex: 1,
+            }}
             src={imageUrl + "&w=1200&h=630&auto=format&q=75"}
-            alt={blogItem?.title!!}
+            alt={blogItem?.title || ""}
           />
-          <div tw="absolute flex inset-0 bg-black bg-opacity-50" />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundColor: "black",
+              opacity: 0.5,
+            }}
+          />
         </div>
-        <div tw="flex flex-col text-neutral-50">
-          <div tw="text-7xl font-bold">{blogItem?.title}</div>
-          <div tw="flex mt-6 flex-wrap items-center text-4xl text-neutral-200">
-            <div tw="w-4 h-4 mx-6 rounded-full bg-neutral-300 " />
-            <div tw="w-4 h-4 mx-6 rounded-full bg-neutral-300" />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            color: "rgb(250, 250, 250)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "70px",
+              fontWeight: "bold",
+            }}
+          >
+            {blogItem?.title}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              marginTop: "24px",
+              flexWrap: "wrap",
+              alignItems: "center",
+              fontSize: "36px",
+              color: "rgb(229, 229, 229)",
+            }}
+          >
+            <div
+              style={{
+                width: "16px",
+                height: "16px",
+                margin: "0 24px",
+                borderRadius: "9999px",
+                backgroundColor: "rgb(209, 213, 219)",
+              }}
+            />
+            <div
+              style={{
+                width: "16px",
+                height: "16px",
+                margin: "0 24px",
+                borderRadius: "9999px",
+                backgroundColor: "rgb(209, 213, 219)",
+              }}
+            />
             <div>
               {estimateReadingTime(
-                blogItem?.introText +
-                  blogItem?.textBlockOne +
-                  blogItem?.textBlockTwo +
-                  blogItem?.textBlockThree
+                (blogItem?.introText || "") +
+                  (blogItem?.textBlockOne || "") +
+                  (blogItem?.textBlockTwo || "") +
+                  (blogItem?.textBlockThree || "")
               )}{" "}
               min
             </div>
-            <div tw="w-4 h-4 mx-6 rounded-full bg-neutral-300" />
-            <div> {formatDate(blogItem.created)}</div>
+            <div
+              style={{
+                width: "16px",
+                height: "16px",
+                margin: "0 24px",
+                borderRadius: "9999px",
+                backgroundColor: "rgb(209, 213, 219)",
+              }}
+            />
+            <div>{formatDate(blogItem.created)}</div>
           </div>
         </div>
       </div>
-    )
+    ),
+    {
+      ...size,
+      headers: {
+        "Cache-Control": "public, max-age=86400, stale-while-revalidate=43200",
+      },
+    }
   );
 }

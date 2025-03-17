@@ -1,6 +1,8 @@
+"use server";
+
 import PocketBase from 'pocketbase'
 import { RatingItem } from '../components/filter/types';
-import { GiConsoleController } from 'react-icons/gi';
+
 
 const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
 
@@ -75,7 +77,7 @@ export const getRatingItems = async (
       return fetch(url, { signal: controller.signal, next: { revalidate: 10 } }).finally(() => clearTimeout(id));
     };
 
-    console.time('fetchTime'); // For debugging query time
+    console.time('fetchTime');
     const res = await fetchWithTimeout(url);
     console.timeEnd('fetchTime');
 
@@ -91,7 +93,7 @@ export const getRatingItems = async (
     };
   } catch (error) {
     console.error('Error fetching rating items:', error);
-    return { items: [], totalPages: 0 }; // Return empty if error occurs
+    return { items: [], totalPages: 0 };
   }
 };
 

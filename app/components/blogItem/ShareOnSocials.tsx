@@ -1,4 +1,5 @@
 "use client";
+
 import { usePathname } from "next/navigation";
 import { BsFacebook, BsWhatsapp } from "react-icons/bs";
 import { FaXTwitter } from "react-icons/fa6";
