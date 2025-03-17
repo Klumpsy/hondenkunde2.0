@@ -4,8 +4,8 @@
 
 /*Tags*/
 .Voeding {
-    background-color: aquamarine;
-    color: black;
+    background-color: rgb(149, 214, 167);
+    color: rgb(0, 0, 0);
     font-weight: 500;
 }
 
@@ -16,13 +16,13 @@
 }
 
 .Gezondheid {
-    background-color: rgb(114, 196, 226);
-    color: white;
+    background-color: rgb(157, 198, 213);
+    color: rgb(0, 0, 0);
     font-weight: 500;
 }
 
 .Kluiven {
-    background-color: rgb(235, 109, 176);
+    background-color: rgb(233, 143, 143);
     color: white;
     font-weight: 500;
 }
@@ -34,8 +34,8 @@
 }
 
 .Algemeen {
-    background-color: rgb(255, 65, 122);
-    color: white;
+    background-color: rgb(226, 129, 158);
+    color: rgb(255, 255, 255);
     font-weight: 500;
 }
 
@@ -46,19 +46,19 @@
 }
 
 .Uitlaten {
-    background-color: rgb(33, 66, 47);
+    background-color: rgb(136, 206, 182);
     color: rgb(255, 255, 255);
     font-weight: 500;
 }
 
 .Denkspellen {
-    background-color: rgb(105, 32, 123);
+    background-color: rgb(165, 130, 174);
     color: rgb(255, 255, 255);
     font-weight: 500;
 }
 
 .Reizen {
-    background-color: rgb(32, 37, 123);
+    background-color: rgb(84, 85, 115);
     color: rgb(255, 255, 255);
     font-weight: 500;
 }
@@ -187,23 +187,46 @@
   }
 
 /*Dynamic button classes*/
+/*Dynamic button classes with improved responsive styling*/
 .button_orange {
+    display: inline-block;
     color: #f3f3f3 !important;
     background-color: #DB9A01;
-    padding: 10px;
-    border-radius: 20px;
+    padding: 0.625rem 1.25rem;
+    border-radius: 9999px;
     font-weight: 700;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    line-height: 1.5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
 }
 
 .button_blue {
+    display: inline-block;
     color: #f3f3f3 !important;
     background-color: #14446c;
-    padding: 10px;
-    border-radius: 20px;
+    padding: 0.625rem 1.25rem;
+    border-radius: 9999px;
     font-weight: 700;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    line-height: 1.5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
 }
 
 .button_blue:hover, .button_orange:hover {
     cursor: pointer;
-    filter: brightness(85%);
+    filter: brightness(90%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 640px) {
+    .button_orange, .button_blue {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        min-width: 100px;
+    }
 }

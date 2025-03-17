@@ -10,9 +10,9 @@ import RatingBone from "@/app/components/ratingCard/RatingBone";
 import Slider from "@/app/components/slider/Slider";
 import { extractVideoID } from "@/app/helpers/videoHelper";
 import { notFound } from "next/navigation";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { RatingItem } from "@/app/components/filter/types";
 import PromoCodeHondenShop from "@/app/components/promo/PromoCodeHondenShop";
+import BackButton from "@/app/components/backButton/BackButton";
 
 export const dynamicParams = true;
 
@@ -24,8 +24,18 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: any) {
-  const ratingDetail = await getSingleRatingItem(params.slug);
+interface RatingParams {
+  slug: string;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<RatingParams>;
+}) {
+  const resolvedParams = await params;
+
+  const ratingDetail = await getSingleRatingItem(resolvedParams.slug);
 
   if (!ratingDetail) notFound();
 
@@ -35,8 +45,10 @@ export async function generateMetadata({ params }: any) {
   };
 }
 
-const RatingDetail = async ({ params }: any) => {
-  const ratingDetail = await getSingleRatingItem(params.slug);
+const RatingDetail = async ({ params }: { params: Promise<RatingParams> }) => {
+  const resolvedParams = await params;
+
+  const ratingDetail = await getSingleRatingItem(resolvedParams.slug);
 
   if (!ratingDetail) notFound();
 
@@ -46,13 +58,11 @@ const RatingDetail = async ({ params }: any) => {
   return (
     <div className="p-4 sm:p-4 bg-blue-100 flex flex-col items-center min-h-screen">
       <div className="w-full max-w-[1200px] mb-4 mt-4">
-        <Link
+        <BackButton
           href="/artiRating"
+          text="Terug naar overzicht"
           className="back_button_blog font-extrabold bg-orange text-darkBlue py-3 px-5 rounded-full shadow-md hover:bg-gray-800 hover:text-orange transition"
-        >
-          <ArrowBackIcon className="mr-2" />
-          Terug naar overzicht
-        </Link>
+        />
       </div>
 
       <div className="container mx-auto p-4 rounded-lg max-w-[1200px]">

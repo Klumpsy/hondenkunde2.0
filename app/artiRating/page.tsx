@@ -16,10 +16,11 @@ export const metadata: Metadata = {
 const ArtiRating = async ({
   searchParams,
 }: {
-  searchParams: { search?: string; tags?: string; page?: string };
+  searchParams: Promise<{ search?: string; tags?: string; page?: string }>;
 }) => {
-  const search = searchParams?.search || "";
-  const page = parseInt(searchParams?.page || "1", 10);
+  const resolvedSearchParams = await searchParams;
+  const search = resolvedSearchParams?.search || "";
+  const page = parseInt(resolvedSearchParams?.page || "1", 10);
 
   const ratingItems: PaginatedRatingItems = await getRatingItems(
     search,

@@ -1,7 +1,8 @@
+"use server";
+
 import Image from "next/image";
 import { getFileUrl } from "@/app/pocketbase/pocketbase";
 import { AiOutlineClockCircle } from "react-icons/ai";
-
 import { formatDate, isNew } from "@/app/helpers/dateHelper";
 import { estimateReadingTime } from "@/app/helpers/textHelper";
 import { BlogItemProps } from "@/app/definitions/interface/BlogItemPropsInterface";
@@ -14,57 +15,75 @@ const BlogItem: React.FC<BlogItemProps> = async ({ blogItem, className }) => {
   return (
     <Link
       href={`/blog/${blogItem.slug}`}
-      className={`relative flex flex-col items-start ${className} p-3 hover:shadow-md transition-shadow duration-300 ease-in-out h-full`}
+      className={`group relative flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full border border-gray-100 ${className}`}
     >
       {isNew(blogItem.created) && (
-        <span className="absolute top-0 left-0 bg-orange text-darkBlue p-1 rounded font-bold">
-          Nieuw
-        </span>
-      )}
-      <Image
-        src={imageUrl}
-        alt="blog post image"
-        width={500}
-        height={300}
-        className="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56"
-      />
-      <div className="w-full flex flex-wrap justify-start items-center mt-4 border-t-2 pt-5">
-        {blogItem.tags &&
-          blogItem.tags.map((tag) => (
-            <p
-              key={tag + blogItem.id}
-              className={`m-2 flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block ${tag}`}
-            >
-              {tag}
-            </p>
-          ))}
-      </div>
-      <h2 className="text-lg font-bold sm:text-xl md:text-2xl">
-        {blogItem.title}
-      </h2>
-      <div
-        className="text-sm text-black flex-grow"
-        dangerouslySetInnerHTML={{ __html: blogItem.introText }}
-      ></div>
-      <div className="pt-2 pr-0 pb-0 pl-0 flex items-center justify-between w-full">
-        <p className="inline text-xs font-medium mt-0 mr-1 mb-0 ml-1 text-darkBlue font-bold">
-          {formatDate(blogItem.created)}
-        </p>
-        <AiOutlineClockCircle className="text-gray-300 ml-3" />
-        <p className="inline text-xs font-medium text-gray-300 mt-0 mr-1 mb-0 ml-1">
-          {estimateReadingTime(
-            blogItem?.introText +
-              blogItem?.textBlockOne +
-              blogItem?.textBlockTwo +
-              blogItem?.textBlockThree
-          )}{" "}
-          min
-        </p>
-        <div className="mr-2 ml-auto flex items-center space-x-1 group hover:bg-gray-200 p-2 rounded">
-          <span className="text-xs font-bold group-hover:text-darkBlue text-orange">
-            Lees verder
+        <div className="absolute top-4 left-4 z-10">
+          <span className="bg-orange text-darkBlue py-1 px-3 rounded-full text-xs font-bold shadow-md inline-block">
+            Nieuw
           </span>
-          <BsFillArrowRightCircleFill className="text-darkBlue group-hover:text-orange" />
+        </div>
+      )}
+
+      <div className="relative w-full aspect-[3/2] overflow-hidden">
+        <Image
+          src={imageUrl}
+          alt={blogItem.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 500px"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40"></div>
+      </div>
+
+      <div className="flex flex-col flex-grow p-5">
+        <div className="flex flex-wrap gap-2 mb-4 -mt-1">
+          {blogItem.tags &&
+            blogItem.tags.map((tag) => (
+              <span
+                key={tag + blogItem.id}
+                className={`inline-block px-2.5 py-0.5 text-xs font-medium text-white rounded-full ${tag}`}
+              >
+                {tag}
+              </span>
+            ))}
+        </div>
+
+        <h2 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-orange transition-colors duration-300">
+          {blogItem.title}
+        </h2>
+
+        <div
+          className="text-sm text-gray-600 mb-5 line-clamp-3 flex-grow leading-relaxed"
+          dangerouslySetInnerHTML={{
+            __html:
+              blogItem.introText.substring(0, 160) +
+              (blogItem.introText.length > 160 ? "..." : ""),
+          }}
+        ></div>
+
+        <div className="flex items-center text-xs text-gray-500 mt-auto pt-3 border-t border-gray-100">
+          <div className="flex items-center">
+            <span className="font-medium">{formatDate(blogItem.created)}</span>
+            <span className="mx-2 text-gray-300">•</span>
+            <div className="flex items-center">
+              <AiOutlineClockCircle className="mr-1 text-gray-400" />
+              <span>
+                {estimateReadingTime(
+                  blogItem?.introText +
+                    blogItem?.textBlockOne +
+                    blogItem?.textBlockTwo +
+                    blogItem?.textBlockThree
+                )}{" "}
+                min
+              </span>
+            </div>
+          </div>
+
+          <div className="ml-auto flex items-center font-medium text-orange group-hover:translate-x-1 transition-transform duration-300">
+            <span className="mr-1.5">Lees verder</span>
+            <BsFillArrowRightCircleFill className="text-darkBlue group-hover:text-orange transition-colors duration-300" />
+          </div>
         </div>
       </div>
     </Link>
