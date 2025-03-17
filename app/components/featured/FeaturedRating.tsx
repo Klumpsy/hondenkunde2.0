@@ -48,7 +48,7 @@ const FeaturedRating: React.FC<{ ratingItem: RatingItemInterface }> = async ({
             </div>
 
             <div className="mt-4 flex items-center gap-2 text-orange hover:text-orange/80 transition-colors">
-              <span className="font-medium">Bekijk Arti's rating</span>
+              <span className="font-medium">Bekijk Arti&apos;s rating</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
