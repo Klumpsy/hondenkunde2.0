@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,10 +25,10 @@ const Header = ({
         <Image
           src={`/images/${imageName}`}
           alt="Background Image"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: "cover" }}
           quality={100}
-          className="absolute z-0"
+          className="z-0"
         />
       </div>
       <div className="z-10 bg-gray-500 bg-opacity-75 absolute w-full h-full" />

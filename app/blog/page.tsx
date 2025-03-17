@@ -13,10 +13,11 @@ export const metadata: Metadata = {
 const Blog = async ({
   searchParams,
 }: {
-  searchParams: { search?: string; tags?: string };
+  searchParams: Promise<{ search?: string; tags?: string }>;
 }) => {
-  const search = searchParams?.search || "";
-  const tagsParam = searchParams?.tags || "";
+  const resolvedSearchParams = await searchParams;
+  const search = resolvedSearchParams?.search || "";
+  const tagsParam = resolvedSearchParams?.tags || "";
   const selectedTags = tagsParam ? tagsParam.split(",") : [];
 
   const blogs = await getBlogs(search, selectedTags);

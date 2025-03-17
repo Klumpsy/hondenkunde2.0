@@ -1,7 +1,7 @@
 "use client";
 
 import { TextField, InputAdornment, IconButton } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { FaSearch } from "react-icons/fa";
@@ -16,34 +16,48 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = "Zoek...",
 }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const [text, setText] = useState(searchParams.get("search") || "");
-  const [query] = useDebounce(text, 300);
+  const [query] = useDebounce(text, 500);
+  const [initialRender, setInitialRender] = useState(true);
 
-  const handleSearch = (searchQuery: string) => {
+  const createQueryString = (name: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (searchQuery) {
-      params.set("search", searchQuery);
+    if (value) {
+      params.set(name, value);
     } else {
-      params.delete("search");
+      params.delete(name);
     }
-    params.set("page", "1");
-    router.push(`${baseRoute}?${params.toString()}`);
 
-    const resultsSection = document.getElementById("search-results");
-    if (resultsSection) {
-      resultsSection.scrollIntoView({ behavior: "smooth" });
-    }
+    params.set("page", "1");
+
+    return params.toString();
   };
 
   useEffect(() => {
-    handleSearch(query);
+    if (initialRender) {
+      setInitialRender(false);
+      return;
+    }
+
+    const newQueryString = createQueryString("search", query);
+
+    router.replace(`${pathname}?${newQueryString}`, { scroll: false });
   }, [query]);
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      handleSearch(text);
+      const newQueryString = createQueryString("search", text);
+      router.push(`${baseRoute}?${newQueryString}`);
+
+      setTimeout(() => {
+        const resultsSection = document.getElementById("search-results");
+        if (resultsSection) {
+          resultsSection.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
     }
   };
 
@@ -60,7 +74,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton aria-label="search">
+              <IconButton
+                aria-label="search"
+                onClick={() => {
+                  const newQueryString = createQueryString("search", text);
+                  router.push(`${baseRoute}?${newQueryString}`);
+                }}
+              >
                 <FaSearch />
               </IconButton>
             </InputAdornment>

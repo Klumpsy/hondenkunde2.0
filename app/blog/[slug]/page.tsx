@@ -1,13 +1,15 @@
+"use server";
+
 import { getBlogs, getSingleBlog } from "@/app/pocketbase/pocketbase";
-import Link from "next/link";
 import Image from "next/image";
 import { getFileUrl } from "@/app/pocketbase/pocketbase";
 import MediaWithText from "@/app/components/blogItem/MediaWithText";
 import Disclaimer from "@/app/components/blogItem/Disclaimer";
 import ShareOnSocials from "@/app/components/blogItem/ShareOnSocials";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { notFound } from "next/navigation";
 import PromoCodeHondenShop from "@/app/components/promo/PromoCodeHondenShop";
+import BackButton from "@/app/components/backButton/BackButton";
+import HondenShopBanner from "@/app/components/hondenShopBanner/HondenShopBanner";
 
 interface BlogParams {
   slug: string;
@@ -15,11 +17,16 @@ interface BlogParams {
 }
 
 interface BlogDetailProps {
-  params: BlogParams;
+  params: Promise<BlogParams>;
 }
 
-export async function generateMetadata({ params }: any) {
-  const blog = await getSingleBlog(params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<BlogParams>;
+}) {
+  const resolvedParams = await params;
+  const blog = await getSingleBlog(resolvedParams.slug);
 
   if (!blog) notFound();
 
@@ -30,7 +37,10 @@ export async function generateMetadata({ params }: any) {
 }
 
 const BlogDetail = async ({ params }: BlogDetailProps) => {
-  const blog = await getSingleBlog(params.slug);
+  const resolvedParams = await params;
+  const blog = await getSingleBlog(resolvedParams.slug);
+
+  if (!blog) notFound();
 
   const introImageUrl = await getFileUrl(blog, "introImage");
   const imageBlockOne = await getFileUrl(blog, "imageBlockOne");
@@ -40,28 +50,34 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
   return (
     <div className="p-4 sm:p-8 bg-blue-100 flex flex-col items-center min-h-screen">
       <div className="w-full max-w-[1200px] mb-8 mt-4">
-        <Link
+        <BackButton
           href="/blog"
+          text="Terug naar overzicht"
           className="back_button_blog font-extrabold bg-orange text-darkBlue py-3 px-5 rounded-full shadow-md hover:bg-gray-800 hover:text-orange transition"
-        >
-          <ArrowBackIcon className="mr-2" />
-          Terug naar overzicht
-        </Link>
+        />
       </div>
 
       <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-[1200px]">
         <h1 className="text-center mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
           {blog.title}
         </h1>
-        <div className="flex justify-center items-center w-full max-w-full max-h-[400px] overflow-hidden">
-          <Image
-            src={introImageUrl}
-            alt="blog post image"
-            width={1000}
-            height={600}
-            className="mb-4 object-cover w-full md:w-auto"
-            priority={true}
-          />
+        <div className="my-8">
+          <div className="relative max-w-[1100px] mx-auto overflow-hidden rounded-lg shadow-lg">
+            <div
+              className="relative w-full"
+              style={{ paddingBottom: "56.25%" }}
+            >
+              {" "}
+              <Image
+                src={introImageUrl}
+                alt="blog post image"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1100px"
+                className="absolute top-0 left-0 w-full h-full object-cover"
+                priority={true}
+              />
+            </div>
+          </div>
         </div>
         <div className="flex flex-wrap justify-center items-center mt-4 border-t-2 pt-5">
           {blog.tags &&
@@ -88,15 +104,18 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
             text={blog.textBlockOne || ""}
             orientation="right"
             title={blog.subTitleOne}
-            isVideo={blog.videoBlockOne}
+            isVideo={!!blog.videoBlockOne}
           />
+
+          {blog.showBanner && <HondenShopBanner />}
+
           <MediaWithText
             mediaSrc={blog.videoBlockTwo ? blog.videoBlockTwo : imageBlockTwo}
             mediaAlt="blog post media"
             text={blog.textBlockTwo || ""}
             orientation="right"
             title={blog.subTitleTwo}
-            isVideo={blog.videoBlockTwo}
+            isVideo={!!blog.videoBlockTwo}
           />
           <MediaWithText
             mediaSrc={
@@ -106,7 +125,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
             text={blog.textBlockThree || ""}
             orientation="right"
             title={blog.subTitleThree}
-            isVideo={blog.videoBlockThree}
+            isVideo={!!blog.videoBlockThree}
           />
         </div>
       </div>
