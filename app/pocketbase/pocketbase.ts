@@ -3,8 +3,7 @@
 import PocketBase from 'pocketbase'
 import { RatingItem } from '../components/filter/types';
 
-
-const pb = new PocketBase(`${process.env.NEXT_DB_BASE_URL}`);
+const pb = new PocketBase(process.env.NEXT_DB_BASE_URL || 'http://127.0.0.1:8090');
 
 export const getBlogs = async (search?: string, tags?: string[]) => {
   const page = 1;
@@ -16,8 +15,6 @@ export const getBlogs = async (search?: string, tags?: string[]) => {
     const tagFilter = tags.map(tag => `tags~'${tag}'`).join(' && ');
     filter += `(${tagFilter})`;
   }
-
-  console.log(search);
 
   if (search) {
     console.log(search)
@@ -73,8 +70,11 @@ export const getRatingItems = async (
     // Add fetch timeout
     const fetchWithTimeout = (url: string, timeout = 5000) => {
       const controller = new AbortController();
-      const id = setTimeout(() => controller.abort(), timeout); // Timeout after 5 seconds
-      return fetch(url, { signal: controller.signal, next: { revalidate: 10 } }).finally(() => clearTimeout(id));
+      const id = setTimeout(() => controller.abort(), timeout);
+      return fetch(url, { 
+        signal: controller.signal, 
+        next: { revalidate: 10 } 
+      }).finally(() => clearTimeout(id));
     };
 
     console.time('fetchTime');
@@ -99,79 +99,76 @@ export const getRatingItems = async (
 
 
 export const getSingleBlog = async (slug: string) => {
-    
-    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=(slug='${slug}')`,
-        {
-          next: {
-            revalidate: 10,
-            },
-        }
-      );
-      const data = await res.json();
-      return data.items[0];
-}
-
-export const getSingleRatingItem = async (slug: string) => {
-  
-    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`,
+  const res = await fetch(
+    `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=(slug='${slug}')`,
     {
       next: {
         revalidate: 10,
-        },
-      }
-    );
-      const data = await res.json();
-      return data.items[0];
+      },
+    }
+  );
+  const data = await res.json();
+  return data.items[0];
+}
+
+export const getSingleRatingItem = async (slug: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`,
+    {
+      next: {
+        revalidate: 10,
+      },
+    }
+  );
+  const data = await res.json();
+  return data.items[0];
 }
 
 export const getFeaturedBlog = async () => {
-    
-    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=(featured=true)`,
-        {
-          next: { 
-            revalidate: 10, 
-        },
-        }
-      );
-      const data = await res.json();
-      return data.items[0];
+  const res = await fetch(
+    `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=(featured=true)`,
+    {
+      next: { 
+        revalidate: 10, 
+      },
+    }
+  );
+  const data = await res.json();
+  return data.items[0];
 }
 
 export const getFeaturedItem = async () => {
-    
-    const res = await fetch(`${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records/?filter=(featured=true)`,
-        {
-          next: { 
-            revalidate: 10,
-        },
-        }
-      );
-
-      const data = await res.json();
-      return data.items[0];
+  const res = await fetch(
+    `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records/?filter=(featured=true)`,
+    {
+      next: { 
+        revalidate: 10,
+      },
+    }
+  );
+  const data = await res.json();
+  return data.items[0];
 }
 
 export const getFileUrl = async (blogItem: any, fileName: string) => {
-    const url = pb.getFileUrl(blogItem, blogItem[fileName]);
-    
-    return url;
+  const url = pb.getFileUrl(blogItem, blogItem[fileName]);
+  return url;
 }
 
 export const getFileUrlRatingItem = async (ratingItem: any, fileName: string) => {
-    const url = pb.getFileUrl(ratingItem, ratingItem[fileName]);
-    
-    return url;
+  const url = pb.getFileUrl(ratingItem, ratingItem[fileName]);
+  return url;
 }
 
 export const getFileUrlsForProductImages = async (ratingItem: any) => {
-    const productImages = ratingItem.productImages;
-    if (!productImages || !Array.isArray(productImages) || productImages.length === 0) {
-        return [];
-    }
+  const productImages = ratingItem.productImages;
+  if (!productImages || !Array.isArray(productImages) || productImages.length === 0) {
+    return [];
+  }
 
-    const urls = await Promise.all(productImages.map(async (image) => {
-        return pb.getFileUrl(ratingItem, image);
-    }));
+  const urls = await Promise.all(productImages.map(async (image) => {
+    return pb.getFileUrl(ratingItem, image);
+  }));
 
-    return urls;
+  return urls;
 }

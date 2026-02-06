@@ -7,6 +7,7 @@ const nextConfig = {
         hostname: "spoiled-stone.pockethost.io",
       },
     ],
+    qualities: [75, 100],
   },
   typescript: {
     ignoreBuildErrors: true,

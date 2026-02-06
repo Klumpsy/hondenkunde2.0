@@ -34,6 +34,7 @@ const PawFromArti = () => {
             <Image
               src="/images/logo.png"
               alt="Paw Logo"
+              style={{ width: 'auto', height: 'auto' }}
               width={300}
               height={300}
             />

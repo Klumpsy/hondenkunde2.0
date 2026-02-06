@@ -11,43 +11,55 @@ const RatingCard: React.FC<{ ratingItem: RatingItemInterface }> = async ({
   ratingItem,
 }) => {
   const imageUrl = await getFileUrlRatingItem(ratingItem, "coverImage");
-  const truncatedExplanation = htmlTruncate(ratingItem.shortText, 250);
+  const truncatedExplanation = htmlTruncate(ratingItem.shortText, 160);
 
   return (
-    <div className="block h-[640px] overflow-hidden">
-      <div className="flex flex-col h-full bg-gray-800 border border-gray-700 rounded-lg shadow">
-        <div className="relative h-[300px] rounded-t-lg overflow-hidden flex items-center justify-center">
+    <div className="group w-full">
+      <div className="flex flex-col bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:border-orange/50 overflow-hidden">
+
+        <div className="relative w-full aspect-[16/9]">
           <Image
             src={imageUrl}
-            alt="Rating"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-t-lg"
+            alt={ratingItem.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900/70"></div>
         </div>
-        <div className="p-4 flex-1 flex flex-col">
-          <h5 className="mb-2 text-2xl font-bold text-orange flex-none">
+
+        <div className="p-5">
+
+          <h5 className="text-xl font-bold text-orange group-hover:text-orange/90 transition-colors duration-300 line-clamp-2 leading-tight mb-3">
             {ratingItem.title}
           </h5>
+
           <div
-            className="mb-3 text-sm text-gray-400 flex-grow overflow-y-auto"
+            className="text-sm text-gray-300 leading-relaxed mb-4 line-clamp-3 min-h-[3.6rem]"
             dangerouslySetInnerHTML={{
               __html: truncatedExplanation,
             }}
           />
-          <p className="text-orange mb-3 flex-none">
-            Beoordeeld door: {ratingItem.ratedBy}
-          </p>
-          <RatingBone rating={ratingItem.rating} ratedBy={ratingItem.ratedBy} />
-          <div className="flex items-center justify-center mt-7">
-            <Link
-              href={`/artiRating/${ratingItem.slug}`}
-              className="px-4 py-2 font-bold bg-darkBlue text-orange text-sm uppercase rounded focus:outline-none flex-none hover:bg-gray-900 hover:text-orange"
-              style={{ maxWidth: "250px" }}
-            >
-              Bekijk product
-            </Link>
+
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-700/50">
+            <div>
+              <p className="text-[10px] text-gray-500 uppercase tracking-wide mb-1">
+                Beoordeeld door
+              </p>
+              <p className="text-orange font-semibold text-sm">{ratingItem.ratedBy}</p>
+            </div>
           </div>
+
+          <div className="mb-4">
+            <RatingBone rating={ratingItem.rating} ratedBy={ratingItem.ratedBy} />
+          </div>
+
+          <Link
+            href={`/artiRating/${ratingItem.slug}`}
+            className="block w-full px-5 py-3 font-bold bg-gradient-to-r from-orange to-orange/90 text-darkBlue text-sm uppercase rounded-lg focus:outline-none hover:from-darkBlue hover:to-darkBlue/90 hover:text-orange transition-all duration-300 text-center shadow-md hover:shadow-orange/30 hover:scale-[1.02] transform"
+          >
+            Bekijk product
+          </Link>
         </div>
       </div>
     </div>

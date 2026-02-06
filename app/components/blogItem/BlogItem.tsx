@@ -15,11 +15,11 @@ const BlogItem: React.FC<BlogItemProps> = async ({ blogItem, className }) => {
   return (
     <Link
       href={`/blog/${blogItem.slug}`}
-      className={`group relative flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full border border-gray-100 ${className}`}
+      className={`group relative flex flex-col bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-full border border-gray-100 hover:border-orange/30 transform hover:-translate-y-1 ${className}`}
     >
       {isNew(blogItem.created) && (
         <div className="absolute top-4 left-4 z-10">
-          <span className="bg-orange text-darkBlue py-1 px-3 rounded-full text-xs font-bold shadow-md inline-block">
+          <span className="bg-gradient-to-r from-orange to-orange/90 text-white py-1.5 px-4 rounded-full text-xs font-bold shadow-lg inline-block animate-pulse">
             Nieuw
           </span>
         </div>
@@ -31,25 +31,27 @@ const BlogItem: React.FC<BlogItemProps> = async ({ blogItem, className }) => {
           alt={blogItem.title}
           fill
           sizes="(max-width: 768px) 100vw, 500px"
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50 group-hover:to-black/60 transition-all duration-300"></div>
       </div>
 
-      <div className="flex flex-col flex-grow p-5">
+      <div className="flex flex-col flex-grow p-6">
+
         <div className="flex flex-wrap gap-2 mb-4 -mt-1">
           {blogItem.tags &&
             blogItem.tags.map((tag) => (
               <span
                 key={tag + blogItem.id}
-                className={`inline-block px-2.5 py-0.5 text-xs font-medium text-white rounded-full ${tag}`}
+                className={`inline-block px-3 py-1 text-xs font-semibold text-white rounded-full shadow-sm ${tag} transition-transform duration-300 hover:scale-105`}
               >
                 {tag}
               </span>
             ))}
         </div>
 
-        <h2 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-orange transition-colors duration-300">
+
+        <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-orange transition-colors duration-300 leading-tight">
           {blogItem.title}
         </h2>
 
@@ -62,12 +64,12 @@ const BlogItem: React.FC<BlogItemProps> = async ({ blogItem, className }) => {
           }}
         ></div>
 
-        <div className="flex items-center text-xs text-gray-500 mt-auto pt-3 border-t border-gray-100">
-          <div className="flex items-center">
-            <span className="font-medium">{formatDate(blogItem.created)}</span>
-            <span className="mx-2 text-gray-300">•</span>
-            <div className="flex items-center">
-              <AiOutlineClockCircle className="mr-1 text-gray-400" />
+        <div className="flex items-center justify-between text-xs text-gray-500 mt-auto pt-4 border-t border-gray-100">
+          <div className="flex items-center gap-3">
+            <span className="font-medium text-gray-700">{formatDate(blogItem.created)}</span>
+            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+            <div className="flex items-center gap-1.5">
+              <AiOutlineClockCircle className="text-gray-400 text-sm" />
               <span>
                 {estimateReadingTime(
                   blogItem?.introText +
@@ -80,9 +82,9 @@ const BlogItem: React.FC<BlogItemProps> = async ({ blogItem, className }) => {
             </div>
           </div>
 
-          <div className="ml-auto flex items-center font-medium text-orange group-hover:translate-x-1 transition-transform duration-300">
-            <span className="mr-1.5">Lees verder</span>
-            <BsFillArrowRightCircleFill className="text-darkBlue group-hover:text-orange transition-colors duration-300" />
+          <div className="flex items-center font-semibold text-orange group-hover:gap-2 gap-1 transition-all duration-300">
+            <span className="text-xs">Lees meer</span>
+            <BsFillArrowRightCircleFill className="text-darkBlue group-hover:text-orange transition-all duration-300 group-hover:translate-x-1" />
           </div>
         </div>
       </div>
