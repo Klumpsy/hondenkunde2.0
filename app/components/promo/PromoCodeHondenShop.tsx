@@ -47,6 +47,7 @@ const PromoCodeHondenShop = () => {
             className="rounded-full"
             width={80}
             height={80}
+            style={{ width: 'auto', height: 'auto' }}
             alt="Rated by dog"
           />
           <CopyPromoCode />

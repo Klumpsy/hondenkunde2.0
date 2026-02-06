@@ -9,32 +9,35 @@ const RatingBone: React.FC<RatingBoneProps> = ({ rating, ratedBy }) => {
   const ratingTotal = Math.max(1, Math.min(10, rating));
 
   return (
-    <div className="flex">
-      <Image
-        src={`/images/${ratedBy}Rating.jpg`}
-        className="rounded-full mr-3"
-        width={40}
-        height={40}
-        alt="Rated by dog"
-      />
-      <div className="flex items-center">
+    <div className="flex items-center">
+      <div className="relative w-10 h-10 rounded-full overflow-hidden mr-2 flex-shrink-0 ring-2 ring-orange/30">
+        <Image
+          src={`/images/${ratedBy}Rating.jpg`}
+          fill
+          sizes="40px"
+          className="object-cover"
+          alt="Rated by dog"
+        />
+      </div>
+      
+      <div className="flex items-center flex-wrap gap-0.5">
         {Array.from({ length: ratingTotal }).map((_, index) => (
-          <div key={index} className="mr-1">
+          <div key={index}>
             <Image
               src="/images/filledBone.png"
-              width={20}
-              height={20}
+              width={18}
+              height={18}
               alt="Filled Bone"
             />
           </div>
         ))}
 
         {Array.from({ length: 10 - ratingTotal }).map((_, index) => (
-          <div key={index + 10} className="mr-1">
+          <div key={index + 10}>
             <Image
               src="/images/emptyBone.png"
-              width={20}
-              height={20}
+              width={18}
+              height={18}
               alt="Empty Bone"
             />
           </div>
