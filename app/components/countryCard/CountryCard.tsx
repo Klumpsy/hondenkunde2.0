@@ -12,7 +12,7 @@ export interface CountryCardData {
 
 const CountryCard = ({ country }: { country: CountryCardData }) => {
   return (
-    <Link href={`/vakantie-met-hond/${country.slug}`} className="group block h-full">
+    <Link href={`/vakantie-met-hond/${country.slug}`} className="group block h-full" suppressHydrationWarning>
       <article
         className="relative h-full rounded-2xl overflow-hidden border-2 border-[#da9e00] shadow-lg
                    hover:shadow-2xl hover:border-[#da9e00]/70 hover:-translate-y-1

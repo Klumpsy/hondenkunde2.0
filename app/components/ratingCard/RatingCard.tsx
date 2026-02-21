@@ -14,7 +14,7 @@ const RatingCard: React.FC<{ ratingItem: RatingItemInterface }> = async ({
   const truncatedExplanation = htmlTruncate(ratingItem.shortText, 160);
 
   return (
-    <div className="group w-full">
+    <div className="group w-full" suppressHydrationWarning>
       <div className="flex flex-col bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:border-orange/50 overflow-hidden">
 
         <div className="relative w-full aspect-[16/9] overflow-hidden">
