@@ -1,7 +1,9 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import Header from "../components/header/Header";
 import TravelMapClient from "../components/travelMap/TravelMapClient";
 import CountryCard, { CountryCardData } from "../components/countryCard/CountryCard";
+import Pagination from "../components/filter/Pagination";
 import {
   getCountries,
   getTravels,
@@ -14,7 +16,16 @@ export const metadata: Metadata = {
     "Ontdek alle landen en bestemmingen waar Arti op vakantie is geweest. Van de Ardennen tot Texel — bekijk de interactieve reiskaart.",
 };
 
-const VakantieMetHond = async () => {
+const COUNTRIES_PER_PAGE = 6;
+
+const VakantieMetHond = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) => {
+  const { page: pageParam = "1" } = await searchParams;
+  const currentPage = Math.max(1, parseInt(pageParam, 10));
+
   const [countries, travels] = await Promise.all([
     getCountries(),
     getTravels(),
@@ -35,6 +46,12 @@ const VakantieMetHond = async () => {
     })
   );
 
+  const totalPages = Math.ceil(countriesWithUrls.length / COUNTRIES_PER_PAGE);
+  const paginatedCountries = countriesWithUrls.slice(
+    (currentPage - 1) * COUNTRIES_PER_PAGE,
+    currentPage * COUNTRIES_PER_PAGE
+  );
+
   // Map markers — only travels that have coordinates AND a countrySlug
   const mapLocations = travelList
     .filter((t: any) => t.latitude && t.longitude && t.countrySlug)
@@ -53,7 +70,7 @@ const VakantieMetHond = async () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Header
         imageName="banner6.jpeg"
-        linkHref="/artiRating"
+        linkHref="/artiRating/aquadog-drinkfles"
         titleText="Vakantie met hond"
         anchorText="Arti's favoriete drinkfles voor onderweg"
       />
@@ -95,12 +112,15 @@ const VakantieMetHond = async () => {
           </h2>
         </div>
 
-        {countriesWithUrls.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 anim-stagger">
-            {countriesWithUrls.map((country) => (
-              <CountryCard key={country.id} country={country} />
-            ))}
-          </div>
+        {paginatedCountries.length > 0 ? (
+          <Suspense>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 anim-stagger">
+              {paginatedCountries.map((country) => (
+                <CountryCard key={country.id} country={country} />
+              ))}
+            </div>
+            <Pagination totalPages={totalPages} currentPage={currentPage} />
+          </Suspense>
         ) : (
           <div className="text-center py-20 text-gray-400">
             <p className="text-lg font-medium">Nog geen landen toegevoegd.</p>
