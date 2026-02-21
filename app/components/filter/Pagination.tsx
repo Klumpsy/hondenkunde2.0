@@ -1,11 +1,12 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback } from "react";
 import { PaginationProps } from "./types";
 
 const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const createQueryString = useCallback(
@@ -19,18 +20,20 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
 
   const handlePageChange = (page: number) => {
     const newQueryString = createQueryString("page", page.toString());
-    router.push(`/artiRating?${newQueryString}`);
+    router.push(`${pathname}?${newQueryString}`);
   };
 
+  if (totalPages <= 1) return null;
+
   return (
-    <div className="flex justify-center space-x-2 mt-4 mb-4">
+    <div className="flex justify-center items-center gap-1.5 mt-8 mb-8">
       <button
         disabled={currentPage === 1}
         onClick={() => handlePageChange(currentPage - 1)}
-        className={`px-3 py-1 rounded text-white ${
+        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
           currentPage === 1
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-darkBlue hover:bg-gray-900"
+            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+            : "bg-white text-gray-700 border border-gray-200 hover:border-orange hover:text-orange"
         }`}
       >
         Vorige
@@ -41,10 +44,10 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
           <button
             key={page}
             onClick={() => handlePageChange(page)}
-            className={`px-3 py-1 rounded text-white ${
+            className={`w-9 h-9 rounded-lg text-sm font-medium transition-all duration-200 ${
               currentPage === page
-                ? "bg-orange hover:bg-orange-400"
-                : "bg-darkBlue hover:bg-gray-900"
+                ? "bg-orange text-white shadow-sm"
+                : "bg-white text-gray-700 border border-gray-200 hover:border-orange hover:text-orange"
             }`}
           >
             {page}
@@ -54,10 +57,10 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
       <button
         disabled={currentPage === totalPages}
         onClick={() => handlePageChange(currentPage + 1)}
-        className={`px-3 py-1 rounded text-white ${
+        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
           currentPage === totalPages
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-darkBlue hover:bg-gray-900"
+            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+            : "bg-white text-gray-700 border border-gray-200 hover:border-orange hover:text-orange"
         }`}
       >
         Volgende

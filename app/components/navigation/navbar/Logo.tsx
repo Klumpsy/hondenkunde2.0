@@ -39,10 +39,9 @@ const Logo = () => {
         <Image
           src="/images/logo.png"
           alt="Logo"
-          width={width < 1024 ? 85 : 90}
-          height={width < 1024 ? 30 : 45}
-          style={{ width: 'auto', height: 'auto' }}
-          className="relative"
+          width={90}
+          height={45}
+          className="w-[52px] h-auto md:w-[70px]"
         />
       </Link>
       <div

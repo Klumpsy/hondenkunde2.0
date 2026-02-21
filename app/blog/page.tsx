@@ -1,7 +1,7 @@
 import BlogItem from "../components/blogItem/BlogItem";
-import { getBlogs } from "../pocketbase/pocketbase";
+import { getBlogs, getBlogTags } from "../pocketbase/pocketbase";
 import Header from "../components/header/Header";
-import SearchBar from "../components/filter/SearchBar";
+import FilterBar from "../components/filter/FilterBar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,7 +20,10 @@ const Blog = async ({
   const tagsParam = resolvedSearchParams?.tags || "";
   const selectedTags = tagsParam ? tagsParam.split(",") : [];
 
-  const blogs = await getBlogs(search, selectedTags);
+  const [blogs, availableTags] = await Promise.all([
+    getBlogs(search, selectedTags),
+    getBlogTags(),
+  ]);
 
   return (
     <div>
@@ -31,12 +34,14 @@ const Blog = async ({
         anchorText="Bekijk Arti's rating"
       />
       <section className="paw-pattern max-w-[1200px] mx-auto"></section>
-      <div className="relative flex w-full justify-center space-x-5">
-        <SearchBar baseRoute="/blog" placeholder="Zoek in blogs..." />
-      </div>
+      <FilterBar
+        baseRoute="/blog"
+        placeholder="Zoek in blogs..."
+        availableTags={availableTags}
+      />
       <div
         id="search-results"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto p-3"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[1200px] mx-auto p-3 anim-stagger"
       >
         {blogs?.map((blogItem) => (
           <BlogItem

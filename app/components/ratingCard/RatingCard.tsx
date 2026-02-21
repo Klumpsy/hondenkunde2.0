@@ -14,10 +14,10 @@ const RatingCard: React.FC<{ ratingItem: RatingItemInterface }> = async ({
   const truncatedExplanation = htmlTruncate(ratingItem.shortText, 160);
 
   return (
-    <div className="group w-full">
+    <div className="group w-full" suppressHydrationWarning>
       <div className="flex flex-col bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:border-orange/50 overflow-hidden">
 
-        <div className="relative w-full aspect-[16/9]">
+        <div className="relative w-full aspect-[16/9] overflow-hidden">
           <Image
             src={imageUrl}
             alt={ratingItem.title}
@@ -25,7 +25,24 @@ const RatingCard: React.FC<{ ratingItem: RatingItemInterface }> = async ({
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-gray-900/70"></div>
+
+          {/* Gradient: covers full height on hover via the darkening layer */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/10 to-gray-900/95" />
+          <div className="absolute inset-0 bg-gray-900/0 group-hover:bg-gray-900/30 transition-all duration-500" />
+
+          {/* Tags overlaid on the image */}
+          {ratingItem.tags && ratingItem.tags.length > 0 && (
+            <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5 z-10">
+              {ratingItem.tags.slice(0, 3).map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-orange/90 text-darkBlue backdrop-blur-sm"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="p-5">
