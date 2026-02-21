@@ -1,4 +1,4 @@
-import { getBlogs, getRatingItems } from "./pocketbase/pocketbase";
+import { getBlogs, getRatingItems, getTravels } from "./pocketbase/pocketbase";
 
 export default async function sitemaps() {
 
@@ -21,6 +21,12 @@ export default async function sitemaps() {
         }
       });
 
+    const travels = await getTravels();
+    const travelUrls = (travels || []).map((travel: any) => ({
+        url: `${baseUrl}/arti-op-reis/${travel.slug}`,
+        lastModified: new Date()
+    }));
+
     return [
         {
             url: baseUrl,
@@ -38,7 +44,12 @@ export default async function sitemaps() {
             url: `${baseUrl}/artiRating`,
             lastModified: new Date()
         },
+        {
+            url: `${baseUrl}/arti-op-reis`,
+            lastModified: new Date()
+        },
         ...blogPostUrls,
-        ...ratingItemUrls
+        ...ratingItemUrls,
+        ...travelUrls
     ]
 }

@@ -172,3 +172,29 @@ export const getFileUrlsForProductImages = async (ratingItem: any) => {
 
   return urls;
 }
+
+export const getTravels = async () => {
+  const url = `${process.env.NEXT_DB_BASE_URL}/api/collections/travels/records?sort=-visitDate&perPage=100`;
+  const res = await fetch(url, { next: { revalidate: 10 } });
+  const data = await res.json();
+  return data?.items as any[];
+};
+
+export const getSingleTravel = async (slug: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_DB_BASE_URL}/api/collections/travels/records?filter=(slug='${slug}')`,
+    { next: { revalidate: 10 } }
+  );
+  const data = await res.json();
+  return data.items[0];
+};
+
+export const getTravelFileUrl = async (travel: any, fileName: string) => {
+  return pb.getFileUrl(travel, travel[fileName]);
+};
+
+export const getTravelImageUrls = async (travel: any) => {
+  const images = travel.images;
+  if (!images || !Array.isArray(images) || images.length === 0) return [];
+  return Promise.all(images.map((image: string) => pb.getFileUrl(travel, image)));
+};
