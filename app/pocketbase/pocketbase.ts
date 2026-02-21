@@ -45,7 +45,7 @@ export const getRatingItems = async (
   limit: number = 6
 ): Promise<{ items: RatingItem[], totalPages: number }> => {
   let filter = '';
-  const fields = 'id,title,slug,rating,buttonText,buttonUrl,coverImage,ratedBy,shortText,collectionId,collectionName';
+  const fields = 'id,title,slug,rating,buttonText,buttonUrl,coverImage,ratedBy,shortText,tags,collectionId,collectionName';
 
   // Optimize tag filter
   if (tags && tags.length > 0) {
@@ -172,6 +172,53 @@ export const getFileUrlsForProductImages = async (ratingItem: any) => {
 
   return urls;
 }
+
+export const getBlogTags = async (): Promise<string[]> => {
+  const url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?fields=tags&perPage=200`;
+  const res = await fetch(url, { next: { revalidate: 60 } });
+  const data = await res.json();
+  const allTags = (data?.items || []).flatMap((item: any) => item.tags || []);
+  return [...new Set<string>(allTags)].filter(Boolean).sort();
+};
+
+export const getRatingTags = async (): Promise<string[]> => {
+  const url = `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?fields=tags&perPage=200`;
+  const res = await fetch(url, { next: { revalidate: 60 } });
+  const data = await res.json();
+  const allTags = (data?.items || []).flatMap((item: any) => item.tags || []);
+  return [...new Set<string>(allTags)].filter(Boolean).sort();
+};
+
+export const getCountries = async () => {
+  const url = `${process.env.NEXT_DB_BASE_URL}/api/collections/countries/records?sort=name&perPage=100`;
+  const res = await fetch(url, { next: { revalidate: 10 } });
+  const data = await res.json();
+  return data?.items as any[];
+};
+
+export const getSingleCountry = async (slug: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_DB_BASE_URL}/api/collections/countries/records?filter=(slug='${slug}')`,
+    { next: { revalidate: 10 } }
+  );
+  const data = await res.json();
+  return data.items[0];
+};
+
+export const getTravelsByCountry = async (countrySlug: string, search?: string) => {
+  let filter = `(countrySlug='${countrySlug}')`;
+  if (search) {
+    filter += ` && (title~'${search}' || introText~'${search}')`;
+  }
+  const url = `${process.env.NEXT_DB_BASE_URL}/api/collections/travels/records?filter=${encodeURIComponent(filter)}&sort=-visitDate&perPage=100`;
+  const res = await fetch(url, { next: { revalidate: 10 } });
+  const data = await res.json();
+  return data?.items as any[];
+};
+
+export const getCountryFileUrl = async (country: any, fileName: string) => {
+  return pb.getFileUrl(country, country[fileName]);
+};
 
 export const getTravels = async () => {
   const url = `${process.env.NEXT_DB_BASE_URL}/api/collections/travels/records?sort=-visitDate&perPage=100`;

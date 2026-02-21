@@ -6,6 +6,7 @@ import Analytics from "./google/GoogleAnalytics";
 
 import Navigation from "./components/navigation";
 import Footer from "./components/footer/Footer";
+import PageAnimations from "./components/animations/PageAnimations";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,11 +29,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="nl">
       <body className={inter.className}>
         <Suspense>
           <Analytics />
         </Suspense>
+        <PageAnimations />
         <Navigation />
         {children}
         <Footer />

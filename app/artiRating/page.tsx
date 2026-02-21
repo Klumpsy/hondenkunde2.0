@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import SearchBar from "../components/filter/SearchBar";
+import FilterBar from "../components/filter/FilterBar";
 import Header from "../components/header/Header";
 import Pagination from "../components/filter/Pagination";
 import RatingCard from "../components/ratingCard/RatingCard";
-import { getRatingItems } from "../pocketbase/pocketbase";
+import { getRatingItems, getRatingTags } from "../pocketbase/pocketbase";
 import { PaginatedRatingItems } from "../components/filter/types";
 import { Metadata } from "next";
 
@@ -20,14 +20,15 @@ const ArtiRating = async ({
 }) => {
   const resolvedSearchParams = await searchParams;
   const search = resolvedSearchParams?.search || "";
+  const tagsParam = resolvedSearchParams?.tags || "";
+  const selectedTags = tagsParam ? tagsParam.split(",").filter(Boolean) : [];
   const page = parseInt(resolvedSearchParams?.page || "1", 10);
 
-  const ratingItems: PaginatedRatingItems = await getRatingItems(
-    search,
-    [],
-    page,
-    6
-  );
+  const [ratingItems, availableTags]: [PaginatedRatingItems, string[]] =
+    await Promise.all([
+      getRatingItems(search, selectedTags, page, 6),
+      getRatingTags(),
+    ]);
 
   return (
     <div>
@@ -37,17 +38,17 @@ const ArtiRating = async ({
         titleText="Arti's Rating"
         anchorText="Bekijk Arti's favoriete shop"
       />
-      <div className="relative flex w-full justify-center space-x-5">
-        <SearchBar
-          baseRoute="/artiRating"
-          placeholder="Zoek in Arti's rating..."
-        />
-      </div>
+
+      <FilterBar
+        baseRoute="/artiRating"
+        placeholder="Zoek in Arti's rating..."
+        availableTags={availableTags}
+      />
 
       <Suspense fallback={<div>Loading....</div>}>
         <div
           id="search-results"
-          className="p-5 container mx-auto max-w-screen-xl grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 xl:max-w-7xl"
+          className="p-5 container mx-auto max-w-screen-xl grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 xl:max-w-7xl anim-stagger"
         >
           {ratingItems?.items.map((ratingItem, index) => (
             <RatingCard key={index} ratingItem={ratingItem} />

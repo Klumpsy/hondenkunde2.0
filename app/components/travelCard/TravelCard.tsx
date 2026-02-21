@@ -6,6 +6,7 @@ export interface TravelCardData {
   title: string;
   slug: string;
   country: string;
+  countrySlug: string;
   location: string;
   visitDate: string;
   introText: string;
@@ -25,7 +26,7 @@ const TravelCard = ({ travel }: { travel: TravelCardData }) => {
   const plainIntro = stripHtml(travel.introText);
 
   return (
-    <Link href={`/arti-op-reis/${travel.slug}`} className="group block h-full">
+    <Link href={`/vakantie-met-hond/${travel.countrySlug}/${travel.slug}`} className="group block h-full">
       <article className="h-full bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
         {/* Cover image — object-cover handles both portrait and landscape consistently */}
         <div className="relative h-52 overflow-hidden">

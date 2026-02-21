@@ -13,7 +13,7 @@ const navLinks = [
     icon: <TbDiscountCheckFilled />,
   },
   { name: "Blog", href: "/blog", icon: <RxReader /> },
-  { name: "Arti op reis", href: "/arti-op-reis", icon: <MdOutlineExplore /> },
+  { name: "Vakantie met hond", href: "/vakantie-met-hond", icon: <MdOutlineExplore /> },
 ];
 
 export default navLinks;

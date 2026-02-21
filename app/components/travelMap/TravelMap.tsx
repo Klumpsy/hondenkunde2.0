@@ -15,6 +15,7 @@ export interface TravelLocation {
   title: string;
   slug: string;
   country: string;
+  countrySlug: string;
   location: string;
   latitude: number;
   longitude: number;
@@ -85,7 +86,7 @@ const TravelMap = ({
               </span>
               <br />
               <Link
-                href={`/arti-op-reis/${travel.slug}`}
+                href={`/vakantie-met-hond/${travel.countrySlug}/${travel.slug}`}
                 style={{ color: "#da9e00", fontWeight: "700", textDecoration: "none", marginTop: "8px", display: "inline-block", fontSize: "13px" }}
               >
                 Bekijk de reis →

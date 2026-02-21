@@ -23,7 +23,7 @@ export default async function Home() {
 
       <div className="bg-gradient-to-b from-gray-50 to-white py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 anim-stagger">
             <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange to-orange/80 rounded-full mb-6 mx-auto">
                 <FaHeart className="text-3xl text-white" />
@@ -49,7 +49,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl overflow-hidden mb-16">
+          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl shadow-2xl overflow-hidden mb-16 anim-fade-up">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
               <div className="p-8 lg:p-12">
                 <div className="flex items-start gap-4 mb-6">
@@ -101,7 +101,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="space-y-12">
+          <div className="space-y-12 anim-stagger">
             <div className="w-full">
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-2 h-12 bg-gradient-to-b from-orange to-orange/50 rounded-full"></div>
@@ -129,7 +129,7 @@ export default async function Home() {
 
           <div className="paw-pattern max-w-[1200px] mx-auto my-16"></div>
 
-          <div className="my-16">
+          <div className="my-16 anim-fade-up">
             <PromoCode />
           </div>
         </div>

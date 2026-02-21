@@ -9,14 +9,13 @@ import {
 } from "@/app/pocketbase/pocketbase";
 import BackButton from "@/app/components/backButton/BackButton";
 import Slider from "@/app/components/slider/Slider";
-import PromoCodeHondenShop from "@/app/components/promo/PromoCodeHondenShop";
-import PromoCodeMedPets from "@/app/components/promo/PromoCodeMedPets";
 import TravelMapClient from "@/app/components/travelMap/TravelMapClient";
 
 const stripHtml = (html: string) => html?.replace(/<[^>]*>/g, "").trim() ?? "";
 
 interface TravelParams {
-  slug: string;
+  countrySlug: string;
+  travelSlug: string;
 }
 
 export async function generateMetadata({
@@ -24,22 +23,30 @@ export async function generateMetadata({
 }: {
   params: Promise<TravelParams>;
 }) {
-  const { slug } = await params;
-  const travel = await getSingleTravel(slug);
+  const { travelSlug } = await params;
+  const travel = await getSingleTravel(travelSlug);
 
   if (!travel) notFound();
 
   return {
-    title: `${travel.title} | Arti op reis | Hondenkunde`,
+    title: `${travel.title} | Vakantie met hond | Hondenkunde.nl`,
     description:
       travel.metaDataDescription ||
       `Lees alles over Arti's avontuur in ${travel.location}, ${travel.country}.`,
   };
 }
 
+export async function generateStaticParams() {
+  const travels = await getTravels();
+  if (!travels) return [];
+  return travels
+    .filter((t: any) => t.countrySlug)
+    .map((t: any) => ({ countrySlug: t.countrySlug, travelSlug: t.slug }));
+}
+
 const TravelDetail = async ({ params }: { params: Promise<TravelParams> }) => {
-  const { slug } = await params;
-  const travel = await getSingleTravel(slug);
+  const { countrySlug, travelSlug } = await params;
+  const travel = await getSingleTravel(travelSlug);
 
   if (!travel) notFound();
 
@@ -64,6 +71,7 @@ const TravelDetail = async ({ params }: { params: Promise<TravelParams> }) => {
             title: travel.title,
             slug: travel.slug,
             country: travel.country,
+            countrySlug: travel.countrySlug || countrySlug,
             location: travel.location,
             latitude: Number(travel.latitude),
             longitude: Number(travel.longitude),
@@ -75,18 +83,16 @@ const TravelDetail = async ({ params }: { params: Promise<TravelParams> }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Back button */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <BackButton
-          href="/arti-op-reis"
-          text="Terug naar alle reizen"
+          href={`/vakantie-met-hond/${countrySlug}`}
+          text={`Terug naar ${travel.country}`}
           className="inline-flex items-center gap-2 font-bold bg-gradient-to-r from-orange to-orange/90 text-darkBlue py-3 px-6 rounded-xl shadow-lg hover:from-darkBlue hover:to-darkBlue/90 hover:text-orange transition-all duration-300 hover:scale-105 transform"
         />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-        {/* Full-width hero banner — works for portrait and landscape equally */}
         <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "16/9", maxHeight: "520px" }}>
           <Image
             src={coverImageUrl}
@@ -96,10 +102,8 @@ const TravelDetail = async ({ params }: { params: Promise<TravelParams> }) => {
             className="object-cover"
             priority
           />
-          {/* Gradient overlay from bottom */}
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
 
-          {/* Overlaid title + badges */}
           <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-10">
             <div className="flex flex-wrap gap-2 mb-4">
               <span className="bg-orange text-darkBlue text-xs font-bold px-3 py-1.5 rounded-full">
@@ -122,7 +126,6 @@ const TravelDetail = async ({ params }: { params: Promise<TravelParams> }) => {
           </div>
         </div>
 
-        {/* Info card — intro, highlights, affiliate CTA */}
         {(plainIntro || travel.highlights || (travel.affiliateLink && travel.affiliateLinkText)) && (
           <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-10">
             {plainIntro && (
@@ -158,7 +161,6 @@ const TravelDetail = async ({ params }: { params: Promise<TravelParams> }) => {
           </div>
         )}
 
-        {/* Full description */}
         {travel.description && (
           <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
             <h2 className="text-2xl font-extrabold text-gray-800 mb-6">
@@ -171,7 +173,6 @@ const TravelDetail = async ({ params }: { params: Promise<TravelParams> }) => {
           </div>
         )}
 
-        {/* Gallery + Map */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {galleryUrls.length > 0 && (
             <div className="bg-white rounded-2xl shadow-xl p-6 lg:p-8">
@@ -198,22 +199,9 @@ const TravelDetail = async ({ params }: { params: Promise<TravelParams> }) => {
             </div>
           )}
         </div>
-
-        {/* Affiliate promo */}
-        {travel.affiliatePartner === "medpets" ? (
-          <PromoCodeMedPets />
-        ) : (
-          <PromoCodeHondenShop />
-        )}
       </div>
     </div>
   );
 };
 
 export default TravelDetail;
-
-export async function generateStaticParams() {
-  const travels = await getTravels();
-  if (!travels) return [];
-  return travels.map((travel: any) => ({ slug: travel.slug }));
-}
