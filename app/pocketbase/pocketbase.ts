@@ -10,14 +10,13 @@ export const getBlogs = async (search?: string, tags?: string[]) => {
   const limit = 100;
 
   let filter = '';
-  
+
   if (tags && tags.length > 0) {
     const tagFilter = tags.map(tag => `tags~'${tag}'`).join(' && ');
     filter += `(${tagFilter})`;
   }
 
   if (search) {
-    console.log(search)
     const searchFilter = `(title~'${search}' || introText~'${search}')`;
     filter += filter ? ` && ${searchFilter}` : searchFilter;
   }
@@ -28,14 +27,14 @@ export const getBlogs = async (search?: string, tags?: string[]) => {
     url += `&filter=${encodeURIComponent(filter)}`;
   }
 
-  const res = await fetch(url, {
-    next: {
-      revalidate: 10,
-    },
-  });
-  
-  const data = await res.json();
-  return data?.items as any[];
+  try {
+    const res = await fetch(url, { next: { revalidate: 10 } });
+    if (!res.ok) return [] as any[];
+    const data = await res.json();
+    return (data?.items as any[]) || [];
+  } catch {
+    return [] as any[];
+  }
 };
 
 export const getRatingItems = async (

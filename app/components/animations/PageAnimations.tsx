@@ -20,83 +20,90 @@ export default function PageAnimations() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      ScrollTrigger.refresh();
+    let ctx: gsap.Context | null = null;
 
-      gsap.utils.toArray<Element>(".anim-fade-up").forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const inViewport = rect.top < window.innerHeight * 0.95;
+    const rafId = requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        ScrollTrigger.refresh();
 
-        if (inViewport) {
-          gsap.fromTo(
-            el,
-            { y: 12, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, ease: "power2.out", delay: 0.05, clearProps: "transform,opacity" }
-          );
-        } else {
-          gsap.fromTo(
-            el,
-            { y: 18, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.55,
-              ease: "power2.out",
-              clearProps: "transform,opacity",
-              scrollTrigger: {
-                trigger: el,
-                start: "top 92%",
-                once: true,
-              },
-            }
-          );
-        }
-      });
+        gsap.utils.toArray<Element>(".anim-fade-up").forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          const inViewport = rect.top < window.innerHeight * 0.95;
 
-      gsap.utils.toArray<Element>(".anim-stagger").forEach((container) => {
-        const children = Array.from(container.children);
-        if (!children.length) return;
+          if (inViewport) {
+            gsap.fromTo(
+              el,
+              { y: 12, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.5, ease: "power2.out", delay: 0.05, clearProps: "transform,opacity" }
+            );
+          } else {
+            gsap.fromTo(
+              el,
+              { y: 18, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.55,
+                ease: "power2.out",
+                clearProps: "transform,opacity",
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top 92%",
+                  once: true,
+                },
+              }
+            );
+          }
+        });
 
-        const rect = container.getBoundingClientRect();
-        const inViewport = rect.top < window.innerHeight * 0.95;
+        gsap.utils.toArray<Element>(".anim-stagger").forEach((container) => {
+          const children = Array.from(container.children);
+          if (!children.length) return;
 
-        if (inViewport) {
-          gsap.fromTo(
-            children,
-            { y: 12, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.45,
-              ease: "power2.out",
-              stagger: 0.07,
-              delay: 0.05,
-              clearProps: "transform,opacity",
-            }
-          );
-        } else {
-          gsap.fromTo(
-            children,
-            { y: 18, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.5,
-              ease: "power2.out",
-              stagger: 0.07,
-              clearProps: "transform,opacity",
-              scrollTrigger: {
-                trigger: container,
-                start: "top 92%",
-                once: true,
-              },
-            }
-          );
-        }
+          const rect = container.getBoundingClientRect();
+          const inViewport = rect.top < window.innerHeight * 0.95;
+
+          if (inViewport) {
+            gsap.fromTo(
+              children,
+              { y: 12, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.45,
+                ease: "power2.out",
+                stagger: 0.07,
+                delay: 0.05,
+                clearProps: "transform,opacity",
+              }
+            );
+          } else {
+            gsap.fromTo(
+              children,
+              { y: 18, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+                stagger: 0.07,
+                clearProps: "transform,opacity",
+                scrollTrigger: {
+                  trigger: container,
+                  start: "top 92%",
+                  once: true,
+                },
+              }
+            );
+          }
+        });
       });
     });
 
-    return () => ctx.revert();
+    return () => {
+      cancelAnimationFrame(rafId);
+      ctx?.revert();
+    };
   }, [pathname]);
 
   return null;
