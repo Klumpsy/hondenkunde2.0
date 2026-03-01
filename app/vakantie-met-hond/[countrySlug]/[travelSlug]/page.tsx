@@ -163,9 +163,6 @@ const TravelDetail = async ({ params }: { params: Promise<TravelParams> }) => {
 
         {travel.description && (
           <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
-            <h2 className="text-2xl font-extrabold text-gray-800 mb-6">
-              Arti&apos;s reisverhaal
-            </h2>
             <div
               className="text-gray-700 leading-relaxed dynamic_text_input prose prose-sm max-w-none"
               dangerouslySetInnerHTML={{ __html: travel.description }}
