@@ -34,7 +34,10 @@ describe("Navigation", () => {
 
   it("nav becomes dark after scrolling on hero pages", () => {
     cy.visit("/");
-    cy.window().then((win) => win.scrollTo(0, 400));
+    cy.window().then((win) => {
+      win.scrollTo(0, 400);
+      win.dispatchEvent(new Event("scroll"));
+    });
     cy.wait(800);
     cy.get("div[style*='z-index: 1000']").should("have.class", "bg-gray-800/95");
   });
