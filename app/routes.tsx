@@ -3,6 +3,7 @@ import { RxReader } from "react-icons/rx";
 import { PiBoneLight } from "react-icons/pi";
 import { TbDiscountCheckFilled } from "react-icons/tb";
 import { MdOutlineExplore } from "react-icons/md";
+import { MdHandshake } from "react-icons/md";
 
 const navLinks = [
   { name: "Home", href: "/", icon: <AiOutlineHome /> },
@@ -14,6 +15,7 @@ const navLinks = [
   },
   { name: "Blog", href: "/blog", icon: <RxReader /> },
   { name: "Vakantie met hond", href: "/vakantie-met-hond", icon: <MdOutlineExplore /> },
+  { name: "Partners", href: "/partners", icon: <MdHandshake /> },
 ];
 
 export default navLinks;

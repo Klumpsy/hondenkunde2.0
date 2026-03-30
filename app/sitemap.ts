@@ -1,4 +1,4 @@
-import { getBlogs, getRatingItems, getTravels, getCountries } from "./pocketbase/pocketbase";
+import { getBlogs, getRatingItems, getTravels, getCountries, getPartners } from "./pocketbase/pocketbase";
 
 export default async function sitemaps() {
 
@@ -16,7 +16,7 @@ export default async function sitemaps() {
         lastModified: new Date()
     }));
 
-    const [travels, countries] = await Promise.all([getTravels(), getCountries()]);
+    const [travels, countries, partners] = await Promise.all([getTravels(), getCountries(), getPartners()]);
 
     const countryUrls = (countries || []).map((country: any) => ({
         url: `${baseUrl}/vakantie-met-hond/${country.slug}`,
@@ -30,15 +30,22 @@ export default async function sitemaps() {
             lastModified: new Date()
         }));
 
+    const partnerUrls = (partners || []).map((partner: any) => ({
+        url: `${baseUrl}/partners/${partner.slug}`,
+        lastModified: new Date()
+    }));
+
     return [
         { url: baseUrl, lastModified: new Date() },
         { url: `${baseUrl}/blog`, lastModified: new Date() },
         { url: `${baseUrl}/artiActie`, lastModified: new Date() },
         { url: `${baseUrl}/artiRating`, lastModified: new Date() },
         { url: `${baseUrl}/vakantie-met-hond`, lastModified: new Date() },
+        { url: `${baseUrl}/partners`, lastModified: new Date() },
         ...blogPostUrls,
         ...ratingItemUrls,
         ...countryUrls,
         ...travelUrls,
+        ...partnerUrls,
     ];
 }

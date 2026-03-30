@@ -5,15 +5,28 @@ import { Suspense } from "react";
 import Analytics from "./google/GoogleAnalytics";
 
 import Navigation from "./components/navigation";
-import Footer from "./components/footer/Footer";
+import FooterWrapper from "./components/footer/FooterWrapper";
 import PageAnimations from "./components/animations/PageAnimations";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
-  title: "Hondenkunde",
-  description: "Hondenkunde, het beste voor jouw hond!",
+  title: {
+    default: "Hondenkunde.nl — het beste voor jouw hond",
+    template: "%s | Hondenkunde.nl",
+  },
+  description: "Hondenkunde.nl — blogs, producttests en reistips voor hondenliefhebbers. Door Arti getest en aanbevolen.",
+  openGraph: {
+    type: "website",
+    locale: "nl_NL",
+    siteName: "Hondenkunde.nl",
+    images: [{ url: "/images/arti1.webp", width: 1200, height: 630, alt: "Hondenkunde.nl" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/arti1.webp"],
+  },
   verification: {
     google: "LJtZ-8tLNg4Jid4EW-KzeKgxhEmDbsK0f2GALS-W-rw",
   },
@@ -36,8 +49,10 @@ export default function RootLayout({
         </Suspense>
         <PageAnimations />
         <Navigation />
-        {children}
-        <Footer />
+        <main className="pt-20">
+          {children}
+        </main>
+        <FooterWrapper />
       </body>
     </html>
   );

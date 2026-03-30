@@ -7,101 +7,86 @@ import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/**
- * Dropped into layout.tsx — runs on every route change and sets up
- * scroll-triggered animations for any element with:
- *   .anim-fade-up   → fades + slides up individually
- *   .anim-stagger   → staggers direct children as they enter the viewport
- *
- * SEO safe: content is server-rendered at full opacity.
- * GSAP only runs client-side and adds the motion layer.
- */
 export default function PageAnimations() {
   const pathname = usePathname();
 
   useEffect(() => {
     let ctx: gsap.Context | null = null;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
-    const rafId = requestAnimationFrame(() => {
+    const init = () => {
       ctx = gsap.context(() => {
-        ScrollTrigger.refresh();
-
         gsap.utils.toArray<Element>(".anim-fade-up").forEach((el) => {
-          const rect = el.getBoundingClientRect();
-          const inViewport = rect.top < window.innerHeight * 0.95;
+          const inView = el.getBoundingClientRect().top < window.innerHeight * 0.92;
 
-          if (inViewport) {
-            gsap.fromTo(
-              el,
-              { y: 12, opacity: 0 },
-              { y: 0, opacity: 1, duration: 0.5, ease: "power2.out", delay: 0.05, clearProps: "transform,opacity" }
-            );
-          } else {
-            gsap.fromTo(
-              el,
-              { y: 18, opacity: 0 },
-              {
-                y: 0,
-                opacity: 1,
-                duration: 0.55,
-                ease: "power2.out",
-                clearProps: "transform,opacity",
-                scrollTrigger: {
-                  trigger: el,
-                  start: "top 92%",
-                  once: true,
-                },
-              }
-            );
-          }
+          gsap.fromTo(
+            el,
+            { y: inView ? 22 : 36, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              ease: "power3.out",
+              delay: inView ? 0.08 : 0,
+              clearProps: "transform,opacity",
+              ...(inView
+                ? {}
+                : {
+                    scrollTrigger: {
+                      trigger: el,
+                      start: "top 88%",
+                      once: true,
+                    },
+                  }),
+            }
+          );
         });
 
         gsap.utils.toArray<Element>(".anim-stagger").forEach((container) => {
           const children = Array.from(container.children);
           if (!children.length) return;
 
-          const rect = container.getBoundingClientRect();
-          const inViewport = rect.top < window.innerHeight * 0.95;
+          const inView = container.getBoundingClientRect().top < window.innerHeight * 0.92;
 
-          if (inViewport) {
-            gsap.fromTo(
-              children,
-              { y: 12, opacity: 0 },
-              {
-                y: 0,
-                opacity: 1,
-                duration: 0.45,
-                ease: "power2.out",
-                stagger: 0.07,
-                delay: 0.05,
-                clearProps: "transform,opacity",
-              }
-            );
-          } else {
-            gsap.fromTo(
-              children,
-              { y: 18, opacity: 0 },
-              {
-                y: 0,
-                opacity: 1,
-                duration: 0.5,
-                ease: "power2.out",
-                stagger: 0.07,
-                clearProps: "transform,opacity",
-                scrollTrigger: {
-                  trigger: container,
-                  start: "top 92%",
-                  once: true,
-                },
-              }
-            );
-          }
+          gsap.fromTo(
+            children,
+            { y: inView ? 22 : 36, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.6,
+              ease: "power3.out",
+              stagger: 0.09,
+              delay: inView ? 0.08 : 0,
+              clearProps: "transform,opacity",
+              ...(inView
+                ? {}
+                : {
+                    scrollTrigger: {
+                      trigger: container,
+                      start: "top 88%",
+                      once: true,
+                    },
+                  }),
+            }
+          );
         });
+
+        ScrollTrigger.refresh();
+      });
+    };
+
+    // Double RAF + short timeout ensures server-rendered content is fully
+    // painted before GSAP queries the DOM.
+    const rafId = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        timeoutId = setTimeout(init, 60);
       });
     });
 
     return () => {
       cancelAnimationFrame(rafId);
+      clearTimeout(timeoutId);
       ctx?.revert();
     };
   }, [pathname]);
