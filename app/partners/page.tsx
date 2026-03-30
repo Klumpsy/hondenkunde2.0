@@ -34,7 +34,6 @@ const PartnersPage = async () => {
               Elke partner is door ons, en natuurlijk door Arti zelf beoordeeld op kwaliteit, betrouwbaarheid en het aanbod voor jouw hond.
               Via onze partners profiteer je vaak van exclusieve kortingscodes en speciale aanbiedingen.
             </p>
-      
           </div>
 
           {partners.length === 0 ? (
