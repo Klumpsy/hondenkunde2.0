@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:headed": "cypress run --headed"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -37,6 +40,7 @@
   },
   "devDependencies": {
     "@types/html-truncate": "^1.2.4",
+    "cypress": "^13.17.0",
     "eslint": "^9.39.2"
   },
   "overrides": {
