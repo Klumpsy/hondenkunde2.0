@@ -37,6 +37,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   useEffect(() => {
     if (initialRender) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setInitialRender(false);
       return;
     }
