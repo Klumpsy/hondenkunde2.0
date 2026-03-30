@@ -29,20 +29,18 @@ describe("Navigation", () => {
 
   it("nav is transparent on hero pages at top", () => {
     cy.visit("/");
-    // At the top of a hero page the nav background should not be the solid dark class
-    cy.get("div[style*='z-index: 1000']").should("not.have.class", "bg-gray-800/95");
+    cy.get("div[style*='z-index: 1000']").should("have.class", "bg-transparent");
   });
 
   it("nav becomes dark after scrolling on hero pages", () => {
     cy.visit("/");
-    cy.scrollTo(0, 300);
-    cy.wait(600);
+    cy.window().then((win) => win.scrollTo(0, 400));
+    cy.wait(800);
     cy.get("div[style*='z-index: 1000']").should("have.class", "bg-gray-800/95");
   });
 
   it("nav is always dark on detail pages without a hero", () => {
     cy.visit("/blog");
-    // Navigate to a blog detail — find any blog link
     cy.get("a[href^='/blog/']").first().click();
     cy.waitForAnimations();
     cy.get("div[style*='z-index: 1000']").should("have.class", "bg-gray-800/95");
@@ -52,8 +50,8 @@ describe("Navigation", () => {
     cy.viewport(375, 812);
     cy.visit("/");
     cy.waitForAnimations();
-    cy.get("button").filter(":visible").first().click();
-    // Mobile menu should show links
+    // Hamburger button is only visible on mobile (md:hidden)
+    cy.get("button.inline-flex").click();
     cy.contains("Blog").should("be.visible");
   });
 

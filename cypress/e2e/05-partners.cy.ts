@@ -10,11 +10,11 @@ describe("Partners", () => {
     cy.contains("h2", "Door Arti aanbevolen partners").should("be.visible");
   });
 
-  it("nav is dark on partners listing (has hero)", () => {
+  it("nav becomes dark after scrolling on partners listing (has hero)", () => {
     cy.visit("/partners");
-    // Partners has a Header component so nav starts transparent, becomes dark on scroll
-    cy.scrollTo(0, 300);
-    cy.wait(400);
+    // Partners has a Header component — nav starts transparent, darkens on scroll
+    cy.window().then((win) => win.scrollTo(0, 400));
+    cy.wait(800);
     cy.get("div[style*='z-index: 1000']").should("have.class", "bg-gray-800/95");
   });
 

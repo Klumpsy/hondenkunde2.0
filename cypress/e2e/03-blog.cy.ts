@@ -19,9 +19,15 @@ describe("Blog", () => {
 
   it("tag filter buttons are clickable and update URL", () => {
     cy.visit("/blog");
-    cy.get("button").filter(":contains('training'), :contains('voeding'), :contains('gedrag')").first().then(($btn) => {
-      if ($btn.length) {
-        cy.wrap($btn).click();
+    // Find any tag filter button (they render as buttons with tag text)
+    cy.get("button").then(($buttons) => {
+      const tagBtn = $buttons.toArray().find((btn) =>
+        ["training", "voeding", "gedrag", "gezondheid", "tips"].some((tag) =>
+          btn.textContent?.toLowerCase().includes(tag)
+        )
+      );
+      if (tagBtn) {
+        cy.wrap(tagBtn).click();
         cy.url().should("include", "tags=");
       }
     });

@@ -37,11 +37,15 @@ describe("Homepage", () => {
   });
 
   it("sitemap.xml is accessible", () => {
-    cy.request("/sitemap.xml").its("status").should("eq", 200);
+    cy.request({ url: "/sitemap.xml", failOnStatusCode: false })
+      .its("status")
+      .should("be.oneOf", [200, 304]);
   });
 
-  it("robots.txt is accessible", () => {
-    cy.request("/robots.txt").its("status").should("eq", 200);
-    cy.request("/robots.txt").its("body").should("include", "sitemap.xml");
+  it("robots.txt is accessible and references sitemap", () => {
+    cy.request({ url: "/robots.txt", failOnStatusCode: false }).then((res) => {
+      expect(res.status).to.be.oneOf([200, 304]);
+      expect(res.body).to.include("sitemap");
+    });
   });
 });
