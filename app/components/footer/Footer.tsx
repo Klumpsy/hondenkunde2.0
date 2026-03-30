@@ -5,8 +5,13 @@ import navLinks from "@/app/routes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import PawFromArti from "./PawFromArti";
+import { Partner } from "@/app/definitions/interface/PartnerInterface";
 
-const Footer = () => {
+interface FooterProps {
+  partners?: Partner[];
+}
+
+const Footer = ({ partners = [] }: FooterProps) => {
   const pathName = usePathname();
 
   return (
@@ -58,15 +63,30 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-orange font-bold mb-3">Shops</h3>
+            <h3 className="text-orange font-bold mb-3">Onze Partners</h3>
             <ul>
-              <li className="mb-2 hover:text-white">
-                <a
-                  href="https://www.hondenshop.nl/partner/hondenkunde/"
-                  target="_blank"
-                >
-                  Hondenshop
-                </a>
+              {partners.length > 0 ? (
+                partners.map((partner) => (
+                  <li key={partner.id} className="mb-2 hover:text-white">
+                    <Link href={`/partners/${partner.slug}`}>
+                      {partner.name}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li className="mb-2 hover:text-white">
+                  <a
+                    href="https://www.hondenshop.nl/partner/hondenkunde/"
+                    target="_blank"
+                  >
+                    Hondenshop
+                  </a>
+                </li>
+              )}
+              <li className="mb-2">
+                <Link href="/partners" className="text-orange/80 hover:text-orange text-sm">
+                  Alle partners →
+                </Link>
               </li>
             </ul>
           </div>

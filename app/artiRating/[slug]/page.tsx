@@ -3,6 +3,7 @@ import {
   getSingleRatingItem,
   getFileUrlsForProductImages,
   getRatingItems,
+  getFeaturedPartners,
 } from "@/app/pocketbase/pocketbase";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,6 +14,7 @@ import { notFound } from "next/navigation";
 import { RatingItem } from "@/app/components/filter/types";
 import PromoCodeHondenShop from "@/app/components/promo/PromoCodeHondenShop";
 import BackButton from "@/app/components/backButton/BackButton";
+import PartnerBanner from "@/app/components/partnerBanner/PartnerBanner";
 
 export const dynamicParams = true;
 
@@ -39,9 +41,20 @@ export async function generateMetadata({
 
   if (!ratingDetail) notFound();
 
+  const imageUrl = ratingDetail.coverImage
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/files/${ratingDetail.collectionId}/${ratingDetail.id}/${ratingDetail.coverImage}`
+    : `${process.env.NEXT_PUBLIC_BASE_URL}/images/arti1.webp`;
+
   return {
-    title: `${ratingDetail.title} | Hondenkunde`,
+    title: ratingDetail.title,
     description: ratingDetail.metaDataDescription,
+    openGraph: {
+      title: ratingDetail.title,
+      description: ratingDetail.metaDataDescription,
+      type: "website",
+      url: `/artiRating/${ratingDetail.slug}`,
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: ratingDetail.title }],
+    },
   };
 }
 
@@ -52,11 +65,45 @@ const RatingDetail = async ({ params }: { params: Promise<RatingParams> }) => {
 
   if (!ratingDetail) notFound();
 
-  const coverImageUrl = await getFileUrlRatingItem(ratingDetail, "coverImage");
-  const urls = await getFileUrlsForProductImages(ratingDetail);
+  const [coverImageUrl, urls, featuredPartners] = await Promise.all([
+    getFileUrlRatingItem(ratingDetail, "coverImage"),
+    getFileUrlsForProductImages(ratingDetail),
+    getFeaturedPartners(),
+  ]);
+
+  const bannerPartner = featuredPartners.find((p) => p.embeddedBannerImage) || null;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: ratingDetail.title,
+    description: ratingDetail.metaDataDescription,
+    image: coverImageUrl,
+    review: {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: ratingDetail.rating,
+        bestRating: "10",
+        worstRating: "1",
+      },
+      author: {
+        "@type": "Person",
+        name: ratingDetail.ratedBy || "Arti",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Hondenkunde.nl",
+      },
+    },
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Back Button */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <BackButton
@@ -67,7 +114,7 @@ const RatingDetail = async ({ params }: { params: Promise<RatingParams> }) => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="anim-fade-up max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section - Product Overview */}
         <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl overflow-hidden mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
@@ -175,7 +222,11 @@ const RatingDetail = async ({ params }: { params: Promise<RatingParams> }) => {
             </div>
           )}
         </div>
-        <PromoCodeHondenShop />
+        {bannerPartner ? (
+          <PartnerBanner partner={bannerPartner} />
+        ) : (
+          <PromoCodeHondenShop />
+        )}
       </div>
     </div>
   );

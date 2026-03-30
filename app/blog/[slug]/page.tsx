@@ -1,6 +1,6 @@
 "use server";
 
-import { getBlogs, getSingleBlog } from "@/app/pocketbase/pocketbase";
+import { getBlogs, getSingleBlog, getFeaturedPartners } from "@/app/pocketbase/pocketbase";
 import Image from "next/image";
 import { getFileUrl } from "@/app/pocketbase/pocketbase";
 import MediaWithText from "@/app/components/blogItem/MediaWithText";
@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import PromoCodeHondenShop from "@/app/components/promo/PromoCodeHondenShop";
 import BackButton from "@/app/components/backButton/BackButton";
 import HondenShopBanner from "@/app/components/hondenShopBanner/HondenShopBanner";
+import PartnerBanner from "@/app/components/partnerBanner/PartnerBanner";
 
 interface BlogParams {
   slug: string;
@@ -30,9 +31,20 @@ export async function generateMetadata({
 
   if (!blog) notFound();
 
+  const imageUrl = blog.introImage
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/files/${blog.collectionId}/${blog.id}/${blog.introImage}`
+    : `${process.env.NEXT_PUBLIC_BASE_URL}/images/arti1.webp`;
+
   return {
-    title: `${blog.title} | Hondenkunde`,
+    title: blog.title,
     description: blog.metaDataDescription,
+    openGraph: {
+      title: blog.title,
+      description: blog.metaDataDescription,
+      type: "article",
+      url: `/blog/${blog.slug}`,
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: blog.title }],
+    },
   };
 }
 
@@ -42,13 +54,47 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
 
   if (!blog) notFound();
 
-  const introImageUrl = await getFileUrl(blog, "introImage");
-  const imageBlockOne = await getFileUrl(blog, "imageBlockOne");
-  const imageBlockTwo = await getFileUrl(blog, "imageBlockTwo");
-  const imageBlockThree = await getFileUrl(blog, "imageBlockThree");
+  const [introImageUrl, imageBlockOne, imageBlockTwo, imageBlockThree, featuredPartners] =
+    await Promise.all([
+      getFileUrl(blog, "introImage"),
+      getFileUrl(blog, "imageBlockOne"),
+      getFileUrl(blog, "imageBlockTwo"),
+      getFileUrl(blog, "imageBlockThree"),
+      getFeaturedPartners(),
+    ]);
+
+  const bannerPartner = featuredPartners.find((p) => p.embeddedBannerImage) || null;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: blog.title,
+    description: blog.metaDataDescription,
+    image: introImageUrl,
+    author: {
+      "@type": "Organization",
+      name: "Hondenkunde.nl",
+      url: process.env.NEXT_PUBLIC_BASE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Hondenkunde.nl",
+      url: process.env.NEXT_PUBLIC_BASE_URL,
+    },
+    dateModified: blog.updated,
+    datePublished: blog.created,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${blog.slug}`,
+    },
+  };
 
   return (
     <div className="p-4 sm:p-8 bg-blue-100 flex flex-col items-center min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="w-full max-w-[1200px] mb-8 mt-4">
         <BackButton
           href="/blog"
@@ -57,7 +103,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
         />
       </div>
 
-      <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-[1200px]">
+      <div className="anim-fade-up container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-[1200px]">
         <h1 className="text-center mt-5 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
           {blog.title}
         </h1>
@@ -107,7 +153,9 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
             isVideo={!!blog.videoBlockOne}
           />
 
-          {blog.showBanner && <HondenShopBanner />}
+          {blog.showBanner && (
+            bannerPartner ? <PartnerBanner partner={bannerPartner} /> : <HondenShopBanner />
+          )}
 
           <MediaWithText
             mediaSrc={blog.videoBlockTwo ? blog.videoBlockTwo : imageBlockTwo}

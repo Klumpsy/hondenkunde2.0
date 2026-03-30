@@ -69,7 +69,7 @@ const VakantieMetHond = async ({
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Header
-        imageName="banner6.jpeg"
+        imageName="banner_13.jpeg"
         linkHref="/artiRating/aquadog-drinkfles"
         titleText="Vakantie met hond"
         anchorText="Arti's favoriete drinkfles voor onderweg"

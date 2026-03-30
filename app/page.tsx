@@ -1,16 +1,36 @@
-"use server";
-
+import { Metadata } from "next";
 import Header from "./components/header/Header";
-import { getFeaturedBlog, getFeaturedItem } from "./pocketbase/pocketbase";
+
+export const metadata: Metadata = {
+  title: "Hondenkunde.nl — het beste voor jouw hond",
+  description: "Ontdek blogs, producttests en reistips voor hondenliefhebbers op Hondenkunde.nl. Door Friese Stabij Arti getest en persoonlijk aanbevolen.",
+  openGraph: {
+    title: "Hondenkunde.nl — het beste voor jouw hond",
+    description: "Ontdek blogs, producttests en reistips voor hondenliefhebbers op Hondenkunde.nl. Door Friese Stabij Arti getest en persoonlijk aanbevolen.",
+    url: "/",
+  },
+};
+import { getFeaturedBlog, getFeaturedItem, getFeaturedPartners, getPartnerFileUrl } from "./pocketbase/pocketbase";
 import FeaturedBlog from "./components/featured/FeaturedBlog";
 import FeaturedRating from "./components/featured/FeaturedRating";
 import PromoCode from "./components/promo/PromoCodeHondenShop";
 import { FaDog, FaHeart, FaStar } from "react-icons/fa";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
-  const featuredBlog = await getFeaturedBlog();
-  const featuredRating = await getFeaturedItem();
+  const [featuredBlog, featuredRating, featuredPartners] = await Promise.all([
+    getFeaturedBlog(),
+    getFeaturedItem(),
+    getFeaturedPartners(),
+  ]);
+
+  const partnersWithLogos = await Promise.all(
+    featuredPartners.map(async (partner) => ({
+      ...partner,
+      logoUrl: partner.logo ? await getPartnerFileUrl(partner, "logo") : null,
+    }))
+  );
 
   return (
     <>
@@ -132,6 +152,50 @@ export default async function Home() {
           <div className="my-16 anim-fade-up">
             <PromoCode />
           </div>
+
+          {partnersWithLogos.length > 0 && (
+            <>
+              <div className="paw-pattern max-w-[1200px] mx-auto my-12"></div>
+              <div className="anim-fade-up">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-2 h-12 bg-gradient-to-b from-orange to-orange/50 rounded-full"></div>
+                  <div>
+                    <h2 className="text-3xl font-bold text-gray-900">Onze Partners</h2>
+                    <p className="text-gray-600 text-sm mt-1">Door Arti aanbevolen shops en merken</p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                  {partnersWithLogos.map((partner) => (
+                    <Link
+                      key={partner.id}
+                      href={`/partners/${partner.slug}`}
+                      className="group flex flex-col items-center bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 p-5 min-w-[140px] border border-gray-100 hover:border-orange/30"
+                    >
+                      {partner.logoUrl ? (
+                        <Image
+                          src={partner.logoUrl}
+                          alt={`${partner.name} logo`}
+                          width={100}
+                          height={50}
+                          className="object-contain max-h-[50px] w-auto mb-3 group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <span className="text-sm font-bold text-gray-700 mb-3 group-hover:text-orange transition-colors">{partner.name}</span>
+                      )}
+                      <span className="text-xs text-gray-500 group-hover:text-orange transition-colors font-medium">{partner.name}</span>
+                    </Link>
+                  ))}
+                  <Link
+                    href="/partners"
+                    className="flex flex-col items-center justify-center bg-gradient-to-br from-orange/10 to-orange/5 rounded-xl border border-orange/20 hover:border-orange/50 transition-all duration-300 hover:-translate-y-1 p-5 min-w-[140px] hover:shadow-lg"
+                  >
+                    <span className="text-orange font-bold text-sm">Alle partners</span>
+                    <span className="text-orange/60 text-xs mt-1">→ bekijk overzicht</span>
+                  </Link>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

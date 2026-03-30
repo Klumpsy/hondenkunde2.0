@@ -2,6 +2,7 @@
 
 import PocketBase from 'pocketbase'
 import { RatingItem } from '../components/filter/types';
+import { Partner } from '../definitions/interface/PartnerInterface';
 
 const pb = new PocketBase(process.env.NEXT_DB_BASE_URL || 'http://127.0.0.1:8090');
 
@@ -98,55 +99,51 @@ export const getRatingItems = async (
 
 
 export const getSingleBlog = async (slug: string) => {
-  const res = await fetch(
-    `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=(slug='${slug}')`,
-    {
-      next: {
-        revalidate: 10,
-      },
-    }
-  );
-  const data = await res.json();
-  return data.items[0];
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=(slug='${slug}')`,
+      { next: { revalidate: 10 } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.items[0] ?? null;
+  } catch { return null; }
 }
 
 export const getSingleRatingItem = async (slug: string) => {
-  const res = await fetch(
-    `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`,
-    {
-      next: {
-        revalidate: 10,
-      },
-    }
-  );
-  const data = await res.json();
-  return data.items[0];
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records?filter=(slug='${slug}')`,
+      { next: { revalidate: 10 } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.items[0] ?? null;
+  } catch { return null; }
 }
 
 export const getFeaturedBlog = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=(featured=true)`,
-    {
-      next: { 
-        revalidate: 10, 
-      },
-    }
-  );
-  const data = await res.json();
-  return data.items[0];
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=(featured=true)`,
+      { next: { revalidate: 10 } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.items[0] ?? null;
+  } catch { return null; }
 }
 
 export const getFeaturedItem = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records/?filter=(featured=true)`,
-    {
-      next: { 
-        revalidate: 10,
-      },
-    }
-  );
-  const data = await res.json();
-  return data.items[0];
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_DB_BASE_URL}/api/collections/ratingItems/records/?filter=(featured=true)`,
+      { next: { revalidate: 10 } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.items[0] ?? null;
+  } catch { return null; }
 }
 
 export const getFileUrl = async (blogItem: any, fileName: string) => {
@@ -243,4 +240,52 @@ export const getTravelImageUrls = async (travel: any) => {
   const images = travel.images;
   if (!images || !Array.isArray(images) || images.length === 0) return [];
   return Promise.all(images.map((image: string) => pb.getFileUrl(travel, image)));
+};
+
+export const getPartners = async (): Promise<Partner[]> => {
+  try {
+    const url = `${process.env.NEXT_DB_BASE_URL}/api/collections/partners/records?sort=order&perPage=100`;
+    const res = await fetch(url, { next: { revalidate: 60 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data?.items as Partner[]) || [];
+  } catch {
+    return [];
+  }
+};
+
+export const getFeaturedPartners = async (): Promise<Partner[]> => {
+  try {
+    const url = `${process.env.NEXT_DB_BASE_URL}/api/collections/partners/records?filter=${encodeURIComponent("(featured=true)")}&sort=order&perPage=10`;
+    const res = await fetch(url, { next: { revalidate: 60 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return (data?.items as Partner[]) || [];
+  } catch {
+    return [];
+  }
+};
+
+export const getSinglePartner = async (slug: string): Promise<Partner | null> => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_DB_BASE_URL}/api/collections/partners/records?filter=${encodeURIComponent(`(slug='${slug}')`)}`,
+      { next: { revalidate: 60 } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return (data?.items?.[0] as Partner) || null;
+  } catch {
+    return null;
+  }
+};
+
+export const getPartnerFileUrl = async (partner: any, fileName: string): Promise<string> => {
+  return pb.getFileUrl(partner, partner[fileName]);
+};
+
+export const getPartnerImageUrls = async (partner: any): Promise<string[]> => {
+  const images = partner.promotionalImages;
+  if (!images || !Array.isArray(images) || images.length === 0) return [];
+  return Promise.all(images.map((image: string) => pb.getFileUrl(partner, image)));
 };
