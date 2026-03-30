@@ -58,6 +58,8 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, links }) => {
     <>
       <div
         ref={navRef}
+        data-testid="navbar"
+        data-dark={isDark ? "true" : "false"}
         className={`w-full h-20 fixed top-0 left-0 right-0 transition-all duration-500 ${
           isDark
             ? "bg-gray-800/95 backdrop-blur-sm border-b border-white/10 shadow-lg"

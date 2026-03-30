@@ -17,7 +17,7 @@ describe("Partners", () => {
       win.dispatchEvent(new Event("scroll"));
     });
     cy.wait(800);
-    cy.get("div[style*='z-index: 1000']").should("have.class", "bg-gray-800/95");
+    cy.get("[data-testid='navbar']").should("have.attr", "data-dark", "true");
   });
 
   it("partner cards render when data is available", () => {

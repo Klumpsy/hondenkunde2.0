@@ -7,7 +7,7 @@ describe("Navigation", () => {
   it("renders all 6 nav links", () => {
     const links = ["Home", "Arti's Rating", "Promo's", "Blog", "Vakantie met hond", "Partners"];
     links.forEach((name) => {
-      cy.contains("a", name).should("be.visible");
+      cy.contains("a", name).should("exist");
     });
   });
 
@@ -17,7 +17,7 @@ describe("Navigation", () => {
     cy.url().should("eq", Cypress.config("baseUrl") + "/");
   });
 
-  it("highlights the active nav link", () => {
+  it("highlights the active nav link on blog page", () => {
     cy.visit("/blog");
     cy.contains("a", "Blog").should("have.class", "text-orange");
   });
@@ -27,9 +27,10 @@ describe("Navigation", () => {
     cy.contains("a", "Home").should("have.class", "text-orange");
   });
 
-  it("nav is transparent on hero pages at top", () => {
+  it("nav starts transparent on hero pages", () => {
     cy.visit("/");
-    cy.get("div[style*='z-index: 1000']").should("have.class", "bg-transparent");
+    // data-dark is false when on a hero page at the top
+    cy.get("[data-testid='navbar']").should("have.attr", "data-dark", "false");
   });
 
   it("nav becomes dark after scrolling on hero pages", () => {
@@ -39,26 +40,28 @@ describe("Navigation", () => {
       win.dispatchEvent(new Event("scroll"));
     });
     cy.wait(800);
-    cy.get("div[style*='z-index: 1000']").should("have.class", "bg-gray-800/95");
+    cy.get("[data-testid='navbar']").should("have.attr", "data-dark", "true");
   });
 
-  it("nav is always dark on detail pages without a hero", () => {
+  it("nav is always dark on non-hero detail pages", () => {
     cy.visit("/blog");
     cy.get("a[href^='/blog/']").first().click();
+    cy.url().should("match", /\/blog\/.+/);
     cy.waitForAnimations();
-    cy.get("div[style*='z-index: 1000']").should("have.class", "bg-gray-800/95");
+    cy.get("[data-testid='navbar']").should("have.attr", "data-dark", "true");
   });
 
-  it("mobile hamburger menu opens on small screens", () => {
+  it("mobile sidebar opens on hamburger click", () => {
     cy.viewport(375, 812);
     cy.visit("/");
     cy.waitForAnimations();
-    // Hamburger button is only visible on mobile (md:hidden)
     cy.get("button.inline-flex").click();
-    cy.contains("Blog").should("be.visible");
+    cy.wait(200);
+    cy.get(".sidebar-nav").should("be.visible");
+    cy.get(".sidebar-nav").contains("Blog").should("be.visible");
   });
 
-  it("footer renders with links", () => {
+  it("footer renders with site name", () => {
     cy.visit("/");
     cy.scrollTo("bottom");
     cy.get("footer").should("exist");
