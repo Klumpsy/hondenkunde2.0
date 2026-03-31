@@ -15,6 +15,7 @@ const Logo = () => {
 
   useEffect(() => {
     window.addEventListener("resize", updateWidth);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     updateWidth();
   }, []);
 

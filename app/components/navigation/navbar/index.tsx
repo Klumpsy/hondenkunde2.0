@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import Logo from "./Logo";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useGSAP } from "@gsap/react";
@@ -32,11 +32,16 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, links }) => {
 
   const isDark = scrolled || !hasHero;
 
-  useEffect(() => {
+  // Always reset to false before paint so hero pages start transparent on
+  // both hard refresh and SPA navigation. The listener is the only place
+  // that sets scrolled=true, keeping initial state predictable.
+  useLayoutEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setScrolled(false);
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathName]);
 
   useGSAP(
     () => {
@@ -58,6 +63,8 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, links }) => {
     <>
       <div
         ref={navRef}
+        data-testid="navbar"
+        data-dark={isDark ? "true" : "false"}
         className={`w-full h-20 fixed top-0 left-0 right-0 transition-all duration-500 ${
           isDark
             ? "bg-gray-800/95 backdrop-blur-sm border-b border-white/10 shadow-lg"

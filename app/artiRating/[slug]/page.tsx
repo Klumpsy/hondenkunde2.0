@@ -196,7 +196,7 @@ const RatingDetail = async ({ params }: { params: Promise<RatingParams> }) => {
           {urls.length > 0 && (
             <div className="bg-white rounded-2xl shadow-xl p-6 lg:p-8">
               <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                Product foto's
+                Product foto&apos;s
               </h2>
               <Slider imagePaths={urls} />
             </div>
