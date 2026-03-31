@@ -14,7 +14,7 @@ describe("Navigation", () => {
   it("logo navigates to homepage", () => {
     cy.visit("/blog");
     // Scope to the navbar so we click the Logo link, not the off-screen sidebar link
-    cy.get("[data-testid='navbar'] a[href='/']").click();
+    cy.get("[data-testid='navbar'] a[href='/']").first().click();
     cy.url().should("eq", Cypress.config("baseUrl") + "/");
   });
 
