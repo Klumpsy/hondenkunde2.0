@@ -36,6 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, links }) => {
   // both hard refresh and SPA navigation. The listener is the only place
   // that sets scrolled=true, keeping initial state predictable.
   useLayoutEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setScrolled(false);
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
