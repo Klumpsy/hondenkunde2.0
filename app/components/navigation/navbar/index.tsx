@@ -32,11 +32,11 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, links }) => {
 
   const isDark = scrolled || !hasHero;
 
-  // useLayoutEffect runs synchronously before the browser paints, so the
-  // correct transparent/dark state is applied instantly on every navigation
-  // without a single dark frame flickering through.
+  // Always reset to false before paint so hero pages start transparent on
+  // both hard refresh and SPA navigation. The listener is the only place
+  // that sets scrolled=true, keeping initial state predictable.
   useLayoutEffect(() => {
-    setScrolled(window.scrollY > 60);
+    setScrolled(false);
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
