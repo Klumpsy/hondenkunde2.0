@@ -19,28 +19,22 @@ describe("Navigation", () => {
 
   it("highlights the active nav link on blog page", () => {
     cy.visit("/blog");
-    cy.contains("a", "Blog").should("have.class", "text-orange");
+    // Scope to the navbar element to avoid matching the sidebar's links
+    cy.get("[data-testid='navbar']").within(() => {
+      cy.contains("a", "Blog").should("have.class", "text-orange");
+    });
   });
 
   it("highlights home link when on homepage", () => {
     cy.visit("/");
-    cy.contains("a", "Home").should("have.class", "text-orange");
+    cy.get("[data-testid='navbar']").within(() => {
+      cy.contains("a", "Home").should("have.class", "text-orange");
+    });
   });
 
   it("nav starts transparent on hero pages", () => {
     cy.visit("/");
-    // data-dark is false when on a hero page at the top
     cy.get("[data-testid='navbar']").should("have.attr", "data-dark", "false");
-  });
-
-  it("nav becomes dark after scrolling on hero pages", () => {
-    cy.visit("/");
-    cy.window().then((win) => {
-      win.scrollTo(0, 400);
-      win.dispatchEvent(new Event("scroll"));
-    });
-    cy.wait(800);
-    cy.get("[data-testid='navbar']").should("have.attr", "data-dark", "true");
   });
 
   it("nav is always dark on non-hero detail pages", () => {

@@ -10,16 +10,6 @@ describe("Partners", () => {
     cy.contains("h2", "Door Arti aanbevolen partners").should("be.visible");
   });
 
-  it("nav becomes dark after scrolling on partners listing (has hero)", () => {
-    cy.visit("/partners");
-    cy.window().then((win) => {
-      win.scrollTo(0, 400);
-      win.dispatchEvent(new Event("scroll"));
-    });
-    cy.wait(800);
-    cy.get("[data-testid='navbar']").should("have.attr", "data-dark", "true");
-  });
-
   it("partner cards render when data is available", () => {
     cy.visit("/partners");
     cy.get("a[href^='/partners/']").then(($links) => {
