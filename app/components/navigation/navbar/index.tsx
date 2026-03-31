@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import Logo from "./Logo";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useGSAP } from "@gsap/react";
@@ -32,8 +32,10 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, links }) => {
 
   const isDark = scrolled || !hasHero;
 
-  useEffect(() => {
-    // Immediately sync state when path changes (scrolled persists across SPA navigations)
+  // useLayoutEffect runs synchronously before the browser paints, so the
+  // correct transparent/dark state is applied instantly on every navigation
+  // without a single dark frame flickering through.
+  useLayoutEffect(() => {
     setScrolled(window.scrollY > 60);
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
