@@ -13,7 +13,8 @@ describe("Navigation", () => {
 
   it("logo navigates to homepage", () => {
     cy.visit("/blog");
-    cy.get("a[href='/']").first().click();
+    // Scope to the navbar so we click the Logo link, not the off-screen sidebar link
+    cy.get("[data-testid='navbar'] a[href='/']").click();
     cy.url().should("eq", Cypress.config("baseUrl") + "/");
   });
 
