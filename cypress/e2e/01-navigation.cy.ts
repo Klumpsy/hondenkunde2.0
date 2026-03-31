@@ -33,7 +33,7 @@ describe("Navigation", () => {
   });
 
   it("nav starts transparent on hero pages", () => {
-    cy.visit("/");
+    // beforeEach already visits "/" and waits; just assert the stable state
     cy.get("[data-testid='navbar']").should("have.attr", "data-dark", "false");
   });
 

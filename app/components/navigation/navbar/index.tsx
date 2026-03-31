@@ -33,10 +33,12 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, links }) => {
   const isDark = scrolled || !hasHero;
 
   useEffect(() => {
+    // Immediately sync state when path changes (scrolled persists across SPA navigations)
+    setScrolled(window.scrollY > 60);
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathName]);
 
   useGSAP(
     () => {
