@@ -22,11 +22,10 @@ export const getBlogs = async (search?: string, tags?: string[]) => {
     filter += filter ? ` && ${searchFilter}` : searchFilter;
   }
 
-  let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}&sort=-created`;
+  const publishedFilter = `published=true`;
+  filter = filter ? `${publishedFilter} && ${filter}` : publishedFilter;
 
-  if (filter) {
-    url += `&filter=${encodeURIComponent(filter)}`;
-  }
+  let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}&sort=-created&filter=${encodeURIComponent(filter)}`;
 
   try {
     const res = await fetch(url, { next: { revalidate: 10 } });
@@ -101,7 +100,7 @@ export const getRatingItems = async (
 export const getSingleBlog = async (slug: string) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=(slug='${slug}')`,
+      `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=(slug='${slug}' && published=true)`,
       { next: { revalidate: 10 } }
     );
     if (!res.ok) return null;
@@ -125,7 +124,7 @@ export const getSingleRatingItem = async (slug: string) => {
 export const getFeaturedBlog = async () => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=(featured=true)`,
+      `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=(featured=true && published=true)`,
       { next: { revalidate: 10 } }
     );
     if (!res.ok) return null;

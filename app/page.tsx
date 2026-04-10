@@ -130,7 +130,7 @@ export default async function Home() {
                   <p className="text-gray-600 text-sm mt-1">Ontdek onze nieuwste inzichten</p>
                 </div>
               </div>
-              <FeaturedBlog blogItem={featuredBlog} />
+              {featuredBlog && <FeaturedBlog blogItem={featuredBlog} />}
             </div>
 
             <div className="paw-pattern max-w-[1200px] mx-auto my-12"></div>
