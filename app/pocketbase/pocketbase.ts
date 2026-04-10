@@ -6,6 +6,20 @@ import { Partner } from '../definitions/interface/PartnerInterface';
 
 const pb = new PocketBase(process.env.NEXT_DB_BASE_URL || 'http://127.0.0.1:8090');
 
+const fetchWithRetry = async (url: string, options?: RequestInit, retries = 2): Promise<Response> => {
+  for (let i = 0; i <= retries; i++) {
+    try {
+      const res = await fetch(url, options);
+      if (res.ok) return res;
+      if (i < retries) await new Promise(r => setTimeout(r, 1500));
+    } catch {
+      if (i < retries) await new Promise(r => setTimeout(r, 1500));
+      else throw new Error('Fetch failed after retries');
+    }
+  }
+  return fetch(url, options);
+};
+
 export const getBlogs = async (search?: string, tags?: string[]) => {
   const page = 1;
   const limit = 100;
@@ -28,7 +42,7 @@ export const getBlogs = async (search?: string, tags?: string[]) => {
   let url = `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?page=${page}&perPage=${limit}&sort=-created&filter=${encodeURIComponent(filter)}`;
 
   try {
-    const res = await fetch(url, { next: { revalidate: 10 } });
+    const res = await fetchWithRetry(url, { next: { revalidate: 10 } });
     if (!res.ok) return [] as any[];
     const data = await res.json();
     return (data?.items as any[]) || [];
@@ -99,8 +113,8 @@ export const getRatingItems = async (
 
 export const getSingleBlog = async (slug: string) => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=(slug='${slug}' && published=true)`,
+    const res = await fetchWithRetry(
+      `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records/?filter=${encodeURIComponent(`slug='${slug}' && published=true`)}`,
       { next: { revalidate: 10 } }
     );
     if (!res.ok) return null;
@@ -123,9 +137,9 @@ export const getSingleRatingItem = async (slug: string) => {
 
 export const getFeaturedBlog = async () => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=(featured=true && published=true)`,
-      { next: { revalidate: 10 } }
+    const res = await fetchWithRetry(
+      `${process.env.NEXT_DB_BASE_URL}/api/collections/blogs/records?filter=${encodeURIComponent(`featured=true && published=true`)}`,
+      { next: { revalidate: 10 } },
     );
     if (!res.ok) return null;
     const data = await res.json();
