@@ -41,8 +41,32 @@ export default async function Home() {
         anchorText="Bekijk nieuwste blog"
       />
 
-      <div className="bg-gradient-to-b from-gray-50 to-white py-12">
-        <div className="container mx-auto px-4 max-w-7xl">
+      <div className="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white py-12">
+        <svg
+          aria-hidden
+          viewBox="0 0 100 100"
+          className="pointer-events-none select-none absolute -right-32 top-[24%] w-[900px] h-[900px] text-orange opacity-[0.05] -rotate-12 hidden md:block"
+          fill="currentColor"
+        >
+          <ellipse cx="20" cy="34" rx="8.5" ry="13" transform="rotate(-18 20 34)" />
+          <ellipse cx="40" cy="20" rx="9" ry="14" transform="rotate(-6 40 20)" />
+          <ellipse cx="60" cy="20" rx="9" ry="14" transform="rotate(6 60 20)" />
+          <ellipse cx="80" cy="34" rx="8.5" ry="13" transform="rotate(18 80 34)" />
+          <path d="M50 48 C30 48, 18 64, 22 80 C26 93, 38 96, 50 96 C62 96, 74 93, 78 80 C82 64, 70 48, 50 48 Z" />
+        </svg>
+        <svg
+          aria-hidden
+          viewBox="0 0 100 100"
+          className="pointer-events-none select-none absolute -left-40 bottom-[8%] w-[760px] h-[760px] text-orange opacity-[0.04] rotate-[18deg] hidden lg:block"
+          fill="currentColor"
+        >
+          <ellipse cx="20" cy="34" rx="8.5" ry="13" transform="rotate(-18 20 34)" />
+          <ellipse cx="40" cy="20" rx="9" ry="14" transform="rotate(-6 40 20)" />
+          <ellipse cx="60" cy="20" rx="9" ry="14" transform="rotate(6 60 20)" />
+          <ellipse cx="80" cy="34" rx="8.5" ry="13" transform="rotate(18 80 34)" />
+          <path d="M50 48 C30 48, 18 64, 22 80 C26 93, 38 96, 50 96 C62 96, 74 93, 78 80 C82 64, 70 48, 50 48 Z" />
+        </svg>
+        <div className="relative z-10 container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 anim-stagger">
             <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange to-orange/80 rounded-full mb-6 mx-auto">
@@ -133,7 +157,11 @@ export default async function Home() {
               {featuredBlog && <FeaturedBlog blogItem={featuredBlog} />}
             </div>
 
-            <div className="paw-pattern max-w-[1200px] mx-auto my-12"></div>
+            <div className="flex items-center justify-center gap-3 my-12" aria-hidden>
+              <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1 max-w-[180px]" />
+              <div className="w-2 h-2 rounded-full bg-orange/60" />
+              <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1 max-w-[180px]" />
+            </div>
 
             <div className="w-full">
               <div className="flex items-center gap-4 mb-8">
@@ -147,15 +175,65 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="paw-pattern max-w-[1200px] mx-auto my-16"></div>
+          <div className="flex items-center justify-center gap-3 my-16" aria-hidden>
+            <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1 max-w-[180px]" />
+            <div className="w-2 h-2 rounded-full bg-orange/60" />
+            <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1 max-w-[180px]" />
+          </div>
 
           <div className="my-16 anim-fade-up">
             <PromoCode />
           </div>
 
+          {/* Category explorer */}
+          <div className="my-20 anim-fade-up">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-gray-900">
+                Wat zoek je?
+              </h2>
+              <p className="text-gray-600 text-sm mt-3 max-w-md mx-auto">
+                Van blogs tot reistips, alles op één plek.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 anim-stagger">
+              {[
+                { name: "Blog", desc: "Tips & ervaringen", href: "/blog", img: "/images/banner6.jpeg" },
+                { name: "Ratings", desc: "Producttests door Arti", href: "/artiRating", img: "/images/banner12.jpg" },
+                { name: "Vakantie", desc: "Reizen met hond", href: "/vakantie-met-hond", img: "/images/banner_13.jpeg" },
+                { name: "Promo’s", desc: "Exclusieve kortingen", href: "/artiActie", img: "/images/banner_3.jpg" },
+              ].map((cat) => (
+                <Link
+                  key={cat.name}
+                  href={cat.href}
+                  className="group relative overflow-hidden rounded-2xl border border-gray-100 aspect-[4/5] flex flex-col justify-end shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                >
+                  <Image
+                    src={cat.img}
+                    alt={cat.name}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-gray-900/10" />
+                  <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-orange/0 group-hover:bg-orange transition-all duration-300 flex items-center justify-center text-white opacity-0 group-hover:opacity-100">
+                    &#8594;
+                  </div>
+                  <div className="relative z-10 p-5">
+                    <div className="text-xl font-bold text-white mb-1 drop-shadow-md">{cat.name}</div>
+                    <div className="text-sm text-orange font-semibold drop-shadow-md">{cat.desc}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {partnersWithLogos.length > 0 && (
             <>
-              <div className="paw-pattern max-w-[1200px] mx-auto my-12"></div>
+              <div className="flex items-center justify-center gap-3 my-12" aria-hidden>
+                <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1 max-w-[180px]" />
+                <div className="w-2 h-2 rounded-full bg-orange/60" />
+                <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent flex-1 max-w-[180px]" />
+              </div>
               <div className="anim-fade-up">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-2 h-12 bg-gradient-to-b from-orange to-orange/50 rounded-full"></div>

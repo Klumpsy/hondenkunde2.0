@@ -103,25 +103,6 @@
     font-weight: 600;
 }
 
-.paw-pattern {
-    background: url('/images/paw.png') repeat-x center center;
-    background-size: 40px 40px; 
-    width: 90vw; 
-    height: 50px; 
-    position: relative;
-}
-
-.paw-pattern::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(255, 255, 255, 0.9);
-    pointer-events: none;
-}
-
 .filter_label {
     padding: 5px;
     border-radius: 20%;
