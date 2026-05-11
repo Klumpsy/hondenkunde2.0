@@ -75,6 +75,24 @@
     font-weight: 500;
 }
 
+.Dierenarts {
+    background-color: rgb(70, 130, 180);
+    color: white;
+    font-weight: 500;
+}
+
+.Vlooien.teken {
+    background-color: rgb(180, 119, 73);
+    color: white;
+    font-weight: 500;
+}
+
+.Rauw.voer {
+    background-color: rgb(155, 70, 70);
+    color: white;
+    font-weight: 500;
+}
+
 .sidebar-nav li{
     padding-top: 1rem;
     font-size: 2rem;

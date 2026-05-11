@@ -2,10 +2,10 @@ import { Metadata } from "next";
 import Header from "./components/header/Header";
 
 export const metadata: Metadata = {
-  title: "Hondenkunde.nl — het beste voor jouw hond",
+  title: "Hondenkunde.nl, het beste voor jouw hond",
   description: "Ontdek blogs, producttests en reistips voor hondenliefhebbers op Hondenkunde.nl. Door Friese Stabij Arti getest en persoonlijk aanbevolen.",
   openGraph: {
-    title: "Hondenkunde.nl — het beste voor jouw hond",
+    title: "Hondenkunde.nl, het beste voor jouw hond",
     description: "Ontdek blogs, producttests en reistips voor hondenliefhebbers op Hondenkunde.nl. Door Friese Stabij Arti getest en persoonlijk aanbevolen.",
     url: "/",
   },

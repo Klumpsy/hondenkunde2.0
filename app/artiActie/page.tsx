@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Header from "../components/header/Header";
 import PromoCodeHondenShop from "../components/promo/PromoCodeHondenShop";
+import PromoCodeBellaDuke from "../components/promo/PromoCodeBellaDuke";
 import { BsQuote } from "react-icons/bs";
 
 export const metadata: Metadata = {
@@ -52,6 +53,7 @@ export default async function ArtiActie() {
         </section>
 
         <PromoCodeHondenShop />
+        <PromoCodeBellaDuke />
       </div>
     </>
   );
