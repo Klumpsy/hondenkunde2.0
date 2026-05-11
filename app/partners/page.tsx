@@ -6,7 +6,7 @@ import { getPartners } from "../pocketbase/pocketbase";
 export const metadata: Metadata = {
   title: "Partners | Hondenkunde.nl",
   description:
-    "Ontdek de partners van Hondenkunde.nl — zorgvuldig geselecteerde hondenshops en merken die Arti persoonlijk aanbeveelt. Profiteer van exclusieve kortingen en promo codes.",
+    "Ontdek de partners van Hondenkunde.nl, zorgvuldig geselecteerde hondenshops en merken die Arti persoonlijk aanbeveelt. Profiteer van exclusieve kortingen en promo codes.",
 };
 
 const PartnersPage = async () => {
@@ -31,7 +31,7 @@ const PartnersPage = async () => {
             </h2>
             <p className="text-gray-600 leading-relaxed text-base">
               Bij Hondenkunde.nl werken we samen met een selecte groep partners en merken die wij persoonlijk vertrouwen.
-              Elke partner is door ons — en natuurlijk door Arti zelf — beoordeeld op kwaliteit, betrouwbaarheid en het aanbod voor jouw hond.
+              Elke partner is door ons, en natuurlijk door Arti zelf, beoordeeld op kwaliteit, betrouwbaarheid en het aanbod voor jouw hond.
               Via onze partners profiteer je vaak van exclusieve kortingscodes en speciale aanbiedingen.
             </p>
           </div>

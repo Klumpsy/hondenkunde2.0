@@ -37,7 +37,7 @@ export async function generateMetadata({
     title: `${partner.name} | Partners | Hondenkunde.nl`,
     description:
       partner.metaDataDescription ||
-      `${partner.name} — aanbevolen door Hondenkunde.nl. ${partner.tagline || ""}`,
+      `${partner.name}, aanbevolen door Hondenkunde.nl. ${partner.tagline || ""}`,
   };
 }
 
@@ -215,7 +215,7 @@ const PartnerDetail = async ({ params }: { params: Promise<PartnerParams> }) => 
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             <div className="flex-1 text-center lg:text-left">
               <h2 className="text-2xl lg:text-3xl font-extrabold text-white mb-3 leading-tight">
-                {partner.name} — aanbevolen door Hondenkunde.nl
+                {partner.name}, aanbevolen door Hondenkunde.nl
               </h2>
               <p className="text-gray-300 leading-relaxed">
                 {partner.tagline

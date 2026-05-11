@@ -13,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "Vakantie met hond | Hondenkunde.nl",
   description:
-    "Ontdek alle landen en bestemmingen waar Arti op vakantie is geweest. Van de Ardennen tot Texel — bekijk de interactieve reiskaart.",
+    "Ontdek alle landen en bestemmingen waar Arti op vakantie is geweest. Van de Ardennen tot Texel, bekijk de interactieve reiskaart.",
 };
 
 const COUNTRIES_PER_PAGE = 6;

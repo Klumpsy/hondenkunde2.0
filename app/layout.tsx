@@ -13,10 +13,10 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
   title: {
-    default: "Hondenkunde.nl — het beste voor jouw hond",
+    default: "Hondenkunde.nl, het beste voor jouw hond",
     template: "%s | Hondenkunde.nl",
   },
-  description: "Hondenkunde.nl — blogs, producttests en reistips voor hondenliefhebbers. Door Arti getest en aanbevolen.",
+  description: "Hondenkunde.nl, blogs, producttests en reistips voor hondenliefhebbers. Door Arti getest en aanbevolen.",
   openGraph: {
     type: "website",
     locale: "nl_NL",

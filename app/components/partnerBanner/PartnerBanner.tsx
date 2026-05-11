@@ -33,7 +33,7 @@ const PartnerBanner = async ({ partner }: PartnerBannerProps) => {
           {partner.tagline && (
             <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <span className="bg-orange/90 text-darkBlue text-sm font-bold px-3 py-1.5 rounded-lg">
-                {partner.name} — {partner.tagline}
+                {partner.name}: {partner.tagline}
               </span>
             </div>
           )}
