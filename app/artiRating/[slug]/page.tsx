@@ -12,7 +12,7 @@ import Slider from "@/app/components/slider/Slider";
 import { extractVideoID } from "@/app/helpers/videoHelper";
 import { notFound } from "next/navigation";
 import { RatingItem } from "@/app/components/filter/types";
-import PromoCodeHondenShop from "@/app/components/promo/PromoCodeHondenShop";
+import RandomPromo from "@/app/components/promo/RandomPromo";
 import BackButton from "@/app/components/backButton/BackButton";
 import PartnerBanner from "@/app/components/partnerBanner/PartnerBanner";
 
@@ -225,7 +225,7 @@ const RatingDetail = async ({ params }: { params: Promise<RatingParams> }) => {
         {bannerPartner ? (
           <PartnerBanner partner={bannerPartner} />
         ) : (
-          <PromoCodeHondenShop />
+          <RandomPromo />
         )}
       </div>
     </div>
