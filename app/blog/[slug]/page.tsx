@@ -7,7 +7,7 @@ import MediaWithText from "@/app/components/blogItem/MediaWithText";
 import Disclaimer from "@/app/components/blogItem/Disclaimer";
 import ShareOnSocials from "@/app/components/blogItem/ShareOnSocials";
 import { notFound } from "next/navigation";
-import PromoCodeHondenShop from "@/app/components/promo/PromoCodeHondenShop";
+import RandomBlogPromo from "@/app/components/promo/RandomBlogPromo";
 import BackButton from "@/app/components/backButton/BackButton";
 import HondenShopBanner from "@/app/components/hondenShopBanner/HondenShopBanner";
 import PartnerBanner from "@/app/components/partnerBanner/PartnerBanner";
@@ -179,7 +179,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
       </div>
       <Disclaimer />
       <div className="w-full max-w-[1200px] mb-4 mt-4">
-        <PromoCodeHondenShop />
+        <RandomBlogPromo />
       </div>
     </div>
   );
