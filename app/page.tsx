@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 import { getFeaturedBlog, getFeaturedItem, getFeaturedPartners, getPartnerFileUrl } from "./pocketbase/pocketbase";
 import FeaturedBlog from "./components/featured/FeaturedBlog";
 import FeaturedRating from "./components/featured/FeaturedRating";
-import PromoCode from "./components/promo/PromoCodeHondenShop";
+import RandomPromo from "./components/promo/RandomPromo";
 import { FaDog, FaHeart, FaStar } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
@@ -182,7 +182,7 @@ export default async function Home() {
           </div>
 
           <div className="my-16 anim-fade-up">
-            <PromoCode />
+            <RandomPromo />
           </div>
 
           {/* Category explorer */}

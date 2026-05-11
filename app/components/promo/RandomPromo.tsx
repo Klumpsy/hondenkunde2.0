@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import PromoCodeHondenShop from "./PromoCodeHondenShop";
 import PromoCodeBellaDuke from "./PromoCodeBellaDuke";
 
-const RandomBlogPromo = () => {
+const RandomPromo = () => {
   const [showBella, setShowBella] = useState(false);
 
   useEffect(() => {
@@ -14,4 +14,4 @@ const RandomBlogPromo = () => {
   return showBella ? <PromoCodeBellaDuke /> : <PromoCodeHondenShop />;
 };
 
-export default RandomBlogPromo;
+export default RandomPromo;
